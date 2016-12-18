@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from isa2016project.database_credentials import get_data
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -86,21 +87,8 @@ WSGI_APPLICATION = 'isa2016project.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
+    'remote' : get_data(),
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'kuzmanov_isa',
-        'USER': 'kuzmanov_isa2016',
-        'PASSWORD': "Tiptop123",
-        'HOST': '163.172.54.116',
-        'PORT': '3306',
-        'OPTIONS': {
-            'sql_mode': 'STRICT_TRANS_TABLES',
-        }
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        #
-    },
-    'local': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }

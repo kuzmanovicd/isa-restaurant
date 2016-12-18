@@ -19,5 +19,5 @@ from users.views import Registration
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^test/', Registration.as_view(), name='registration'),
+    url(r'^register/', Registration.as_view(), name='registration'),
 ]
