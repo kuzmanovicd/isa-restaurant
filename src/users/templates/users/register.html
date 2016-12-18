@@ -1,28 +1,12 @@
 
 
-<h1>Test 123456789</h1>
-
-<h2>{{register}}</h2>
+<h1>Registracija</h1>
 
 <div>
-    <form method="POST" action="."> 
-        {% csrf_token %}
-        Username
-        <input name="username" type="text" placeholder="Your username"><br>
-        Password
-        <input name="password" type="password"><br>
-        Email
-        <input name="email" type="email"><br>
-        Ime
-        <input name="firs_tname" type="text"><br>
-        Prezime
-        <input name="last_name" type="text"><br>
-        <input type="submit" value="Register">
-    </form>
-
     <h1> New Form </h1>
     <form method="POST" action="."> 
         {% csrf_token %}
         {{ form.as_p }}
+        <input type="submit" value="Zavrsi registraciju">
     </form>
 </div>
