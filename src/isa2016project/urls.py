@@ -16,8 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from restaurant import views
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^', UserFormView.as_view(), name='register'),
+    url(r'^', views.RestaurantAPIView.as_view(), name='restaurant')
 ]
