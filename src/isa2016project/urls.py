@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 
 from restaurant import views
@@ -22,5 +22,5 @@ from restaurant import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^', UserFormView.as_view(), name='register'),
-    url(r'^', views.RestaurantAPIView.as_view(), name='restaurant')
+    url(r'^restaurant/', include('restaurant.urls'))
 ]
