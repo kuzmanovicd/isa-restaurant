@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'isa2016project.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'remote' : get_data(),
+    #'remote' : get_data(),
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
