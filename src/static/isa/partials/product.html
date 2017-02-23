@@ -1,0 +1,90 @@
+<div ng-if="currentUser" class="col-md-12 col-xs-12">
+    <!--
+    <div class="col-md-2">
+        <ul class="list-group">
+            <li ng-repeat="p in pr.products" class="list-group-item">
+                <span class="badge">{{p.count}}</span> <a href="#/test">Telefoni</a>
+            </li>
+        </ul>
+    </div>
+    -->
+    <div class="col-md-12 col-xs-12">
+        <div class="col-md-12" style="margin-bottom: 20px;">
+            <div class="input-group">
+                <div class="input-group-btn search-panel">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span id="search_concept">Filter by</span> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="">
+                                <input type="checkbox"> It's equal</a>
+                        </li>
+                        <li><a href="#its_equal">It's equal</a></li>
+                        <li><a href="#greather_than">Greather than ></a></li>
+                        <li><a href="#less_than">Less than < </a></li>
+                        <li class="divider"></li>
+                        <li><a href="#all">Anything</a></li>
+                    </ul>
+                </div>
+                <input type="hidden" name="search_param" value="all" id="search_param">
+                <input type="text" class="form-control" name="x" placeholder="Search term..." ng-model="searchQuery">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+
+        <div ng-repeat="product in products | filter:searchQuery" class="col-xs-12 col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <a href="#/proizvod" ng-click="selectProduct(product)">
+                    <img ng-src="{{product.slika[0] || 'assets/no-thumb.jpg'}}" class="img-responsive ke-img">
+                    <div ng-if="product.akcija" class="ke-five">
+                        <h6>-{{product.akcija}}%</h6>
+                    </div>
+                </a>
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-md-9 col-xs-12">
+                            <span class="ke-title"><a href="#/proizvod" ng-click="selectProduct(product)">{{product.naziv | limitTo:20}}{{product.naziv.length > 20 ? '...' : ''}}</a></span>
+                            <div class="ke-address">{{getStoreName(product.prodavnica) || product.prodavnica}}, {{product.kolicina}} na stanju</div>
+                        </div>
+                        <div class="col-md-3 col-xs-12">
+                           <span ng-if="isAllowed(product)" class="pull-right">
+                                <button type="button" class="btn btn-default btn-xs" ng-click="edit(product)">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                                <button type="button" class="btn btn-danger btn-xs" ng-click="remove(product)">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <div ng-if="!product.akcija" class="col-md-12 col-xs-12 price">
+                            <label  class="ke-price">{{product.jedinicnaCena | currency : "€"}}</label>
+                        </div>
+                        <div ng-if="product.akcija" class="col-md-12 col-xs-12 price">
+                            <label class="ke-price ke-price-new">{{product.jedinicnaCena * (1 - product.akcija/100) | currency : "€"}}</label>
+                            <label class="ke-price ke-price-old"><sup>{{product.jedinicnaCena | currency : "€"}}</sup></label>
+                        </div>
+                        <div class="col-md-12">
+                            <p class="ke-description-container">{{product.opis | limitTo:200}}{{product.opis.length > 200 ? '...' : ''}}</p>
+                        </div>
+
+
+                        <div ng-if="currentUser.role == 'BUYER'" class="col-md-7">
+                            <a class="btn btn-default btn-product" ng-click="addToWishList(product.sifra)"><span class="glyphicon glyphicon-heart-empty"></span> Dodaj u listu zelja</a>
+                        </div>
+                        
+                        <div ng-if="currentUser.role == 'BUYER' && product.kolicina > 0" class="col-md-5">
+                            <a class="btn btn-success btn-product" ng-click="addToCart(product)"><span class="glyphicon glyphicon-shopping-cart"></span> Kupi</a>
+                        </div>
+                        <div ng-if="currentUser.role == 'BUYER' && product.kolicina < 1" class="col-md-5">
+                            <a class="btn btn-danger btn-product">Nema na stanju</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

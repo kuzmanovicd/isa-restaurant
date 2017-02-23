@@ -1,0 +1,29 @@
+<!-- Modal Prodavnica -->
+<div class="col-md-6 col-md-offset-3 ke-container" style="padding-top: 0px;">
+    <div class="modal-header login-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">Prodavnica {{selectedProdavnica.naziv}}</h4>
+    </div>
+    <form name="form" ng-submit="update(selectedProdavnica)">
+        <div class="modal-body">
+
+            <div ng-if="failure" class="alert alert-danger">
+                <strong>Nesto nije u redu!</strong>
+            </div>
+            
+            <input type="text" placeholder="Sifra" minlength="3" ng-model="selectedProdavnica.sifra" disabled>
+            <input type="text" placeholder="Naziv" ng-model="selectedProdavnica.naziv" required>
+            <input type="text" placeholder="Adresa" ng-model="selectedProdavnica.adresa" required>
+            <select class="form-control" ng-model="selectedProdavnica.drzava" ng-options="option for option in allCountries">
+            </select>
+            <input type="text" placeholder="Telefon" ng-model="selectedProdavnica.telefon" required>
+            <input type="email" placeholder="Email" ng-model="selectedProdavnica.email" required>
+            
+            <input type="text" placeholder="Odgovorni prodavac" ng-model="selectedProdavnica.odgovorniProdavac" disabled>
+            
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Potvrdi" ng-disabled="form.$invalid">
+        </div>
+    </form>
+</div>

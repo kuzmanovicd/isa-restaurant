@@ -1,0 +1,38 @@
+<label class="label label-primary ke-label-title">Kupovina</label>
+<table ng-if="currentUser.role == 'BUYER'" class="table table-striped table-hover" ng-controller="KupovinaController">
+    <thead>
+        
+        <th>Vreme</th>
+        <th>Kupac</th>
+        <th>Prodavnica</th>
+        <th>Proizvod</th>
+        <th>Dostavljac</th>
+        <th>Trajanje prenosa</th>
+        <th>Cena prenosa</th>
+        <th>Ukupna cena</th>
+        <th>Zalba</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="kupovina in kupovine">
+            
+            <td>{{kupovina.vreme | date:'dd.MM.yyyy HH:MM:ss'}}</td>
+            <td>{{kupovina.kupac || 'N/A'}}</td>
+            <td>{{kupovina.prodavnica || 'N/A'}}</td>
+            <td>
+                <ul>
+                    <li ng-repeat="proizvod in kupovina.proizvodi">{{proizvod.naziv}}</li>
+                </ul>
+            </td>
+            <td>{{kupovina.dostavljac || 'N/A'}}</td>
+            <td>{{kupovina.trajanjePrenosa || 'N/A'}} dana</td>
+            <td>{{kupovina.cenaPrenosa || 'N/A' | currency : "€"}}</td>
+            <td>{{kupovina.ukupnaCena || 'N/A' | currency : "€"}}</td>
+            <td>
+                <button ng-if="allowedZalba(kupovina)" type="button" class="btn btn-default btn-xs" ng-click="zalba(kupovina)">
+                    <span class="glyphicon glyphicon-warning-sign"></span> Zalba
+                </button>
+                <p ng-if="!allowedZalba(kupovina)">Istekao rok za podnosenje zalbe</p>
+            </td>
+        </tr>
+    </tbody>
+</table>

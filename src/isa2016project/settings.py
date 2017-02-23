@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #third party apps
     'rest_framework',
+    'markdown',
     
     #custom apps
     'users',
@@ -135,6 +138,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+]
+
 DEFAULT_FROM_EMAIL = 'isaftn2016@gmail.com'
 SERVER_EMAIL = 'isaftn2016@gmail.com'
 EMAIL_USE_TLS = True
@@ -142,3 +150,10 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'isaftn2016@gmail.com'
 EMAIL_HOST_PASSWORD = get_email_password()
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+}

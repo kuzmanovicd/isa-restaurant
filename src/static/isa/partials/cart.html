@@ -1,0 +1,113 @@
+<div class="row" ng-controller="ShoppingCartController">
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+        <div class="col-md-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Proizvod</th>
+                        <th class="text-center">Cena</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in cart.items">
+                        <td class="col-sm-8 col-md-6">
+                            <div class="media">
+
+                                <div class="media-body">
+                                    <span>
+                                    <img ng-src="{{item.slika[0] || 'assets/no-thumb.jpg'}}" width="35px" style="float: left; margin-right: 20px;">
+                                </span>
+                                    <span>
+                                    <h4 class="media-heading">{{item.naziv}}</h4>
+                                    <h5 class="media-heading"> od {{item.nazivProizvodjaca}} - <em>{{item.prodavnica}}</em></h5>
+                                </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>{{item.jedinicnaCena | currency : "€"}}</strong></td>
+                        <td class="col-sm-1 col-md-1">
+                            <button type="button" class="btn btn-danger pull-right" ng-click="remove(item)">
+                                <span class="glyphicon glyphicon-remove"></span> Izbrisi
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+        </div>
+        <form name="form" ng-submit="">
+            <div class="col-md-8">
+                <div ng-if="form.$invalid" class="alert alert-danger">
+                    <strong>Izaberite nacine dostave za vase proizvode.</strong>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <th>Prodavnica</th>
+                        <th>Dostavljac</th>
+                        <th>Cena</th>
+                        <th>Trajanje</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="store in cart.stores track by $index">
+                            <td>{{store.naziv}}</td>
+                            <td>
+                                <!--
+                                <select class="form-control" ng-model="cenaDostave[$index]" required>
+                                    <option ng-selected="selected" disabled value="">Izaberite dostavljaca...</option>
+                                    <option ng-repeat="item in dostavljaci" value="{{item.tarifa * cart.deliveryPrice[store.sifra]}}" ng-select="changeDostavljac(item.sifra)">{{item.naziv}} - {{item.tarifa * cart.deliveryPrice[store.sifra] | currency : "€"}}</option>
+                                </select>
+                                -->
+                                <select class="form-control" ng-model="sifreDostavljaca[$index]" required>
+                                    <option ng-selected="selected" disabled value="">Izaberite dostavljaca...</option>
+                                    <option ng-repeat="item in dostavljaci" ng-if="ifCanDeliver(item, store)" value="{{item.sifra}}">{{item.naziv}} - {{item.tarifa * cart.deliveryPrice[store.sifra] | currency : "€"}}</option>
+                                </select>
+                            </td>
+                            <td><strong>{{cenaDostave[$index] | currency : "€"}} </strong></td>
+                            <td><strong>{{cart.deliveryDays[store.sifra]}} dana</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="col-md-4">
+                <table class="table">
+                    <tr>
+                        <td></td>
+                        <td>
+                            <h5>Ukupna cena proizvoda</h5></td>
+                        <td class="text-right">
+                            <h5><strong>{{cart.totalPrice | currency : "€"}}</strong></h5></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>
+                            <h5>Cena dostave</h5></td>
+                        <td class="text-right">
+                            <h5><strong>{{ukupnaCenaDostave() | currency : "€"}}</strong></h5></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>
+                            <h3>Ukupno</h3></td>
+                        <td class="text-right">
+                            <h3><strong>{{cart.totalPrice + ukupnaCenaDostave() | currency : "€"}}</strong></h3></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>
+                            <button type="button" class="btn btn-default pull-right">
+                                <span class="glyphicon glyphicon-shopping-cart"></span> Nazad na pretragu
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success pull-right" ng-disabled="form.$invalid" ng-click="buy()">
+                                Kupi proizvode <span class="glyphicon glyphicon-play"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>

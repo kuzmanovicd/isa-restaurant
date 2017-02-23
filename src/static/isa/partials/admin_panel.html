@@ -1,0 +1,154 @@
+<label class="label label-primary ke-label-title">Zalbe</label>
+<table ng-if="currentUser.role == 'ADMIN'" class="table table-striped table-hover" ng-controller="ZalbeController">
+    <thead>
+        <th>Sifra</th>
+        <th>Prodavnica</th>
+        <th>Kupac</th>
+        <th>Zalba</th>
+        <th>Operacija</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="zalba in zalbe">
+            
+            <td>{{zalba.sifra}}</td>
+            <td>{{zalba.prodavnica}}</td>
+            <td>{{zalba.kupac}}</td>
+            <td>{{zalba.opis}}</td>
+            <td>
+                <button ng-if="!zalba.odobreno" type="button" class="btn btn-success btn-xs" ng-click="odobri(zalba)">
+                    <span class="glyphicon glyphicon-ok-circle"></span> Odobri
+                </button>
+                <p ng-if="zalba.odobreno">Zalba je odobrena.</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<label class="label label-primary ke-label-title">Korisnici</label>
+<table ng-if="currentUser.role == 'ADMIN'" class="table table-striped table-hover" ng-controller="UserController">
+    <thead>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Uloga</th>
+        <th>Telefon</th>
+        <th>Email</th>
+        <th>Adresa</th>
+        <th>Drzava</th>
+        <th>Korisnicko ime</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in users">
+            <td>{{user.ime}}</td>
+            <td>{{user.prezime}}</td>
+            <td>{{user.role}}</td>
+            <td>{{user.telefon}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.adresa}}</td>
+            <td>{{user.drzava}}</td>
+            <td><strong>{{user.korisnickoime}}</strong></td>
+        </tr>
+    </tbody>
+</table>
+
+<label class="label label-primary ke-label-title">Kategorije proizvoda</label>
+<table ng-if="currentUser.role == 'ADMIN'" class="table table-striped table-hover" ng-controller="ProductCategoryController">
+    <thead>
+        <th>Naziv</th>
+        <th>Opis</th>
+        <th>Podkategorija</th>
+        <th>Izmeni</th>
+        <th>Obrisi</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="category in categories">
+            <td>{{category.naziv || 'N/A'}}</td>
+            <td>{{category.opis || 'N/A'}}</td>
+            <td>{{category.podkategorija || 'N/A'}}</td>
+            <td>
+                <button type="button" class="btn btn-default btn-xs" ng-click="editCategory(category)">
+                    <span class="glyphicon glyphicon-pencil"></span> Izmeni
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger btn-xs" ng-click="remove(category)">
+                    <span class="glyphicon glyphicon-remove"></span> Obrisi
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<label class="label label-primary ke-label-title">Dostavljaci</label>
+<table ng-if="currentUser.role == 'ADMIN'" class="table table-striped table-hover" ng-controller="DostavljacController">
+    <thead>
+        <th>Sifra</th>
+        <th>Naziv</th>
+        <th>Drzave poslovanja</th>
+        <th>Tarifa</th>
+        <th>Opis</th>
+        <th>Izmeni</th>
+        <th>Obrisi</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="dostavljac in dostavljaci">
+            <td>{{dostavljac.sifra || 'N/A'}}</td>
+            <td>{{dostavljac.naziv || 'N/A'}}</td>
+            <td>
+                <ul>
+                    <li ng-repeat="drzave in dostavljac.drzave">{{drzave}}</li>
+                </ul>
+            </td>
+
+            <td><strong>{{dostavljac.tarifa || 'N/A'}}</strong></td>
+            <td>{{dostavljac.opis || 'N/A'}}</td>
+            <td>
+                <button type="button" class="btn btn-default btn-xs" ng-click="edit(dostavljac)">
+                    <span class="glyphicon glyphicon-pencil"></span> Izmeni
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger btn-xs" ng-click="remove(dostavljac)">
+                    <span class="glyphicon glyphicon-remove"></span> Obrisi
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<label class="label label-primary ke-label-title">Kupovina</label>
+<table ng-if="currentUser.role == 'ADMIN'" class="table table-striped table-hover" ng-controller="KupovinaController">
+    <thead>
+        
+        <th>Vreme</th>
+        <th>Kupac</th>
+        <th>Prodavnica</th>
+        <th>Proizvod</th>
+        <th>Dostavljac</th>
+        <th>Trajanje prenosa</th>
+        <th>Cena prenosa</th>
+        <th>Ukupna cena</th>
+        <th>Obrisi</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="kupovina in kupovine">
+            
+            <td>{{kupovina.vreme | date:'dd.MM.yyyy'}}</td>
+            <td>{{kupovina.kupac || 'N/A'}}</td>
+            <td>{{kupovina.prodavnica || 'N/A'}}</td>
+            <td>
+                <ul>
+                    <li ng-repeat="proizvod in kupovina.proizvodi">{{proizvod.naziv}}</li>
+                </ul>
+            </td>
+            <td>{{kupovina.dostavljac || 'N/A'}}</td>
+            <td>{{kupovina.trajanjePrenosa || 'N/A'}} dana</td>
+            <td>{{kupovina.cenaPrenosa || 'N/A' | currency : "€"}}</td>
+            <td>{{kupovina.ukupnaCena || 'N/A' | currency : "€"}}</td>
+            <td>
+                <button type="button" class="btn btn-danger btn-xs" ng-click="remove(dostavljac)">
+                    <span class="glyphicon glyphicon-remove"></span> Obrisi
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

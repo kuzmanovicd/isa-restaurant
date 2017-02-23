@@ -1,0 +1,28 @@
+<label class="label label-primary ke-label-title">Akcije</label>
+<table ng-if="currentUser.role == 'SELLER'" class="table table-striped table-hover">
+    <thead>
+        <th>Proizvod</th>
+        <th>Datum Pocetka</th>
+        <th>Datum Zavrsetka</th>
+        <th>Popust</th>
+        <th>Odgovorni Prodavac</th>
+        <th>Akcija</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="akcija in akcije">
+            <td>{{akcija.proizvod}}</td>
+            <td>{{akcija.datumPocetka | date:'dd.MM.yyyy HH:MM:ss'}}</td>
+            <td>{{akcija.datumZavrsetka || 'N/A'}}</td>
+            <td>{{akcija.popust || 'N/A'}}%</td>
+
+            <td>{{akcija.odgovorniProdavac || 'N/A'}}</td>
+
+            <td>
+                <button ng-if="allowed(akcija)" type="button" class="btn btn-danger btn-xs" ng-click="remove(akcija)">
+                    <span class="glyphicon glyphicon-remove"></span> Obrisi
+                </button>
+                <p ng-if="!allowed(akcija)">Akcija je istekla</p>
+            </td>
+        </tr>
+    </tbody>
+</table>

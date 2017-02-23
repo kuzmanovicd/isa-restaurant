@@ -1,0 +1,64 @@
+<!-- Modal Prodavnica -->
+<div class="col-md-6 col-md-offset-3 ke-container" style="padding-top: 0px;">
+    <div class="modal-header login-header">
+        <h4 class="modal-title">Proizvod {{proizvod.naziv}}</h4>
+    </div>
+    <form name="form" ng-submit="create(proizvod)">
+        <div class="modal-body">
+            <input type="text" placeholder="Sifra" minlength="3" ng-model="proizvod.sifra" required>
+            <input type="text" placeholder="Naziv" ng-model="proizvod.naziv" required>
+            <input type="text" placeholder="Boja" ng-model="proizvod.boja" required>
+            <h5>Dimenzije [cm] </h5>
+            <div class="col-md-4">
+                <input type="number" class="col-md-4" placeholder="Sirina [cm]" ng-model="proizvod.sirina" required>
+            </div>
+            <div class="col-md-4">
+                <input type="number" class="col-md-4" placeholder="Duzina [cm]" ng-model="proizvod.duzina" required>
+            </div>
+            <div class="col-md-4">
+                <input type="number" class="col-md-4" placeholder="Visina [cm]" ng-model="proizvod.visina" required>
+            </div>
+            <input type="number" placeholder="Tezina [g]" ng-model="proizvod.tezina" required>
+            <input type="text" placeholder="Zemlja proizvodnje" ng-model="proizvod.zemljaProizvodnje" required>
+            <input type="text" placeholder="Naziv proizvodjaca" ng-model="proizvod.nazivProizvodjaca" required>
+            <input type="number" placeholder="Cena u evrima" ng-model="proizvod.jedinicnaCena" required>
+            <select class="form-control" ng-model="proizvod.kategorijaProizvoda" ng-options="option.naziv as option.naziv for option in categories" required>
+                <option ng-selected="selected" disabled value="">Izaberite kategoriju proizvoda...</option>
+            </select>
+            <div style="margin-bottom: 5px;"></div>
+            <select class="form-control" ng-model="proizvod.prodavnica" required>
+                <option ng-selected="selected" disabled value="">Izaberite prodavnicu...</option>
+                <option ng-repeat="store in stores" ng-if="currentUser.role == 'ADMIN' || store.odgovorniProdavac == currentUser.korisnickoime" value="{{store.sifra}}">{{store.naziv}}</option>
+            </select>
+            <input type="number" placeholder="Kolicina u magacinu" ng-model="proizvod.kolicina" required>
+            <textarea placeholder="Opis kategorije" ng-model="proizvod.opis"></textarea>
+            
+            <label class="btn btn-default btn-file col-md-6">
+                <h5>Slike</h5>
+                <input type="file" ngf-select multiple accept="image/*" ngf-max-size="10MB" required ng-model="imageFiles">
+            </label>
+            <!-- ="uploadFiles($files, $invalidFiles)" -->
+            <label class="btn btn-default btn-file col-md-6">
+                <h5>Video</h5>
+                <input type="file" ngf-select accept="video/*" ngf-max-size="1000MB" required ng-model="videoFile">
+            </label>
+            <hr>
+            Files:
+            <br>
+            {{errorMsg}}
+            <ul>
+                <li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$errorParam}} - {{f.progress}}%
+                    <span class="progress" ng-show="f.progress >= 0">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{f.progress}}" style="width: {{f.progress}}%;"></div>
+                        </div>
+                    </span>
+                </li>
+            </ul>
+            <hr>
+        </div>
+        <div class="modal-footer">
+            <input ng-disabled="form.$invalid" type="submit" class="btn btn-primary" value="Dodaj">
+        </div>
+    </form>
+</div>

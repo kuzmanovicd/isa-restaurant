@@ -15,12 +15,26 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.shortcuts import render
+from django.views.generic.base import TemplateView
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 from restaurant import views
-
+from angular import views as ang_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^', UserFormView.as_view(), name='register'),
-    url(r'^restaurant/', include('restaurant.urls'))
+    url(r'^restaurant/', include('restaurant.urls')),
+    url(r'^templates/(?P<item>[A-Za-z0-9\_\-\.\/]+)\.html$', ang_view.AngularTemplateView.as_view()),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+urlpatterns += [
+    url(r'', TemplateView.as_view(template_name='angular/index.html')),
 ]

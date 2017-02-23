@@ -1,0 +1,21 @@
+<!-- Dostavljac -->
+<div class="col-md-6 col-md-offset-3 ke-container" style="padding-top: 0px;">
+    <div class="modal-header login-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">Dostavljac {{dostavljac.naziv}}</h4>
+    </div>
+    <form name="form" ng-submit="createZalba(z)">
+        <div class="modal-body">
+
+            <div ng-if="failure" class="alert alert-danger">
+                <strong>Nesto nije u redu! Pokusajte ponovo.</strong>
+            </div>
+            <input type="text" placeholder="Prodavnica" minlength="3" ng-model="selectedKupovina.prodavnica" disabled>
+            <input type="text" placeholder="Sifra kupovine" minlength="3" ng-model="selectedKupovina.sifra" disabled>
+            <textarea placeholder="Vasa zalba" ng-model="z.opis" minlength="20" required></textarea>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Potvrdi" ng-disabled="form.$invalid || !selectedKupovina">
+        </div>
+    </form>
+</div>
