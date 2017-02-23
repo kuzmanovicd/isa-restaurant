@@ -6,3 +6,6 @@ from rest_framework import generics
 class UsersLISTAPIView(generics.ListAPIView):
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
+
+class UserCreateAPIView(generics.CreateAPIView):
+    queryset = models.User.objects.all()
