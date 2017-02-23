@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     #third party apps
     'rest_framework',
     'markdown',
+    'rest_framework_docs',
     
     #custom apps
     'users',
