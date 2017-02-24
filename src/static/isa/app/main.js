@@ -119,41 +119,34 @@ app.config(function ($routeProvider) {
 });
 
 function run($rootScope, $location, $cookieStore, $http, AuthenticationService, ShoppingCartService) {
-    
+    /*
     var user = {};
     user.korisnickoime = 'dejan';
     user.password = 'hehehe';
     user.role = 'ADMIN';
     AuthenticationService.SetCredentials(user);
     changeLocation();
+    */
     
-    /*
     AuthenticationService.Auth(function (data) {
         // console.log(data);
         return;
 
-        if (data.korisnickoime) {
-            // console.log("Auth in run: " + data);
+        if (data.username) {
+            console.log("Auth in run: " + data);
             AuthenticationService.SetCredentials(data);
-
             ShoppingCartService.getCartCount().success(function (data) {
                 if (data) {
                     $rootScope.cartCount = data;
                 }
-
             });
 
-            // $rootScope = data;
             console.log('auth set credentials ' + $rootScope.currentUser)
         } else {
             AuthenticationService.ClearCredentials();
         }
-
         changeLocation();
-
     });
-    */
-    
 
     function changeLocation() {
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
@@ -161,7 +154,7 @@ function run($rootScope, $location, $cookieStore, $http, AuthenticationService, 
             // restricted page
             var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
             if (restrictedPage && !$rootScope.currentUser) {
-                console.log("locationChange in run");
+                //console.log("locationChange in run");
                 $location.path('/login');
             }
         });

@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'markdown',
     'rest_framework_docs',
     'rest_framework_jwt',
+    'rest_framework.authtoken',
+    'rest_auth',
     
     #custom apps
     'users',
@@ -163,11 +165,13 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        #'rest_framework.authentication.SessionAuthentication',
-        #'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
 }
+
+REST_USE_JWT = True
 
 JWT_AUTH = {
     'JWT_ENCODE_HANDLER':
