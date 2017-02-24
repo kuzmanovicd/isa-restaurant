@@ -16,3 +16,22 @@ class RestaurantCreateSerializer(serializers.ModelSerializer):
         r = Restaurant(name=data['name'])
         r.save()
         return r
+
+
+
+#za Food_Menu
+class Food_MenuSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Food_Menu
+        fields = ['id', 'food_name', ]
+
+
+class Food_MenuCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Food_Menu
+        fields = ['food_name']
+
+        def create(self, data):
+            f = Food_Menu(name=data['food_name'])
+            
+            return f

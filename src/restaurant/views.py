@@ -17,4 +17,11 @@ class RestaurantRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.RestaurantSerializer
 
 
+class Food_MenuListAPIView(generics.ListAPIView):
+    queryset = models.Food_Menu.objects.all()
+    serializer_class = serializers.Food_MenuSerializer
 
+
+class Food_MenuRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Food_Menu.objects.all()
+    serializer_class = serializers.Food_MenuSerializer
