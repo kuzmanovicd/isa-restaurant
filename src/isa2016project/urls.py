@@ -21,6 +21,8 @@ from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 
+import rest_auth
+
 from restaurant import views
 from angular import views as ang_view
 
@@ -31,6 +33,7 @@ urlpatterns = [
     url(r'^api/users/', include('users.urls')),
     url(r'^api/docs', include('rest_framework_docs.urls')),
     url(r'^templates/(?P<item>[A-Za-z0-9\_\-\.\/]+)\.html$', ang_view.AngularTemplateView.as_view()),
+    url(r'^auth/', include('rest_auth.urls')),
 ]
 
 if settings.DEBUG:

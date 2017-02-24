@@ -39,11 +39,11 @@ function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserSe
     function Login(user, callback) {
         /* Use this for real authentication
          ----------------------------------------------*/
-        $http.post('rest/user/login', angular.toJson(user))
+        console.log(angular.toJson(user));
+        $http.post('auth/login/', angular.toJson(user))
             .success(function (response) {
                 callback(response);
             });
-
     }
 
     function Auth(callback) {

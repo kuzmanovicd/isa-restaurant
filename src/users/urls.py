@@ -18,6 +18,6 @@ urlpatterns = [
     url(r'^activate/(?P<code>[a-z0-9]{32})/?$', ActivateGuestView.as_view(), name='guest_activate'),
 
 
-    url(r'auth/', obtain_jwt_token),
+    url(r'^auth/?$', obtain_jwt_token),
     url(r'^login/$', UserLoginAPIView.as_view(), name='login'),
 ]

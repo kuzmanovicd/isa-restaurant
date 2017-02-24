@@ -25,15 +25,15 @@ app.controller('UserController', function ($scope, UserService) {
 
 });
 
-
 app.controller('loginController', function ($scope, $location, $rootScope, $cookieStore, AuthenticationService) {
 
     $scope.loginsubmit = login;
-
+    
     function login() {
         $scope.dataLoading = true;
+        $scope.user.email = "";
         AuthenticationService.Login($scope.user, function (data) {
-            if (data.korisnickoime) {
+            if (data.username) {
                 AuthenticationService.SetCredentials(data);
                 $location.path('/');
             } else {
@@ -97,7 +97,7 @@ app.controller('productsController', function ($scope, $rootScope, $http, $locat
 
         for (var i = 0; i < $scope.stores.length; i++) {
             if ($scope.stores[i].sifra == p.prodavnica) {
-                if ($scope.stores[i].odgovorniProdavac == $rootScope.currentUser.korisnickoime) {
+                if ($scope.stores[i].odgovorniProdavac == $rootScope.currentUser.username) {
                     return true;
                 }
             }
@@ -471,7 +471,7 @@ app.controller('KupovinaController', function ($scope, $location, $rootScope, Ku
         }
 
         z.sifra = $scope.selectedKupovina.sifra;
-        z.kupac = $rootScope.currentUser.korisnickoime;
+        z.kupac = $rootScope.currentUser.username;
         z.prodavnica = $scope.selectedKupovina.prodavnica;
 
         //console.log(z);
