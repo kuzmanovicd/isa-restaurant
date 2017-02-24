@@ -27,8 +27,8 @@ from angular import views as ang_view
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^', UserFormView.as_view(), name='register'),
-    url(r'^api/restaurant', include('restaurant.urls')),
-    url(r'^api/users', include('users.urls')),
+    url(r'^api/restaurant/', include('restaurant.urls')),
+    url(r'^api/users/', include('users.urls')),
     url(r'^api/docs', include('rest_framework_docs.urls')),
     url(r'^templates/(?P<item>[A-Za-z0-9\_\-\.\/]+)\.html$', ang_view.AngularTemplateView.as_view()),
 ]

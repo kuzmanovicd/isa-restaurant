@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('mainApp', ['ngRoute', 'ngCookies']).run();
+var app = angular.module('mainApp', ['ngRoute', 'ngCookies']).run(run);
 
 app.config(function ($routeProvider) {
 
@@ -119,8 +119,19 @@ app.config(function ($routeProvider) {
 });
 
 function run($rootScope, $location, $cookieStore, $http, AuthenticationService, ShoppingCartService) {
+    
+    var user = {};
+    user.korisnickoime = 'dejan';
+    user.password = 'hehehe';
+    user.role = 'ADMIN';
+    AuthenticationService.SetCredentials(user);
+    changeLocation();
+    
+    /*
     AuthenticationService.Auth(function (data) {
         // console.log(data);
+        return;
+
         if (data.korisnickoime) {
             // console.log("Auth in run: " + data);
             AuthenticationService.SetCredentials(data);
@@ -141,6 +152,8 @@ function run($rootScope, $location, $cookieStore, $http, AuthenticationService, 
         changeLocation();
 
     });
+    */
+    
 
     function changeLocation() {
         $rootScope.$on('$locationChangeStart', function (event, next, current) {

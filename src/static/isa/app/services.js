@@ -60,7 +60,6 @@ function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserSe
 
 
     function SetCredentials(user) {
-
         //var authdata = Base64.encode(user.korisnickoime + ':' + user.lozinka);
         $rootScope.currentUser = user;
         //console.log($rootScope.currentUser);

@@ -3,14 +3,15 @@ from django.contrib.auth.models import User
 from restaurant.models import *
 import hashlib
 
-# Create your models here.
+# Create your models here
+
 class Guest(User):
     """
     Model za gosta platforme.
     """
     city = models.CharField(max_length=50, blank=True, default='')
     is_activated = models.BooleanField(null=False, default=False)
-
+    
     def __str__(self):
         return self.first_name
 
@@ -26,6 +27,7 @@ class Guest(User):
             is_activated = True
         
         return is_activated
+    
 
 class Employee(User):
     """
