@@ -11,22 +11,29 @@ class Guest(User):
     """
     city = models.CharField(max_length=50, blank=True, default='')
     is_activated = models.BooleanField(null=False, default=False)
-    
+    activation_code = models.CharField(max_length=32, blank=True)
+
     def __str__(self):
         return self.first_name
 
-    def activation_code(self):
+    def gen_activation_code(self):
         """
         Jedinstveni aktivacioni kod za datog gosta.
         """
         hash_source = self.username + self.password + 'isa'
-        return hashlib.md5(hash_source.encode('utf8')).hexdigest()
+        self.activation_code = hashlib.md5(hash_source.encode('utf8')).hexdigest()
 
     def activate(self, code):
-        if code == self.activation_code():
-            is_activated = True
+        if code == self.activation_code:
+            self.is_activated = True
+            self.save()
         
-        return is_activated
+        return self.is_activated
+
+    def save(self, *args, **kwargs):
+        self.gen_activation_code()
+        super(Guest, self).save(*args, **kwargs)
+
     
 
 class Employee(User):

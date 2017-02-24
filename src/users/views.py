@@ -2,9 +2,13 @@ from django.shortcuts import render
 from users import serializers, models
 from rest_framework import generics
 from rest_framework import permissions
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import viewsets
+from django.core import exceptions
+
+from django.core.mail import EmailMessage
 
 # Create your views here.
 class UserList(generics.ListAPIView):
@@ -27,7 +31,35 @@ class GuestCreate(generics.CreateAPIView):
     queryset = models.Guest.objects.all()
     serializer_class = serializers.GuestRegisterSerializer
 
+    def perform_create(self, serializer):
+        serializer.save()
+        location = '/api/users/activate/'
+        g = models.Guest.objects.get(username=serializer.validated_data['username'])
+        location += g.activation_code()
+        full_path = self.request.build_absolute_uri(location)
 
+        msg = EmailMessage('ISA Restaurant - Activation', 
+        'Please activate your account here: ' + full_path, 
+        to=[serializer.validated_data['email']])
+
+        msg.send()
+
+class ActivateGuestView(APIView):
+    def get(self, request, code):
+        try:
+            guest = models.Guest.objects.get(activation_code=code)
+            if not guest == None:
+                guest.activate(code)
+            
+            serializer = serializers.ActivationSerializer(guest)
+            return Response(serializer.data)
+        except exceptions.ObjectDoesNotExist:
+            return Response(status=HTTP_404_NOT_FOUND)
+
+
+class GuestViewSet(viewsets.ModelViewSet):
+    queryset = models.Guest.objects.all()
+    serializer_class = serializers.GuestSerializer
 
 class UserLoginAPIView(generics.GenericAPIView):
     permission_classes = [permissions.AllowAny]

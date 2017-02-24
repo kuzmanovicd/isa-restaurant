@@ -17,12 +17,18 @@ class UserSerializer(serializers.ModelSerializer):
 class GuestSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Guest
-        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'is_activated', ]
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'is_activated', ]
 
 class GuestRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Guest
         fields = ['username', 'email', 'password', 'first_name', 'last_name', ]
+
+
+class ActivationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Guest
+        fields = ['id', 'is_activated', 'activation_code' ]
 
 
 class UserLoginSerializer(serializers.ModelSerializer):
