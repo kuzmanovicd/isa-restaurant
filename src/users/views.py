@@ -35,7 +35,7 @@ class GuestCreate(generics.CreateAPIView):
         serializer.save()
         location = '/api/users/activate/'
         g = models.Guest.objects.get(username=serializer.validated_data['username'])
-        location += g.activation_code()
+        location += g.activation_code
         full_path = self.request.build_absolute_uri(location)
 
         msg = EmailMessage('ISA Restaurant - Activation', 

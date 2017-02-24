@@ -11,9 +11,11 @@ class Restaurant(models.Model):
 # model jelovnika restorana
 class Food_Menu(models.Model):
     food_name = models.CharField(max_length=50)
-    food_description = models.CharField(max_length=50)
-    food_price = models.DecimalField(max_digits=5, decimal_places=2)
+    #food_description = models.CharField(max_length=50)
+    #food_price = models.DecimalField(max_digits=5, decimal_places=2)
 
+    def __str__(self):
+        return self.food_name
 
 
 #model karte pica restorana

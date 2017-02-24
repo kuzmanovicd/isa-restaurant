@@ -5,9 +5,12 @@
 *.egg-info
 *.pot
 *.py[co]
+*.pyc
 *.sqlite3
 .tox/
+db.sqlite3
 __pycache__
+__pycache__/
 MANIFEST
 dist/
 docs/_build/
