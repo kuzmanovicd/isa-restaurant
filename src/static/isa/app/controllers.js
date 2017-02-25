@@ -27,6 +27,7 @@ app.controller('UserController', function ($scope, UserService) {
 
 app.controller('loginController', function ($scope, $location, $rootScope, $cookieStore, AuthenticationService) {
 
+    $scope.nesto = "lbalbblbalba";
     $scope.loginsubmit = login;
     
     function login() {

@@ -58,8 +58,7 @@ class Region(models.Model):
 # Sadrzi:  veza ka regionu (jedan region ima vise stolova)
 # Dodao: Spiric
 class Table(models.Model):
-    row = models.IntegerField()
+    row = models.IntegerField(null=False)
     column = models.IntegerField()
     is_free = models.BooleanField(default=True)
-
     region = models.ForeignKey(Region, on_delete=models.CASCADE)

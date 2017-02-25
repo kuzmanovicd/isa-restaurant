@@ -45,6 +45,7 @@ class Employee(User):
     Zaposleni u restoranu.
     """
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=False)
+    
 
     def __str__(self):
         return ' '.join([self.first_name, self.username, self.restaurant.name])
