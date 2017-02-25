@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'^api/users/', include('users.urls')),
     url(r'^api/docs', include('rest_framework_docs.urls')),
     url(r'^templates/(?P<item>[A-Za-z0-9\_\-\.\/]+)\.html$', ang_view.AngularTemplateView.as_view()),
-    url(r'^auth/', include('rest_auth.urls')),
+    #url(r'^auth/', include('rest_auth.urls')),
 ]
 
 if settings.DEBUG:

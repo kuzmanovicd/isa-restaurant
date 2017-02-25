@@ -27,7 +27,7 @@ SECRET_KEY = '3ee2mw%k2lv%jjda-jlshyez+b1pyjfe5guuok@tf+woh4%@!a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'rest_framework_docs',
     'rest_framework_jwt',
     'rest_framework.authtoken',
-    'rest_auth',
+    #'rest_auth',
     
     #custom apps
     'users',
@@ -187,7 +187,8 @@ JWT_AUTH = {
     'rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler',
 
     'JWT_RESPONSE_PAYLOAD_HANDLER':
-    'rest_framework_jwt.utils.jwt_response_payload_handler',
+    #'rest_framework_jwt.utils.jwt_response_payload_handler',
+    'users.utils.jwt_response_payload_handler',
 
     'JWT_SECRET_KEY': SECRET_KEY,
     'JWT_PUBLIC_KEY': None,

@@ -31,9 +31,8 @@ app.controller('loginController', function ($scope, $location, $rootScope, $cook
     
     function login() {
         $scope.dataLoading = true;
-        $scope.user.email = "";
         AuthenticationService.Login($scope.user, function (data) {
-            if (data.username) {
+            if (data.user.username) {
                 AuthenticationService.SetCredentials(data);
                 $location.path('/');
             } else {
