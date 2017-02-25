@@ -7,3 +7,4 @@ from django.contrib.auth import models
 admin.site.register(Guest)
 admin.site.register(Waiter)
 admin.site.register(Provider)
+#

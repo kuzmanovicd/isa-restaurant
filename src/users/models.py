@@ -84,3 +84,11 @@ class Provider(User):
     class Meta:
         verbose_name = 'Provider'
         verbose_name_plural = 'Providers'
+
+
+# Model: RestaurantManager (Menadzer restorana)
+# Polja: 
+# Sadrzi
+# Dodao: Spiric
+class RestaurantManager(User):
+    restaurant = models.OneToOneField(Restaurant, on_delete=models.CASCADE)
