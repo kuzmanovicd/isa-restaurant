@@ -3,12 +3,14 @@ from django.db import models
 # Create your models here.
 
 # Model: Restaurant (Restoran)
-# Polja: naziv, opis, menu, konfiguracija sedenja
+# Polja: naziv, opis, menu, konfiguracija sedenja, adresa, broj telefona
 # Sadrzi: 
 # Dodao: Spiric
 class Restaurant(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, null=False)
     description_restaurant = models.CharField(max_length=100)
+    address_restaurant = models.CharField(max_length=50)
+    phone_restaurant = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
@@ -27,11 +29,11 @@ class Menu(models.Model):
 # Sadrzi: veza ka menu (jedna menu ima vise tipova)
 # Dodao: Spiric
 class MenuItem(models.Model):
-    name_item = models.CharField(max_length=50)
+    name_item = models.CharField(max_length=50, null=False)
     description_item = models.CharField(max_length=50)
-    price_item = models.DecimalField(max_digits=9, decimal_places=2)
-    quantity_item = models.IntegerField()
-    type_item = models.BooleanField(default=True)
+    price_item = models.DecimalField(max_digits=9, decimal_places=2, null=False)
+    quantity_item = models.IntegerField(null=False)
+    type_item = models.BooleanField(default=True, null=False)
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
 
     def __str__(self):
