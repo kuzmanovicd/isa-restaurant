@@ -38,3 +38,28 @@ class MenuItem(models.Model):
         return self.name_item
 
 
+
+# Model: Region   (regioni restorana)
+# Polja: front/back, somoke/nosmoke, open/closed
+# Sadrzi: veza ka restoranu  (jedan restoran ima vise regiona)
+# Dodao: Spiric
+class Region(models.Model):
+    is_frontSide = models.BooleanField(default=True)
+    is_forSmoke = models.BooleanField(default=True)
+    is_open = models.BooleanField(default=True)
+
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+
+
+
+
+# Model: Table  (stolovi)
+# Polja: red, kolona, slobodan/zauzet
+# Sadrzi:  veza ka regionu (jedan region ima vise stolova)
+# Dodao: Spiric
+class Table(models.Model):
+    row = models.IntegerField()
+    column = models.IntegerField()
+    is_free = models.BooleanField(default=True)
+
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)

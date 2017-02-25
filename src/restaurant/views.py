@@ -51,3 +51,20 @@ class MenuItemDetail(generics.RetrieveUpdateDestroyAPIView):
 class MenuItemCreate(generics.CreateAPIView):
     queryset = models.MenuItem.objects.all()
     serializer_class = serializers.MenuItemRegisterSerializer
+
+
+# za Regione 
+# Dodao: Spiric
+class RegionList(generics.ListAPIView):
+    queryset = models.Region.objects.all()
+    serializer_class = serializers.RegionSerializer
+
+
+class RegionDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Region.objects.all()
+    serializer_class = serializers.RegionSerializer
+
+
+class RegionCreate(generics.CreateAPIView):
+    queryset = models.Region.objects.all()
+    serializer_class = serializers.RegionRegisterSerializer
