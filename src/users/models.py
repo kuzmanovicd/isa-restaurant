@@ -34,6 +34,10 @@ class Guest(User):
         self.gen_activation_code()
         super(Guest, self).save(*args, **kwargs)
 
+    class Meta:
+        verbose_name = 'Gost'
+        verbose_name_plural = 'Gosti'
+
     
 
 class Employee(User):

@@ -33,10 +33,11 @@ class ActivationSerializer(serializers.ModelSerializer):
 
 class UserLoginSerializer(serializers.ModelSerializer):
     token = serializers.CharField(allow_blank=True, read_only=True)
-    
+    role = serializers.CharField(allow_blank=True)
+
     class Meta:
         model = User
-        fields = [ 'username', 'password', 'token',]
+        fields = [ 'username', 'password', 'token', 'role']
         extra_kwargs = {'password': 
             {'write_only': True}
         }
@@ -58,9 +59,6 @@ class UserLoginSerializer(serializers.ModelSerializer):
 
             if password_passes:
                 data['username'] = user_obj.username
-
-
-
 #za Probider-a  Dodao: Spiric
 class ProviderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -73,4 +71,3 @@ class ProviderRegisterSerializer(serializers.ModelSerializer):
         model = models.Provider
         fields = ['username', 'email', 'password', 'naziv']
 
-        

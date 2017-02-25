@@ -26,7 +26,7 @@ app.factory('WishListService', WishListService);
 
 app.factory('RecommendService', RecommendService);
 
-function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService) {
+function AuthenticationService($http, $cookies, $rootScope, $timeout, UserService) {
     var service = {};
     service.Login = Login;
     service.SetCredentials = SetCredentials;
@@ -40,33 +40,29 @@ function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserSe
         /* Use this for real authentication
          ----------------------------------------------*/
         console.log(angular.toJson(user));
-        $http.post('auth/login/', angular.toJson(user))
+        $http.post('api/users/auth/', angular.toJson(user))
             .success(function (response) {
                 callback(response);
             });
     }
 
-    function Auth(callback) {
-        $http.get('rest/user/authenticate').success(function (data) {
+    function Auth(token, callback) {
+        $http.post('api/users/verify/', angular.toJson(token)).success(function (data) {
             callback(data);
         });
     }
 
     function Logout(callback) {
-        $http.get('rest/user/logout').success(function (data) {
+        $http.get('api/users/logout').success(function (data) {
             callback(data);
         });
     }
 
 
-    function SetCredentials(user) {
-        //var authdata = Base64.encode(user.korisnickoime + ':' + user.lozinka);
-        $rootScope.currentUser = user;
-        //console.log($rootScope.currentUser);
-
-        //$http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
-        //$cookieStore.put('globals', $rootScope.globals);
-
+    function SetCredentials(data) {
+        $rootScope.currentUser = data.user;
+        $http.defaults.headers.common['Authorization'] = 'JWT ' + data.token;
+        $cookies.put('token', data.token);
     }
 
     function ClearCredentials() {
@@ -89,7 +85,7 @@ function UserService($http) {
     return service;
 
     function GetAll() {
-        return $http.get('rest/user/get/all');
+        return $http.get('api/users/get/all');
     }
 
     function GetById(id) {
@@ -105,7 +101,7 @@ function UserService($http) {
     }
 
     function Update(user) {
-        return $http.put('rest/user/update', angular.toJson(user));
+        return $http.put('api/users/update', angular.toJson(user));
     }
 
     function Delete(id) {
@@ -142,28 +138,28 @@ function ProductService($http) {
     return service;
     
     function getAll() {
-        return $http.get('rest/product/get-all');
+        return $http.get('api/product/get-all');
     }
     
     function getForUser() {
-        return $http.get('rest/product/get-for-user');
+        return $http.get('api/product/get-for-user');
     }
     
     function create(proizvod) {
-        return $http.post('rest/product/add', angular.toJson(proizvod));
+        return $http.post('api/product/add', angular.toJson(proizvod));
     }
     
     function update(proizvod) {
-        return $http.put('rest/product/update', angular.toJson(proizvod));
+        return $http.put('api/product/update', angular.toJson(proizvod));
     }
     
     function remove(proizvod) {
         console.log(proizvod);
-        return $http.delete('rest/product/remove/' + proizvod.sifra);
+        return $http.delete('api/product/remove/' + proizvod.sifra);
     }
     
     function addToCart(product) {
-        $http.get('rest/product/cart/add/' + product.sifra).success(function (data) {
+        $http.get('api/product/cart/add/' + product.sifra).success(function (data) {
             if(data) {
                 $rootScope.cartCount = data;
             }
@@ -182,15 +178,15 @@ function StoreService($http) {
     return service;
     
     function create(prodavnica) {
-        return $http.post('rest/prodavnica/add', angular.toJson(prodavnica));
+        return $http.post('api/prodavnica/add', angular.toJson(prodavnica));
     }
     
     function getAll() {
-        return $http.get('rest/prodavnica/get/all');
+        return $http.get('api/prodavnica/get/all');
     }
     
     function update(prodavnica) {
-        return $http.put('rest/prodavnica/update', angular.toJson(prodavnica));
+        return $http.put('api/prodavnica/update', angular.toJson(prodavnica));
     }
 }
 
@@ -211,19 +207,19 @@ function ProductCategoryService($http) {
     return service;
     
     function getAll() {
-        return $http.get('rest/product/category/get-all');
+        return $http.get('api/product/category/get-all');
     }
     
     function create(kat) {
-        return $http.post('rest/product/category', angular.toJson(kat));
+        return $http.post('api/product/category', angular.toJson(kat));
     }
     
     function update(kat) {
-        return $http.put('rest/product/category', angular.toJson(kat));
+        return $http.put('api/product/category', angular.toJson(kat));
     }
     
     function remove(kat) {
-        return $http.delete('rest/product/category/delete/' + kat.naziv);
+        return $http.delete('api/product/category/delete/' + kat.naziv);
     }
 }
 
@@ -238,19 +234,19 @@ function ShoppingCartService($http) {
     return service;
     
     function getCartCount() {
-        return $http.get('rest/product/cart');
+        return $http.get('api/product/cart');
     }
     
     function getCartItems() {
-        return $http.get('rest/product/cart/get-all');
+        return $http.get('api/product/cart/get-all');
     }
     
     function removeCartItem(product) {
-        return $http.delete('rest/product/cart/remove/' + product.sifra);
+        return $http.delete('api/product/cart/remove/' + product.sifra);
     }
     
     function buy(dostavljaci) {
-        return $http.post('rest/product/cart/buy', angular.toJson(dostavljaci));
+        return $http.post('api/product/cart/buy', angular.toJson(dostavljaci));
     }
 }
 
@@ -266,19 +262,19 @@ function DostavljacService($http) {
     return service;
     
     function getAll() {
-        return $http.get('rest/product/dostavljac/get-all');
+        return $http.get('api/product/dostavljac/get-all');
     }
     
     function create(dostavljac) {
-        return $http.post('rest/product/dostavljac', angular.toJson(dostavljac));
+        return $http.post('api/product/dostavljac', angular.toJson(dostavljac));
     }
     
     function update(dostavljac) {
-        return $http.put('rest/product/dostavljac', angular.toJson(dostavljac));
+        return $http.put('api/product/dostavljac', angular.toJson(dostavljac));
     }
     
     function remove(dostavljac) {
-        return $http.delete('rest/product/dostavljac/' + dostavljac.sifra);
+        return $http.delete('api/product/dostavljac/' + dostavljac.sifra);
     }
 }
 
@@ -294,23 +290,23 @@ function KupovinaService($http) {
     return service;
     
     function getAll() {
-        return $http.get('rest/product/kupovina/get-all');
+        return $http.get('api/product/kupovina/get-all');
     }
     
     function remove(dostavljac) {
-        return $http.delete('rest/product/dostavljac/' + dostavljac.sifra);
+        return $http.delete('api/product/dostavljac/' + dostavljac.sifra);
     }
     
     function createZalba(zalba) {
-        return $http.post('rest/product/zalba/add', angular.toJson(zalba));
+        return $http.post('api/product/zalba/add', angular.toJson(zalba));
     }
     
     function getAllZalbe() {
-        return $http.get('rest/product/zalba/get-all');
+        return $http.get('api/product/zalba/get-all');
     }
     
     function odobriZalbu(zalba) {
-        return $http.delete('rest/product/zalba/confirm/' + zalba.sifra);
+        return $http.delete('api/product/zalba/confirm/' + zalba.sifra);
     }
 }
 
@@ -326,23 +322,23 @@ function RecenzijaService($http) {
     return service;
     
     function create(rec) {
-        return $http.post('rest/product/recenzija/add', angular.toJson(rec));
+        return $http.post('api/product/recenzija/add', angular.toJson(rec));
     }
     
     function getAll(sifra) {
-        return $http.get('rest/product/recenzija/get-all/' + sifra);
+        return $http.get('api/product/recenzija/get-all/' + sifra);
     }
     
     function update(rec) {
-        return $http.put('rest/product/recenzija/update', angular.toJson(rec));
+        return $http.put('api/product/recenzija/update', angular.toJson(rec));
     }
     
     function remove(sifra) {
-        return $http.delete('rest/product/recenzija/remove/' + sifra);
+        return $http.delete('api/product/recenzija/remove/' + sifra);
     } 
     
     function getRating(sifra) {
-        return $http.get('rest/product/recenzija/rating/' + sifra);
+        return $http.get('api/product/recenzija/rating/' + sifra);
     }
 }
 
@@ -357,15 +353,15 @@ function AkcijaService($http) {
     return service;
     
     function create(akcija) {
-        return $http.post('rest/product/akcija/add', angular.toJson(akcija));
+        return $http.post('api/product/akcija/add', angular.toJson(akcija));
     }
     
     function getAll() {
-        return $http.get('rest/product/akcija/get-all');
+        return $http.get('api/product/akcija/get-all');
     }
     
     function remove(sifra) {
-        return $http.delete('rest/product/akcija/' + sifra);
+        return $http.delete('api/product/akcija/' + sifra);
     }
     
     
@@ -384,15 +380,15 @@ function WishListService($http) {
     function create(proizvod) {
         zelja = {};
         zelja.proizvod = proizvod;
-        return $http.post('rest/product/zelja/add', angular.toJson(zelja));
+        return $http.post('api/product/zelja/add', angular.toJson(zelja));
     }
     
     function getAll() {
-        return $http.get('rest/product/zelja');
+        return $http.get('api/product/zelja');
     }
     
     function checkAkcije() {
-        return $http.get('rest/product/zelja/provera');
+        return $http.get('api/product/zelja/provera');
     }
 }
 
@@ -405,6 +401,6 @@ function RecommendService($http) {
     return service;
     
     function getProduct() {
-        return $http.get("rest/product/recommend");
+        return $http.get("api/product/recommend");
     }
 }

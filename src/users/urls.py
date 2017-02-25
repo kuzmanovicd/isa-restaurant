@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from users.views import *
-from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
 from rest_framework import routers
 
 
@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^provider/create/?$', ProviderCreate.as_view(), name='provider_create'),
 
     url(r'^auth/?$', obtain_jwt_token),
-    url(r'^login/$', UserLoginAPIView.as_view(), name='login'),
+    url(r'^verify/?$', verify_jwt_token),
+    #url(r'^login/$', UserLoginAPIView.as_view(), name='login'),
 ]

@@ -119,21 +119,19 @@ app.config(function ($routeProvider) {
 });
 
 function run($rootScope, $location, $cookieStore, $cookies, $http, AuthenticationService, ShoppingCartService) {
-    /*
-    var user = {};
-    user.korisnickoime = 'dejan';
-    user.password = 'hehehe';
-    user.role = 'ADMIN';
-    AuthenticationService.SetCredentials(user);
-    changeLocation();
-    */
-    $http.defaults.headers.post['X-CSRFToken'] = $cookies['csrftoken'];
-    
-    AuthenticationService.Auth(function (data) {
-        // console.log(data);
-        return;
 
-        if (data.username) {
+    $http.defaults.headers.post['X-CSRFToken'] = $cookies['csrftoken'];
+    $http.defaults.headers.common['Authorization'] = "JWT " + $cookies.get("token");
+    console.log($http.defaults.headers.common['Authorization']);
+    
+    var d = {
+        "token": $cookies.get("token")
+    };
+
+    //console.log(angular.toJson(d));
+
+    AuthenticationService.Auth(d, function (data) {
+        if (data.user.username) {
             console.log("Auth in run: " + data);
             AuthenticationService.SetCredentials(data);
             ShoppingCartService.getCartCount().success(function (data) {
@@ -148,7 +146,7 @@ function run($rootScope, $location, $cookieStore, $cookies, $http, Authenticatio
         }
         changeLocation();
     });
-
+    
     function changeLocation() {
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             // redirect to login page if not logged in and trying to access a
