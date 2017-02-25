@@ -25,15 +25,15 @@ class Menu(models.Model):
      restaurant = models.OneToOneField(Restaurant, on_delete=models.CASCADE)
 
 
-"""
+
 #model: Order (narudzbina)
 class Order(models.Model):   
-    date_and_time = models.DateTimeField(default=django.utils.timezone.now())
+    date_created = models.DateTimeField('date created', default=timezone.now())
     
 #model: Bill (racun)
 class Bill(models.Model):
     order_to_pay = models.OneToOneField(Order, on_delete=models.CASCADE)
-"""
+
 
 
 
@@ -50,7 +50,7 @@ class MenuItem(models.Model):
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
     
     #jedna stavka iz menija moze se nalaziti na vise narudzbina (valjda ovako ide)
-    #order = models.ForeignKey(Order, on_delete=None)
+    #order = models.ForeignKey(Order, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name_item

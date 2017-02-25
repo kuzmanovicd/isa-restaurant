@@ -7,5 +7,7 @@ from django.contrib.auth import models
 admin.site.register(BasicUser)
 admin.site.register(Guest)
 admin.site.register(Waiter)
+admin.site.register(Cook)
+admin.site.register(Bartender)
 admin.site.register(Provider)
 admin.site.register(Friendship)
