@@ -514,20 +514,11 @@ app.controller('logoutController', function ($scope, $location, $rootScope, Auth
     }
 });
 
-app.controller('registerController', function ($scope, $http, $location, CountryService) {
+app.controller('registerController', function ($scope, $http, $location, CountryService, UserController) {
     $scope.allCountries = CountryService.allCountries;
 
     $scope.registersubmit = function () {
-        console.log(angular.toJson($scope.user));
-        if (!$scope.user.tip) {
-            $scope.user.tip = 'kupac';
-        }
-
-        $http.post('rest/user/register', angular.toJson($scope.user)).success(function (data) {
-            if (data.success == true) {
-                $location.path('/');
-            }
-        });
+        UserController.create($scope.user);
     }
 });
 

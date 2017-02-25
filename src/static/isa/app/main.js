@@ -120,15 +120,13 @@ app.config(function ($routeProvider) {
 
 function run($rootScope, $location, $cookieStore, $cookies, $http, AuthenticationService, ShoppingCartService) {
 
+    AuthenticationService.csrf();
+    
     $http.defaults.headers.post['X-CSRFToken'] = $cookies['csrftoken'];
     $http.defaults.headers.common['Authorization'] = "JWT " + $cookies.get("token");
     console.log($http.defaults.headers.common['Authorization']);
     
-    var d = {
-        "token": $cookies.get("token")
-    };
-
-    //console.log(angular.toJson(d));
+    var d = { "token": $cookies.get("token")};
 
     AuthenticationService.Auth(d, function (data) {
         if (data.user.username) {

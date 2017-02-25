@@ -33,8 +33,15 @@ function AuthenticationService($http, $cookies, $rootScope, $timeout, UserServic
     service.ClearCredentials = ClearCredentials;
     service.Auth = Auth;
     service.Logout = Logout;
+    service.Csrf = Csrf;
 
     return service;
+
+    function Csrf(callback) {
+        $http.get('api/users/csrf/').success(function (data) {
+             callback(data) 
+        });
+    }
 
     function Login(user, callback) {
         /* Use this for real authentication
@@ -97,7 +104,7 @@ function UserService($http) {
     }
 
     function Create(user) {
-        return $http.post('/api/users', user).then(handleSuccess, handleError('Error creating user'));
+        return $http.post('/api/users/guests/create/', user).then(handleSuccess, handleError('Error creating user'));
     }
 
     function Update(user) {
