@@ -25,15 +25,15 @@ class Menu(models.Model):
      restaurant = models.OneToOneField(Restaurant, on_delete=models.CASCADE)
 
 
-
+"""
 #model: Order (narudzbina)
 class Order(models.Model):   
-    date_and_time = models.DateTimeField(default=timezone.now())
+    date_and_time = models.DateTimeField(default=django.utils.timezone.now())
     
 #model: Bill (racun)
 class Bill(models.Model):
     order_to_pay = models.OneToOneField(Order, on_delete=models.CASCADE)
-
+"""
 
 
 
