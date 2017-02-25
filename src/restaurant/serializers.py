@@ -24,12 +24,12 @@ class RestaurantCreateSerializer(serializers.ModelSerializer):
 class MenuItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuItem
-        fields = ['id_item', 'name_item', 'description_item', 'price_item', 'quantity_item', 'type_item']
+        fields = ['id', 'name_item', 'description_item', 'price_item', 'quantity_item', 'type_item', 'menu']
 
 
 class MenuItemRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuItem
-        fields = ['id_item', 'name_item', 'description_item', 'price_item', 'quantity_item', 'type_item']
+        fields = ['name_item', 'description_item', 'price_item', 'quantity_item', 'type_item', 'menu']
     
     
