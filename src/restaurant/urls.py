@@ -2,8 +2,16 @@ from django.conf.urls import url
 from .views import *
 
 urlpatterns = [
-    url(r'^restaurant/all/?$', RestaurantListAPIView.as_view(), name='restaurantlist'),
-    url(r'^restaurant/?$', RestaurantRUDAPIView.as_view(), name='restaurant_rud'),
+    #za Restoran  Dodao: Spiric
+    url(r'^restaurant/all/?$', RestaurantList.as_view(), name='restaurant_list'),
+    url(r'^restaurant/(?P<pk>[0-9]+)?$', RestaurantDetail.as_view(), name='restaurant_rud'),
+    url(r'^restaurant/create/?$', RestaurantCreate.as_view(), name='restaurant_create'),
+
+    #za Menu      Dodao: Spiric
+    url(r'^menu/all/?$', MenuList.as_view(), name='menu_list'),
+    url(r'^menu/(?P<pk>[0-9]+)/?$', MenuDetail.as_view(), name='rud_menu'),
+    url(r'^menu/create/?$', MenuCreate.as_view(), name='menu_icreate'),
+
     #za MenuItem  Dodao: Spiric
     url(r'^menu_item/all/?$', MenuItemList.as_view(), name='menu_item_list'),
     url(r'^menu_item/(?P<pk>[0-9]+)/?$', MenuItemDetail.as_view(), name='rud_menu_item'),
