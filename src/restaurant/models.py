@@ -50,7 +50,7 @@ class MenuItem(models.Model):
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
     
     #jedna stavka iz menija moze se nalaziti na vise narudzbina (valjda ovako ide)
-    order = models.ForeignKey(Order, on_delete=None)
+    #order = models.ForeignKey(Order, on_delete=None)
 
     def __str__(self):
         return self.name_item
