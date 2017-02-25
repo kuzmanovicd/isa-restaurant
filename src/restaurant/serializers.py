@@ -48,3 +48,16 @@ class MenuItemRegisterSerializer(serializers.ModelSerializer):
         fields = ['name_item', 'description_item', 'price_item', 'quantity_item', 'type_item', 'menu']
     
     
+
+# za Regione
+# Dodao: Spiric
+class RegionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Region
+        fields = ['id', 'is_frontSide', 'is_forSmoke', 'is_open', 'restaurant']
+
+
+class RegionRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Region
+        fields = ['is_frontSide', 'is_forSmoke', 'is_open', 'restaurant']

@@ -60,7 +60,10 @@ class Waiter(Employee):
 
 
 
-#model Provider-a (dobavljaca)   Radio: Spiric
+# Model: Provider (dobavljac)
+# Polja: naziv, ostalo iz usera
+# Sadrzi: --
+# Dodao: Spiric
 class Provider(User):
     naziv = models.CharField(max_length=50)
     class Meta:
