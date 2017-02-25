@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import *
 
 class RestaurantSerializer(serializers.ModelSerializer):
@@ -19,19 +20,16 @@ class RestaurantCreateSerializer(serializers.ModelSerializer):
 
 
 
-#za Food_Menu
-class Food_MenuSerializer(serializers.ModelSerializer):
+#za MenuItem   Dodao: Spiric
+class MenuItemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Food_Menu
-        fields = ['id', 'food_name', ]
+        model = MenuItem
+        fields = ['id_item', 'name_item', 'description_item', 'price_item', 'quantity_item', 'type_item']
 
 
-class Food_MenuCreateSerializer(serializers.ModelSerializer):
+class MenuItemRegisterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Food_Menu
-        fields = ['food_name']
-
-        def create(self, data):
-            f = Food_Menu(name=data['food_name'])
-            
-            return f
+        model = MenuItem
+        fields = ['id_item', 'name_item', 'description_item', 'price_item', 'quantity_item', 'type_item']
+    
+    
