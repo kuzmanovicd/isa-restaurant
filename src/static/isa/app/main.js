@@ -118,7 +118,7 @@ app.config(function ($routeProvider) {
 
 });
 
-function run($rootScope, $location, $cookieStore, $http, AuthenticationService, ShoppingCartService) {
+function run($rootScope, $location, $cookieStore, $cookies, $http, AuthenticationService, ShoppingCartService) {
     /*
     var user = {};
     user.korisnickoime = 'dejan';
@@ -127,6 +127,7 @@ function run($rootScope, $location, $cookieStore, $http, AuthenticationService, 
     AuthenticationService.SetCredentials(user);
     changeLocation();
     */
+    $http.defaults.headers.post['X-CSRFToken'] = $cookies['csrftoken'];
     
     AuthenticationService.Auth(function (data) {
         // console.log(data);
