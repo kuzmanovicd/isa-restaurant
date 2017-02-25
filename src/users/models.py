@@ -45,7 +45,7 @@ class Guest(BasicUser):
 
     def save(self, *args, **kwargs):
         self.gen_activation_code()
-        self.user_type = 'GUEST'
+        self.user_type = 'GU'
         super(Guest, self).save(*args, **kwargs)
 
     class Meta:
@@ -54,7 +54,7 @@ class Guest(BasicUser):
 
     
 
-class Employee(User):
+class Employee(BasicUser):
     """
     Zaposleni u restoranu.
     """
@@ -69,6 +69,11 @@ class Waiter(Employee):
     Model za konobara platforme u jednom restoranu.
     """
     region = models.IntegerField(null=False)
+
+    def save(self, *args, **kwargs):
+        self.user_type = 'GU'
+        super(Waiter, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'Waiter'
         verbose_name_plural = 'Waiters'
@@ -79,8 +84,13 @@ class Waiter(Employee):
 # Polja: naziv, ostalo iz usera
 # Sadrzi: --
 # Dodao: Spiric
-class Provider(User):
+class Provider(BasicUser):
     naziv = models.CharField(max_length=50)
+
+    def save(self, *args, **kwargs):
+        self.user_type = 'PR'
+        super(Provider, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'Provider'
         verbose_name_plural = 'Providers'
@@ -90,5 +100,9 @@ class Provider(User):
 # Polja: 
 # Sadrzi
 # Dodao: Spiric
-class RestaurantManager(User):
+class RestaurantManager(BasicUser):
     restaurant = models.OneToOneField(Restaurant, on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        self.user_type = 'PR'
+        super(Provider, self).save(*args, **kwargs)
