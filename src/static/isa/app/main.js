@@ -124,8 +124,10 @@ app.config(function ($routeProvider) {
 
 function run($rootScope, $location, $cookieStore, $cookies, $http, AuthenticationService, ShoppingCartService) {
 
-    AuthenticationService.csrf();
-    
+    AuthenticationService.Csrf(function(data) {
+        
+    });
+
     $http.defaults.headers.post['X-CSRFToken'] = $cookies['csrftoken'];
     $http.defaults.headers.common['Authorization'] = "JWT " + $cookies.get("token");
     console.log($http.defaults.headers.common['Authorization']);

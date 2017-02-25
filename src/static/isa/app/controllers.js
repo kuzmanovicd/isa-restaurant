@@ -27,6 +27,7 @@ app.controller('UserController', function ($scope, UserService) {
 
 app.controller('loginController', function ($scope, $location, $rootScope, $cookieStore, AuthenticationService) {
 
+    $scope.nesto = "lbalbblbalba";
     $scope.loginsubmit = login;
     
     function login() {
@@ -514,11 +515,11 @@ app.controller('logoutController', function ($scope, $location, $rootScope, Auth
     }
 });
 
-app.controller('registerController', function ($scope, $http, $location, CountryService, UserController) {
+app.controller('registerController', function ($scope, $http, $location, CountryService, UserService) {
     $scope.allCountries = CountryService.allCountries;
 
     $scope.registersubmit = function () {
-        UserController.create($scope.user);
+        UserService.Create($scope.user);
     }
 });
 
