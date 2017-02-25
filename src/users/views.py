@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
 from django.core import exceptions
+from django.contrib.auth import hashers
 
 from django.core.mail import EmailMessage
 
@@ -32,6 +33,7 @@ class GuestCreate(generics.CreateAPIView):
     serializer_class = serializers.GuestRegisterSerializer
 
     def perform_create(self, serializer):
+        serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
         serializer.save()
         location = '/api/users/activate/'
         g = models.Guest.objects.get(username=serializer.validated_data['username'])
@@ -57,10 +59,15 @@ class ActivateGuestView(APIView):
             return Response(status=HTTP_404_NOT_FOUND)
 
 
+class CSRFView(APIView):
+    def get(self, request, code):
+        return Response(status=HTTP_200_OK)
+
 class GuestViewSet(viewsets.ModelViewSet):
     queryset = models.Guest.objects.all()
     serializer_class = serializers.GuestSerializer
 
+"""
 class UserLoginAPIView(generics.GenericAPIView):
     permission_classes = [permissions.AllowAny]
     serializer_class = serializers.UserLoginSerializer
@@ -72,7 +79,7 @@ class UserLoginAPIView(generics.GenericAPIView):
             new_data = serializer.data
             return Response(new_data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
-
+"""
 
 
 #za Provider-a   Dodao:Spiric

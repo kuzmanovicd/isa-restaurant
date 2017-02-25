@@ -35,8 +35,8 @@ class Guest(User):
         super(Guest, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name = 'Gost'
-        verbose_name_plural = 'Gosti'
+        verbose_name = 'Guest'
+        verbose_name_plural = 'Guests'
 
     
 
@@ -53,12 +53,16 @@ class Waiter(Employee):
     """
     Model za konobara platforme u jednom restoranu.
     """
-
     region = models.IntegerField(null=False)
+    class Meta:
+        verbose_name = 'Waiter'
+        verbose_name_plural = 'Waiters'
 
 
 
 #model Provider-a (dobavljaca)   Radio: Spiric
 class Provider(User):
     naziv = models.CharField(max_length=50)
-
+    class Meta:
+        verbose_name = 'Provider'
+        verbose_name_plural = 'Providers'

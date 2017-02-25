@@ -18,61 +18,28 @@
 
                     <form id="register-form" name="form" method="post" role="form" ng-submit="registersubmit()">
                         <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Korisničko ime" ng-model="user.korisnickoime" required>
+                            <input type="text" tabindex="1" class="form-control" placeholder="Korisničko ime" ng-model="user.username" required>
                         </div>
                         <div class="form-group">
                             <input type="email" tabindex="2" class="form-control" placeholder="Email adresa" ng-model="user.email" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" tabindex="3" class="form-control" placeholder="Ime" ng-model="user.ime" required>
+                            <input type="text" tabindex="3" class="form-control" placeholder="Ime" ng-model="user.first_name" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" tabindex="4" class="form-control" placeholder="Prezime" ng-model="user.prezime" required>
+                            <input type="text" tabindex="4" class="form-control" placeholder="Prezime" ng-model="user.last_name" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" tabindex="5" class="form-control" placeholder="Telefon" ng-model="user.telefon" required>
+                            <input type="text" tabindex="6" class="form-control" placeholder="Grad" ng-model="user.city" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" tabindex="6" class="form-control" placeholder="Adresa" ng-model="user.adresa" required>
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" ng-model="user.drzava" ng-options="option for option in allCountries" required>
-                                <option ng-selected="selected" disabled value="">Izaberite drzavu...</option>
-                            </select>
-                            <!-- <input type="text" tabindex="7" class="form-control" placeholder="Država" ng-model="user.drzava" required> -->
-                        </div>
-                        <div class="form-group">
-                            <input type="password" tabindex="8" class="form-control" placeholder="Lozinka" ng-model="user.lozinka" required>
+                            <input type="password" tabindex="8" class="form-control" placeholder="Lozinka" ng-model="user.password" required>
                         </div>
 
-                        <div ng-if="currentUser.role == 'ADMIN'" class="form-group">
-                            <label>Želim da registruje korisnika kao:</label>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="optradio" ng-model="user.tip" value="kupac" checked>Kupac</label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="optradio" ng-model="user.tip" value="prodavac">Prodavac</label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="optradio" ng-model="user.tip" value="admin">Admin</label>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-6 col-sm-offset-3">
                                     <input ng-disabled="form.$invalid" type="submit" name="register-submit" id="register-submit" tabindex="9" class="form-control btn btn-register" value="Registruj se">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="text-center">
-                                        <a id="have-account" href="#/login" tabindex="10" class="forgot-password">Već ste registrovani?</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
