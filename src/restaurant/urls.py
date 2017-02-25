@@ -4,7 +4,7 @@ from .views import *
 urlpatterns = [
     #za Restoran  Dodao: Spiric
     url(r'^restaurant/all/?$', RestaurantList.as_view(), name='restaurant_list'),
-    url(r'^restaurant/(?P<pk>[0-9]+)?$', RestaurantDetail.as_view(), name='restaurant_rud'),
+    url(r'^restaurant/(?P<pk>[0-9]+)/?$', RestaurantDetail.as_view(), name='restaurant_rud'),
     url(r'^restaurant/create/?$', RestaurantCreate.as_view(), name='restaurant_create'),
 
     #za Menu      Dodao: Spiric
