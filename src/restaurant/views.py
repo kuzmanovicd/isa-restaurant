@@ -17,11 +17,17 @@ class RestaurantRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.RestaurantSerializer
 
 
-class Food_MenuListAPIView(generics.ListAPIView):
-    queryset = models.Food_Menu.objects.all()
-    serializer_class = serializers.Food_MenuSerializer
+#za MenuItem   Dodao:Spiric
+class MenuItemList(generics.ListAPIView):
+    queryset = models.MenuItem.objects.all()
+    serializer_class = serializers.MenuItemSerializer
 
 
-class Food_MenuRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = models.Food_Menu.objects.all()
-    serializer_class = serializers.Food_MenuSerializer
+class MenuItemDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.MenuItem.objects.all()
+    serializer_class = serializers.MenuItemSerializer
+
+
+class MenuItemCreate(generics.CreateAPIView):
+    queryset = models.MenuItem.objects.all()
+    serializer_class = serializers.MenuItemRegisterSerializer

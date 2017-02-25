@@ -73,3 +73,19 @@ class UserLoginAPIView(generics.GenericAPIView):
             return Response(new_data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
+
+
+#za Provider-a   Dodao:Spiric
+class ProviderList(generics.ListAPIView):
+    queryset = models.Provider.objects.all()
+    serializer_class = serializers.ProviderSerializer
+
+
+class ProviderDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Provider.objects.all()
+    serializer_class = serializers.ProviderSerializer
+
+
+class ProviderCreate(generics.CreateAPIView):
+    queryset = models.Provider.objects.all()
+    serializer_class = serializers.ProviderRegisterSerializer

@@ -58,3 +58,19 @@ class UserLoginSerializer(serializers.ModelSerializer):
 
             if password_passes:
                 data['username'] = user_obj.username
+
+
+
+#za Probider-a  Dodao: Spiric
+class ProviderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Provider
+        fields = ['id', 'username', 'email', 'password', 'naziv']
+
+
+class ProviderRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Provider
+        fields = ['username', 'email', 'password', 'naziv']
+
+        

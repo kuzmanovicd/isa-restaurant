@@ -51,3 +51,10 @@ class Waiter(Employee):
     """
 
     region = models.IntegerField(null=False)
+
+
+
+#model Provider-a (dobavljaca)   Radio: Spiric
+class Provider(User):
+    naziv = models.CharField(max_length=50)
+
