@@ -1,31 +1,11 @@
 <div class="container-fluid ke-container">
-    <div class="col-md-5">
-        <div class="col-md-12">
-            <flex-slider slider-id="slider" flex-slide="image in pr.selectedProduct.slika track by $index" animation="fade" animation-loop="false" sync="#carousel" slideshow="false" control-nav="false" init-delay="100" item-height="100">
-                <li>
-                    <img ng-src="{{image}}">
-                </li>
-            </flex-slider>
-        </div>
-        <div class="col-md-12">
-            <flex-slider slider-id="carousel" flex-slide="image in pr.selectedProduct.slika track by $index" animation="slide" animation-loop="false" item-width="80" item-margin="5" as-nav-for="#slider" slideshow="false" control-nav="false">
-                <li>
-                    <img ng-src="{{image}}">
-                </li>
-            </flex-slider>
-        </div>
-        <video width="100%" controls>
-            <source src="{{pr.selectedProduct.video}}" type="video/mp4">
-        </video>
-    </div>
-    <div class="col-md-7">
-
+    <div class="col-md-12">
         <span class="label label-default ke-data-label"> {{pr.selectedProduct.sifra}}</span>
         <span class="label label-primary ke-data-label"> {{pr.selectedProduct.kategorijaProizvoda}}</span>
         <button ng-if="isAllowed(pr.selectedProduct.sifra, pr.selectedProduct.prodavnica)" type="button" class="btn btn-danger btn-xs pull-right" ng-click="remove(pr.selectedProduct)">
             <span class="glyphicon glyphicon-remove"></span> Obrisi
         </button>
-        <div class="ke-title"> {{pr.selectedProduct.naziv}}
+        <div class="ke-title"> {{restaurant.name}}
             <span class="label label-warning ke-data-label"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{prosecnaOcena | currency: " "}}</span>
             <span ng-if="pr.selectedProduct.akcija" class="label label-danger pull-right">AKCIJA -{{pr.selectedProduct.akcija}}%</span></div>
         <div class="ke-address">{{pr.selectedProduct.prodavnica}}</div>
@@ -34,7 +14,7 @@
         <div class="ke-address">Tezina: <strong>{{pr.selectedProduct.tezina}}g</strong></div>
         <div class="ke-address">Zemlja proizvodnje: <strong>{{pr.selectedProduct.zemljaProizvodnje}}</strong></div>
         <div class="ke-address">Proizvodjac: <strong>{{pr.selectedProduct.nazivProizvodjaca}}</strong></div>
-
+        <div><a href="#/add/waiter" ng-if="currentUser.role == 'MANAGER_RESTAURANT'">dodaj</a></div>
         <div>
             <h3>
                 <div ng-if="!pr.selectedProduct.akcija">
@@ -60,7 +40,7 @@
                     </h3>
             </div>
             <div class="panel-body">
-                {{pr.selectedProduct.opis}}
+                {{restaurant.description_restaurant}}
 
             </div>
         </div>

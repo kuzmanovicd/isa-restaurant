@@ -9,8 +9,8 @@ from django.db import models
 class Restaurant(models.Model):
     name = models.CharField(max_length=100, null=False)
     description_restaurant = models.CharField(max_length=100)
-    address_restaurant = models.CharField(max_length=50)
-    phone_restaurant = models.CharField(max_length=50)
+    address_restaurant = models.CharField(max_length=50, default="adresa")
+    phone_restaurant = models.CharField(max_length=50, default="broj_tel")
 
     def __str__(self):
         return self.name

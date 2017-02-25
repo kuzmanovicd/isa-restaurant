@@ -20,8 +20,9 @@ app.config(function ($routeProvider) {
             controllerAs: 'vm'
         })
         .when('/restaurants', {
-            controller: 'productsController',
-            templateUrl: static_file + 'partials/student2_restoran/profil_restorana.html'
+            controller: 'RestaurantController',
+            templateUrl: static_file + 'partials/student2_restoran/profil_restorana.html',
+            controllerAs: 'vm'
         })
         .when('/proizvodi', {
             controller: 'productsController',
