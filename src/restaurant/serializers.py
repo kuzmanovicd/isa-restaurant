@@ -5,12 +5,12 @@ from .models import *
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'description_restaurant']
 
-class RestaurantCreateSerializer(serializers.ModelSerializer):
+class RestaurantRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
-        fields = [ 'name' ]
+        fields = ['name', 'description_restaurant']
     
 
     def create(self, data):
@@ -18,6 +18,21 @@ class RestaurantCreateSerializer(serializers.ModelSerializer):
         r.save()
         return r
 
+
+
+#za  Menu     Dodao: Spiric
+class MenuSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Menu
+        fields = ['id', 'restaurant']
+
+
+class MenuRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Menu
+        fields = ['restaurant']
+    
+    
 
 
 #za MenuItem   Dodao: Spiric

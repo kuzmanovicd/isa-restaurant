@@ -8,13 +8,33 @@ from rest_framework import generics
 def index_view(request):
     return render(request, 'index.html', {})
 
-class RestaurantListAPIView(generics.ListAPIView):
+class RestaurantList(generics.ListAPIView):
     queryset = models.Restaurant.objects.all()
     serializer_class = serializers.RestaurantSerializer
 
-class RestaurantRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
+class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Restaurant.objects.all()
     serializer_class = serializers.RestaurantSerializer
+
+class RestaurantCreate(generics.CreateAPIView):
+    queryset = models.Restaurant.objects.all()
+    serializer_class = serializers.RestaurantRegisterSerializer
+
+
+#za Menu   Dodao: Spiric
+class MenuList(generics.ListAPIView):
+    queryset = models.Menu.objects.all()
+    serializer_class = serializers.MenuSerializer
+
+
+class MenuDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Menu.objects.all()
+    serializer_class = serializers.MenuSerializer
+
+
+class MenuCreate(generics.CreateAPIView):
+    queryset = models.Menu.objects.all()
+    serializer_class = serializers.MenuRegisterSerializer
 
 
 #za MenuItem   Dodao:Spiric
