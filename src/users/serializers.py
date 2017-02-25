@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
 class GuestSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Guest
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'is_activated', 'city', ]
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'is_activated', 'city', 'user_type' ]
 
 class GuestRegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -50,4 +50,3 @@ class ProviderRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Provider
         fields = ['username', 'email', 'password', 'naziv']
-

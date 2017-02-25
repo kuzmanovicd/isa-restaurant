@@ -5,7 +5,20 @@ import hashlib
 
 # Create your models here
 
-class Guest(User):
+USER_TYPE = (
+    ('GU', 'GUEST'),
+    ('WA', 'WAITER'),
+    ('CO', 'COOK'),
+    ('BA', 'BARTENDER'),
+    ('PR', 'PROVIDER'),
+    ('RM', 'RESTAURANT_MANAGER'),
+    ('SM', 'SYSTEM_MANAGER'),
+)
+
+class BasicUser(User):
+    user_type = models.CharField(max_length=2, choices=USER_TYPE, null=False)
+
+class Guest(BasicUser):
     """
     Model za gosta platforme.
     """
@@ -32,6 +45,7 @@ class Guest(User):
 
     def save(self, *args, **kwargs):
         self.gen_activation_code()
+        self.user_type = 'GUEST'
         super(Guest, self).save(*args, **kwargs)
 
     class Meta:
