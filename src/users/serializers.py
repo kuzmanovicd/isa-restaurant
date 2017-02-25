@@ -37,7 +37,7 @@ class ActivationSerializer(serializers.ModelSerializer):
 
 class CSRFSerializer(serializers.Serializer):
     status = serializers.CharField()
-    
+
 
 #za Probider-a  Dodao: Spiric
 class ProviderSerializer(serializers.ModelSerializer):

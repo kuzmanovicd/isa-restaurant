@@ -39,7 +39,7 @@ function AuthenticationService($http, $cookies, $rootScope, $timeout, UserServic
 
     function Csrf(callback) {
         $http.get('api/users/csrf/').success(function (data) {
-             callback(data) 
+             callback(data);
         });
     }
 
@@ -104,7 +104,7 @@ function UserService($http) {
     }
 
     function Create(user) {
-        return $http.post('/api/users/guests/create/', user).then(handleSuccess, handleError('Error creating user'));
+        return $http.post('/api/users/guests/create/', angular.toJson(user)).then(handleSuccess, handleError('Error creating user'));
     }
 
     function Update(user) {

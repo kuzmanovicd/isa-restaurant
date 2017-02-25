@@ -514,11 +514,11 @@ app.controller('logoutController', function ($scope, $location, $rootScope, Auth
     }
 });
 
-app.controller('registerController', function ($scope, $http, $location, CountryService, UserController) {
+app.controller('registerController', function ($scope, $http, $location, CountryService, UserService) {
     $scope.allCountries = CountryService.allCountries;
 
     $scope.registersubmit = function () {
-        UserController.create($scope.user);
+        UserService.Create($scope.user);
     }
 });
 

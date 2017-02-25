@@ -31,6 +31,7 @@ class GuestList(generics.ListAPIView):
 class GuestCreate(generics.CreateAPIView):
     queryset = models.Guest.objects.all()
     serializer_class = serializers.GuestRegisterSerializer
+    permission_classes = (permissions.AllowAny,)
 
     def perform_create(self, serializer):
         serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
@@ -60,7 +61,7 @@ class ActivateGuestView(APIView):
 
 
 class CSRFView(APIView):
-    def get(self, request, code):
+    def get(self, request):
         return Response(status=HTTP_200_OK)
 
 class GuestViewSet(viewsets.ModelViewSet):
