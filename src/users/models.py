@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from restaurant.models import *
 import hashlib
+import datetime
+from django.utils import timezone
 
 # Create your models here
 
@@ -78,24 +80,53 @@ class Employee(BasicUser):
     Zaposleni u restoranu.
     """
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=False)
-    
+    date_of_birth = models.DateField(default=datetime.date.today)
+    clothes_size = models.IntegerField(default=0)
+    shoe_size = models.IntegerField(default=0)
 
     def __str__(self):
         return ' '.join([self.first_name, self.username, self.restaurant.name])
-
+#Waiter (konobar)
 class Waiter(Employee):
     """
-    Model za konobara platforme u jednom restoranu.
+    Model za konobara u jednom restoranu.
     """
     region = models.IntegerField(null=False)
+    
 
     def save(self, *args, **kwargs):
-        self.user_type = 'GU'
+        self.user_type = 'WA'
         super(Waiter, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Waiter'
         verbose_name_plural = 'Waiters'
+
+#Cook (kuvar)
+class Cook(Employee):
+    """
+    Model za kuvara u jednom restoranu
+    """
+    def save(self, *args, **kwargs):
+        self.user_type = 'CO'
+        super(Cook, self).save(*args, **kwargs)
+    
+    class Meta:
+        verbose_name = 'Cook'
+        verbose_name_plural = "Cooks"
+
+#Bartender (sanker)
+class Bartender(Employee):
+    """
+    Model za sankera u jednom restoranu
+    """
+    def save(self, *args, **kwargs):
+        self.user_type = 'BA'
+        super(Bartender, self).save(*args, **kwargs)
+    
+    class Meta:
+        verbose_name = 'Bartender'
+        verbose_name_plural = 'Bartenders'
 
 
 # Model: Provider (dobavljac)
