@@ -18,6 +18,8 @@ urlpatterns = [
     url(r'^activate/(?P<code>[a-z0-9]{32})/?$', ActivateGuestView.as_view(), name='guest_activate'),
     url(r'^csrf/?$', CSRFView.as_view(), name='csrf_token'),
 
+    url(r'^friend/add/?$', FrienshipCreate.as_view(), name='friendship_create'),
+
     #url(r'^(?P<pk>[0-9]+)/?$', UserDetailRetrieve.as_view(), name='rud_user'),
 
     # za Provider-a     Dodao: Spiric

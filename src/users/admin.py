@@ -8,4 +8,4 @@ admin.site.register(BasicUser)
 admin.site.register(Guest)
 admin.site.register(Waiter)
 admin.site.register(Provider)
-#
+admin.site.register(Friendship)
