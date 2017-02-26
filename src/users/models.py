@@ -57,8 +57,16 @@ class Guest(BasicUser):
 
 
 class Friendship(models.Model):
-    user_a = models.OneToOneField(Guest)
-    user_b = models.OneToOneField(Guest)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    user_a = models.ForeignKey(User, related_name="user_a")
+    user_b = models.ForeignKey(User, related_name="user_b")
+    accepted = models.NullBooleanField()
+
+    def accept(self):
+        self.accepted = True
+
+    def reject(self):
+        self.accepted = False
 
     class Meta:
         verbose_name = 'Friendship'
