@@ -4,6 +4,8 @@ app.factory('RestaurantService', RestaurantService);
 
 app.factory('RadnikService', RadnikService);
 
+app.factory('ProviderService', ProviderService);
+
 function RestaurantService($http) {
     var service = {};
     
@@ -37,6 +39,21 @@ function RadnikService($http) {
     function create(link, employee) {
         console.log(employee);
         return $http.post('api/users/' + link + '/create/', angular.toJson(employee));
+    }
+     
+}
+
+//service za Providera
+function ProviderService($http) {
+    var service = {};
+
+    service.create = create;
+
+    return service;
+    
+    function create(link, provider) {
+        console.log(provider);
+        return $http.post('api/users/' + link + '/create/', angular.toJson(provider));
     }
      
 }

@@ -21,3 +21,19 @@ app.controller('RadnikController', function ($scope, RadnikService) {
     };
   
 });
+
+
+//kontroler za Providera
+app.controller('ProviderController', function ($scope, $location, ProviderService) {
+
+    $scope.create = function() {
+         ProviderService.create('provider', $scope.provider); 
+    };
+
+    $scope.addProvider = function() {
+        $location.path('/provider/add');
+    };
+  
+});
+
+

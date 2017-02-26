@@ -1,0 +1,26 @@
+<!-- FORMA ZA POVIDERA -->
+<div class="col-md-6 col-md-offset-3 ke-container" style="padding-top: 0px;">
+    <div class="modal-header login-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">Provider: {{employee.username}}</h4>
+    </div>
+    <form name="form" ng-submit="create()">
+        <div class="modal-body">
+
+            <div ng-if="failure" class="alert alert-danger">
+                <strong>Nesto nije u redu!</strong>
+            </div>
+            
+            <div  class="alert alert-danger">
+                <!--Izabrao si {{employee.type}}.-->
+            </div>
+            <input type="text" placeholder="Username" ng-model="provider.username" required>
+            <input type="password" placeholder="Password" minlength="3" ng-model="provider.password" required>
+            <input type="email" placeholder="Email" ng-model="provider.email" required>
+            <input type="text" placeholder="Naziv" ng-model="provider.naziv" required>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Potvrdi" ng-disabled="form.$invalid">
+        </div>
+    </form>
+</div>

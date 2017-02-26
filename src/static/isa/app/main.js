@@ -24,9 +24,9 @@ app.config(function ($routeProvider) {
             templateUrl: static_file + 'partials/student2_restoran/profil_restorana.html',
             controllerAs: 'vm'
         })
-        .when('/employee/add', {
-            controller: 'RadnikController',
-            templateUrl: static_file + 'partials/student2_restoran/radnik_add.html',
+        .when('/provider/add', {
+            controller: 'ProviderController',
+            templateUrl: static_file + 'partials/student2_restoran/provider_add.html',
             controllerAs: 'vm'
         })
         .when('/proizvodi', {
