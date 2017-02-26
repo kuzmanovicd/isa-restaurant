@@ -2,6 +2,8 @@
 
 app.factory('RestaurantService', RestaurantService);
 
+app.factory('RadnikService', RadnikService);
+
 function RestaurantService($http) {
     var service = {};
     
@@ -23,4 +25,18 @@ function RestaurantService($http) {
     function update(prodavnica) {
         return $http.put('api/prodavnica/update', angular.toJson(prodavnica));
     }
+}
+
+function RadnikService($http) {
+    var service = {};
+
+    service.create = create;
+
+    return service;
+    
+    function create(link, employee) {
+        console.log(employee);
+        return $http.post('api/users/' + link + '/create/', angular.toJson(employee));
+    }
+     
 }

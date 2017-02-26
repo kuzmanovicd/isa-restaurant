@@ -1,0 +1,29 @@
+<!-- FORMA ZA RADNIKA -->
+<div class="col-md-6 col-md-offset-3 ke-container" style="padding-top: 0px;">
+    <div class="modal-header login-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">Prodavnica {{employee.username}}</h4>
+    </div>
+    <form name="form" ng-submit="create()">
+        <div class="modal-body">
+
+            <div ng-if="failure" class="alert alert-danger">
+                <strong>Nesto nije u redu!</strong>
+            </div>
+            
+            <div  class="alert alert-danger">
+                Izabrao si {{employee.type}}.
+            </div>
+            <input type="text" placeholder="Username" ng-model="employee.username" required>
+            <input type="password" placeholder="Sifra" minlength="3" ng-model="employee.password" required>
+            <input type="email" placeholder="Email" ng-model="employee.email" required>
+            <select class="form-control" ng-model="employee.type" ng-options="option for option in employee_types" required>
+                <option ng-selected="selected" disabled value="">Izaberite tip korisnika...</option>
+            </select>
+            <input type="text" placeholder="Naziv" ng-model="employee.naziv" required>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Potvrdi" ng-disabled="form.$invalid">
+        </div>
+    </form>
+</div>

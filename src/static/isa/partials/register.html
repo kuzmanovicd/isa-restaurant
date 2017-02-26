@@ -16,30 +16,36 @@
                 <div class="col-lg-12">
                     <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
 
-                    <form id="register-form" name="form" method="post" role="form" ng-submit="registersubmit()">
+                    <form name="form" method="post" ng-submit="registersubmit()">
+                        <div ng-if="user.password != user.password2 && user.password2.length > 0" class="alert alert-danger">
+								  	Lozinke se ne poklapaju!
+								</div>
                         <div class="form-group">
-                            <input type="text" tabindex="1" class="form-control" placeholder="Korisničko ime" ng-model="user.username" required>
+                            <input type="text" ng-model="user.username" name="username" id="username" tabindex="1" class="form-control" placeholder="Korisničko ime"  required>
                         </div>
                         <div class="form-group">
-                            <input type="email" tabindex="2" class="form-control" placeholder="Email adresa" ng-model="user.email" required>
+                            <input type="email" name="email" id="email" tabindex="2" class="form-control" placeholder="Email adresa" ng-model="user.email" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" tabindex="3" class="form-control" placeholder="Ime" ng-model="user.first_name" required>
+                            <input type="text" name="first_name" id="first_name" tabindex="3" class="form-control" placeholder="Ime" ng-model="user.first_name" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" tabindex="4" class="form-control" placeholder="Prezime" ng-model="user.last_name" required>
+                            <input type="text" name="last_name" id="last_name" tabindex="4" class="form-control" placeholder="Prezime" ng-model="user.last_name" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" tabindex="6" class="form-control" placeholder="Grad" ng-model="user.city" required>
+                            <input type="text" name="city" id="city" tabindex="5" class="form-control" placeholder="Grad" ng-model="user.city" required>
                         </div>
                         <div class="form-group">
-                            <input type="password" tabindex="8" class="form-control" placeholder="Lozinka" ng-model="user.password" required>
+                            <input type="password" name="password" id="password" tabindex="6" class="form-control" placeholder="Lozinka" ng-model="user.password" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password2" id="password2" tabindex="7" class="form-control" placeholder="Ponovite lozinku" ng-model="user.password2" required>
                         </div>
 
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-6 col-sm-offset-3">
-                                    <input ng-disabled="form.$invalid" type="submit" name="register-submit" id="register-submit" tabindex="9" class="form-control btn btn-register" value="Registruj se">
+                                    <input ng-disabled="form.$invalid" type="submit" tabindex="8" class="form-control btn btn-register" value="Registruj se">
                                 </div>
                             </div>
                         </div>

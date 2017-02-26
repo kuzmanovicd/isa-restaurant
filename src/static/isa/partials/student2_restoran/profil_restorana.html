@@ -14,7 +14,7 @@
         <div class="ke-address">Tezina: <strong>{{pr.selectedProduct.tezina}}g</strong></div>
         <div class="ke-address">Zemlja proizvodnje: <strong>{{pr.selectedProduct.zemljaProizvodnje}}</strong></div>
         <div class="ke-address">Proizvodjac: <strong>{{pr.selectedProduct.nazivProizvodjaca}}</strong></div>
-        <div><a href="#/add/waiter" ng-if="currentUser.role == 'MANAGER_RESTAURANT'">dodaj</a></div>
+        <div><a href="#/employee/add">dodaj radnika</a></div>
         <div>
             <h3>
                 <div ng-if="!pr.selectedProduct.akcija">
@@ -27,9 +27,9 @@
             </h3>
         </div>
         <hr>
-        <div ng-if="currentUser.role == 'BUYER'">
-            <a class="btn btn-success btn-lg" ng-if="pr.selectedProduct.kolicina > 0" ng-click="addToCart(pr.selectedProduct)"><span class="glyphicon glyphicon-shopping-cart"></span> Kupi</a>
-            <a class="btn btn-danger btn-lg" ng-if="pr.selectedProduct.kolicina < 1">Nema na stanju</a>
+        <div>
+            <a class="btn btn-success btn-lg"  ng-click="addToCart(pr.selectedProduct)"> DODAJ KONOBARA </a>
+            <a class="btn btn-danger btn-lg" >Nema na stanju</a>
             <a class="btn btn-default btn-lg pull-right" ng-click="addToWishList(product.sifra)"><span class="glyphicon glyphicon-heart-empty"></span> Dodaj u listu zelja</a>
         </div>
         <hr>
@@ -101,6 +101,8 @@
                 </div>
             </div>
         </div>
+
+        
 
     </div>
     <div class="col-md-12">

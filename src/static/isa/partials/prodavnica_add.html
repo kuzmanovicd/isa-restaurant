@@ -1,4 +1,4 @@
-<!-- Modal Prodavnica -->
+<!-- FORMA ZA RADNIKA -->
 <div class="col-md-6 col-md-offset-3 ke-container" style="padding-top: 0px;">
     <div class="modal-header login-header">
         <button type="button" class="close" data-dismiss="modal">×</button>
@@ -11,7 +11,7 @@
                 <strong>Nesto nije u redu!</strong>
             </div>
             
-            <input type="text" placeholder="Sifra" minlength="3" ng-model="prodavnica.sifra" required>
+            <input type="password" placeholder="Sifra" minlength="3" ng-model="employee.password" required>
             <input type="text" placeholder="Naziv" ng-model="prodavnica.naziv" required>
             <input type="text" placeholder="Adresa" ng-model="prodavnica.adresa" required>
             <select class="form-control" ng-model="prodavnica.drzava" ng-options="option for option in allCountries" required>

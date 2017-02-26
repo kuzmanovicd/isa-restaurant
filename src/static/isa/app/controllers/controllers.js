@@ -7,3 +7,17 @@ app.controller('RestaurantController', function ($scope, RestaurantService) {
         $scope.restaurant = data;
     });
 });
+
+
+app.controller('RadnikController', function ($scope, RadnikService) {
+
+    $scope.employee_types = ['WA', 'BA', 'CO'];
+
+    $scope.create = function() {
+        if($scope.employee.type == 'WA') {
+            RadnikService.create('provider', $scope.employee);
+        }
+        
+    };
+  
+});
