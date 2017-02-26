@@ -107,5 +107,5 @@ class RestaurantManager(BasicUser):
     restaurant = models.OneToOneField(Restaurant, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
-        self.user_type = 'PR'
-        super(Provider, self).save(*args, **kwargs)
+        self.user_type = 'RM'
+        super(RestaurantManager, self).save(*args, **kwargs)
