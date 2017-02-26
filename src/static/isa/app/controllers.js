@@ -27,7 +27,6 @@ app.controller('UserController', function ($scope, UserService) {
 
 app.controller('loginController', function ($scope, $location, $rootScope, $cookieStore, AuthenticationService) {
 
-    $scope.nesto = "lbalbblbalba";
     $scope.loginsubmit = login;
     
     function login() {
@@ -515,12 +514,17 @@ app.controller('logoutController', function ($scope, $location, $rootScope, Auth
     }
 });
 
-app.controller('registerController', function ($scope, $http, $location, CountryService, UserService) {
-    $scope.allCountries = CountryService.allCountries;
+app.controller('registerController', function ($scope, $http, $location, UserService) {
 
+    
     $scope.registersubmit = function () {
-        UserService.Create($scope.user);
-    }
+        if($scope.user.password.localeCompare($scope.user.password2))
+        {
+            UserService.Create($scope.user);
+        } else {
+            $scope.user.password2 = "Lozinke se ne poklapaju";
+        }
+    }  
 });
 
 

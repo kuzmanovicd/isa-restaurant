@@ -2,7 +2,7 @@ from django.shortcuts import render
 from users import serializers, models
 from rest_framework import generics
 from rest_framework import permissions
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_201_CREATED
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_201_CREATED, HTTP_401_UNAUTHORIZED
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
@@ -52,14 +52,15 @@ class GuestCreate(generics.CreateAPIView):
 
 class FrienshipCreate(APIView):
     def post(self, request, *args, **kwargs):
-        print(request.user.pk)
-        data = request.data
-        data.user_a = request.user.pk
-        serializer = serializers.FriendshipSerializer(data=request.data)
-        if serializer.is_valid():
-            #serializer.save()
-            return Response(serializer.data, status=HTTP_201_CREATED)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        #print(request.user.pk)
+        if request.user.user_type == 'GU':
+            data = request.data
+            data.user_a = request.user.pk
+            serializer = serializers.FriendshipSerializer(data=request.data)
+            if serializer.is_valid():
+                #serializer.save()
+                return Response(serializer.data, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_401_UNAUTHORIZED)
 
 
 
