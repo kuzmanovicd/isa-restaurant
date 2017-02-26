@@ -22,7 +22,6 @@ app.controller('RadnikController', function ($scope, RadnikService) {
   
 });
 
-
 //kontroler za Providera
 app.controller('ProviderController', function ($scope, $location, ProviderService) {
 
@@ -36,4 +35,15 @@ app.controller('ProviderController', function ($scope, $location, ProviderServic
   
 });
 
+app.controller('BasicUserController', function ($scope, BasicUserService) {
 
+    $scope.registerSubmit = function(user) {
+        if(user.password.localeCompare($scope.password2)) {
+            BasicUserService.create(user).success(function(data){
+                $scope.status = 'Uspesno';
+            }).error(function(data){
+                $scope.status = 'Neuspesno';
+            });
+        }
+    }
+});
