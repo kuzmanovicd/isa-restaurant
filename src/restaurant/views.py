@@ -68,3 +68,21 @@ class RegionDetail(generics.RetrieveUpdateDestroyAPIView):
 class RegionCreate(generics.CreateAPIView):
     queryset = models.Region.objects.all()
     serializer_class = serializers.RegionSerializer
+
+
+
+# za Table
+# Dodao: Spiric
+class TableList(generics.ListAPIView):
+    queryset = models.Table.objects.all()
+    serializer_class = serializers.TableSerializer
+
+
+class TableDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Table.objects.all()
+    serializer_class = serializers.TableSerializer
+
+
+class TableCreate(generics.CreateAPIView):
+    queryset = models.Table.objects.all()
+    serializer_class = serializers.TableSerializer
