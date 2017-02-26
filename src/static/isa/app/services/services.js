@@ -31,6 +31,8 @@ function RestaurantService($http) {
     }
 }
 
+
+// service za Employee (Radnika)
 function RadnikService($http) {
     var service = {};
 
@@ -48,7 +50,16 @@ function RadnikService($http) {
 
 //service za Providera
 function ProviderService($http) {
+    var service = {};
 
+    service.create = create;
+
+    return service;
+    
+    function create(link, provider) {
+        console.log(provider);
+        return $http.post('api/users/' + link + '/create/', angular.toJson(provider));
+    }
 
 }
 
