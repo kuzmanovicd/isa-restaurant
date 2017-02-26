@@ -55,7 +55,15 @@ class Guest(BasicUser):
         verbose_name = 'Guest'
         verbose_name_plural = 'Guests'
 
-    
+
+class Friendship(models.Model):
+    user_a = models.OneToOneField(Guest)
+    user_b = models.OneToOneField(Guest)
+
+    class Meta:
+        verbose_name = 'Friendship'
+        verbose_name_plural = 'Friendships'
+
 
 class Employee(BasicUser):
     """
