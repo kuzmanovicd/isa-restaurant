@@ -49,22 +49,23 @@ class ProviderSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Provider
         fields = ['id', 'username', 'email', 'password', 'naziv', 'user_type']
+        read_only_fields = ('id', 'user_type')
+
+        extra_kwargs = {
+            'password' : {'write_only' : True}
+        }
 
 
-class ProviderRegisterSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Provider
-        fields = ['username', 'email', 'password', 'naziv', 'user_type']
+
 
 # za RestaurantManager-a     Dodao: Spiric
 class RestaurantManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.RestaurantManager
         fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type']
+        read_only_fields = ('id', 'user_type')
 
-
-class RestaurantManagerRegisterSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.RestaurantManager
-        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type']
+        extra_kwargs = {
+            'password' : {'write_only' : True}
+        }
 
