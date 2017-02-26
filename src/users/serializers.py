@@ -11,24 +11,29 @@ User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.User
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', ]
+        model = models.BasicUser
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'user_type', ]
+        read_only_fields = ('id', 'user_type')
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
+
 
 class GuestSerializer(serializers.ModelSerializer):
+    """
+    user_type UVEK MORA DA BUDE READ_ONLY!!! 
+    Za POST, PUT i DELETE metode ce se moci uneti nesto u ova polja ali to je samo greska na api/docs!
+    NAPOMENA: Samo jedan serializer po modelu se sada koristi
+    """
     class Meta:
         model = models.Guest
         fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'is_activated', 'city', 'user_type' ]
+        read_only_fields = ('id', 'user_type')
 
-class GuestRegisterSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Guest
-        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'city',]
-    
-    """
-    def create(self, validated_data):
-        guest = models.Guest.objects.create_user(**validated_data)
-        return guest
-    """
+        # zbog nekog glupog razloga, write-only polja moraju ovako
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
 
 class ActivationSerializer(serializers.ModelSerializer):
     class Meta:
