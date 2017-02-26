@@ -48,23 +48,23 @@ class CSRFSerializer(serializers.Serializer):
 class ProviderSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Provider
-        fields = ['id', 'username', 'email', 'password', 'naziv']
+        fields = ['id', 'username', 'email', 'password', 'naziv', 'user_type']
 
 
 class ProviderRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Provider
-        fields = ['username', 'email', 'password', 'naziv']
+        fields = ['username', 'email', 'password', 'naziv', 'user_type']
 
 # za RestaurantManager-a     Dodao: Spiric
 class RestaurantManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.RestaurantManager
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant']
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type']
 
 
 class RestaurantManagerRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.RestaurantManager
-        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'restaurant']
+        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type']
 
