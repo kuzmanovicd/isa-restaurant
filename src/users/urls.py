@@ -35,7 +35,7 @@ urlpatterns = [
     #za bartender-a
     url(r'^bartender/all/?$', BartenderList.as_view(), name='bartender_list'),
     url(r'^bartender/(?P<pk>[0-9]+)/?$', BartenderDetail.as_view(), name='rud_bartender_detail'),
-    url(r'^bartender/create/?$', BartenderList.as_view(), name='bartender_detail'),
+    url(r'^bartender/create/?$', BartenderCreate.as_view(), name='bartender_detail'),
 
 
     # za Provider-a     Dodao: Spiric
