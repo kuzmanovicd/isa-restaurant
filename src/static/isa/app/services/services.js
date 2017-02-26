@@ -2,6 +2,11 @@
 
 app.factory('RestaurantService', RestaurantService);
 
+
+app.factory('RestaurantManagerService', RestaurantManagerService);
+
+
+
 function RestaurantService($http) {
     var service = {};
     
@@ -24,3 +29,15 @@ function RestaurantService($http) {
         return $http.put('api/prodavnica/update', angular.toJson(prodavnica));
     }
 }
+
+
+/*
+function RestaurantManagerService($http) {
+    var service = {};
+
+    service.Create = Create;
+    service.Update = Update;
+    service.Delete = Delete;
+}
+
+*/
