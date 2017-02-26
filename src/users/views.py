@@ -85,7 +85,7 @@ class ProviderDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class ProviderCreate(generics.CreateAPIView):
     queryset = models.Provider.objects.all()
-    serializer_class = serializers.ProviderRegisterSerializer
+    serializer_class = serializers.ProviderSerializer
 
 
 # za RestaurantManager-a    Dodao: Spiric
@@ -101,4 +101,4 @@ class RestaurantManagerDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class RestaurantManagerCreate(generics.CreateAPIView):
     queryset = models.RestaurantManager.objects.all()
-    serializer_class = serializers.RestaurantManagerRegisterSerializer
+    serializer_class = serializers.RestaurantManagerSerializer

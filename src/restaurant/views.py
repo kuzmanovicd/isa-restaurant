@@ -18,7 +18,7 @@ class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class RestaurantCreate(generics.CreateAPIView):
     queryset = models.Restaurant.objects.all()
-    serializer_class = serializers.RestaurantRegisterSerializer
+    serializer_class = serializers.RestaurantSerializer
 
 
 #za Menu   Dodao: Spiric
@@ -34,7 +34,7 @@ class MenuDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class MenuCreate(generics.CreateAPIView):
     queryset = models.Menu.objects.all()
-    serializer_class = serializers.MenuRegisterSerializer
+    serializer_class = serializers.MenuSerializer
 
 
 #za MenuItem   Dodao:Spiric
@@ -50,7 +50,7 @@ class MenuItemDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class MenuItemCreate(generics.CreateAPIView):
     queryset = models.MenuItem.objects.all()
-    serializer_class = serializers.MenuItemRegisterSerializer
+    serializer_class = serializers.MenuItemSerializer
 
 
 # za Regione 
@@ -67,4 +67,4 @@ class RegionDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class RegionCreate(generics.CreateAPIView):
     queryset = models.Region.objects.all()
-    serializer_class = serializers.RegionRegisterSerializer
+    serializer_class = serializers.RegionSerializer
