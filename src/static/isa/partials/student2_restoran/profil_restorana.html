@@ -5,7 +5,7 @@
         <button ng-if="isAllowed(pr.selectedProduct.sifra, pr.selectedProduct.prodavnica)" type="button" class="btn btn-danger btn-xs pull-right" ng-click="remove(pr.selectedProduct)">
             <span class="glyphicon glyphicon-remove"></span> Obrisi
         </button>
-        <div class="ke-title"> {{restaurant.name}}
+        <div class="ke-title"> {{restaurant.name}} 
             <span class="label label-warning ke-data-label"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{prosecnaOcena | currency: " "}}</span>
             <span ng-if="pr.selectedProduct.akcija" class="label label-danger pull-right">AKCIJA -{{pr.selectedProduct.akcija}}%</span></div>
         <div class="ke-address">{{pr.selectedProduct.prodavnica}}</div>
