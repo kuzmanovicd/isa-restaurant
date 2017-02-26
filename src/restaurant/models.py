@@ -22,13 +22,13 @@ class Restaurant(models.Model):
 # Sadrzi: veza ka restoranu (jedan meni pripada jednom restoranu)
 # Dodao: Spiric
 class Menu(models.Model):
-     restaurant = models.OneToOneField(Restaurant, on_delete=models.CASCADE)
+    restaurant = models.OneToOneField(Restaurant, on_delete=models.CASCADE)
 
 
 
 #model: Order (narudzbina)
 class Order(models.Model):   
-    date_created = models.DateTimeField('date created', default=timezone.now())
+    date_created = models.DateTimeField('date created', default=timezone.now)
     
 #model: Bill (racun)
 class Bill(models.Model):

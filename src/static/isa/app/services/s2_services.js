@@ -12,10 +12,15 @@ function RestaurantService($http) {
     service.create = create;
     service.update = update;
     service.get = get;
+    service.getAll = getAll;
     service.selectedProdavnica = {};
     
     return service;
     
+    function getAll() {
+        return $http.get('api/restaurant/restaurant/all/');
+    }
+
     function create(prodavnica) {
         return $http.post('api/prodavnica/add', angular.toJson(prodavnica));
     }

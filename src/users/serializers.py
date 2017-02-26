@@ -12,8 +12,8 @@ User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.BasicUser
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'user_type', ]
-        read_only_fields = ('id', 'user_type')
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'user_type', 'is_active']
+        read_only_fields = ('id', 'user_type', 'is_active')
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -27,8 +27,8 @@ class GuestSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = models.Guest
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'is_activated', 'city', 'user_type', ]
-        read_only_fields = ('id', 'user_type', )
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'is_active', 'city', 'user_type', ]
+        read_only_fields = ('id', 'user_type', 'is_active')
 
         # zbog nekog glupog razloga, write-only polja moraju ovako
         extra_kwargs = {
@@ -45,7 +45,7 @@ class FriendshipSerializer(serializers.ModelSerializer):
 class ActivationSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Guest
-        fields = ['id', 'is_activated', 'activation_code' ]
+        fields = ['id', 'is_active', 'activation_code' ]
 
 class CSRFSerializer(serializers.Serializer):
     status = serializers.CharField()

@@ -11,11 +11,6 @@ function BasicUserService($http) {
     service.create = create;
 
     return service;
-    
-    function create(link, provider) {
-        console.log(provider);
-        return $http.post('api/users/' + link + '/create/', angular.toJson(provider));
-    }
 
     function create(data) {
         return $http.post('api/users/guests/create/', angular.toJson(data));
@@ -23,7 +18,7 @@ function BasicUserService($http) {
 
 }
 
-function AuthService($http) {
+function AuthService($http, $rootScope, $cookies, $location) {
     var service = {};
     service.Login = Login;
     service.SetCredentials = SetCredentials;
@@ -37,6 +32,8 @@ function AuthService($http) {
     function Csrf(callback) {
         $http.get('api/users/csrf/').success(function (data) {
              callback(data);
+        }).error(function(data) {
+            console.log(data);
         });
     }
 
@@ -73,5 +70,6 @@ function AuthService($http) {
         $rootScope.currentUser = null;
         $http.defaults.headers.common['Authorization'] = "";
         $cookies.remove('token');
+        $location.path('/');
     }
 }

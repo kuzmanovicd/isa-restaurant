@@ -5,7 +5,7 @@ from .models import *
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
-        fields = ['id', 'name', 'description_restaurant']
+        fields = ['id', 'name', 'description_restaurant', 'address_restaurant', 'phone_restaurant']
         read_only_fields = ('id',)
 
 #za  Menu     Dodao: Spiric

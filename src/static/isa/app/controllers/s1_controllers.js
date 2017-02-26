@@ -1,14 +1,18 @@
 'use strict';
 
-app.controller('BasicUserController', function ($scope, BasicUserService, AuthService) {
+app.controller('BasicUserController', function ($scope, $location, BasicUserService, AuthService) {
+
 
     $scope.registerSubmit = function(user) {
-        if(user.password.localeCompare($scope.password2)) {
+        
+        if(user.password == $scope.password2) {
             BasicUserService.create(user).success(function(data){
                 $scope.status = 'Uspesno';
             }).error(function(data){
                 $scope.status = 'Neuspesno';
             });
+        } else {
+
         }
     }
 
@@ -25,8 +29,15 @@ app.controller('BasicUserController', function ($scope, BasicUserService, AuthSe
     }
 
     $scope.logout = function () {
-        AuthService.logout();
+        AuthService.ClearCredentials();
     };
 
+});
+
+app.controller('AllRestaurantsController', function ($scope, $location, RestaurantService) {
+    
+    RestaurantService.getAll().success(function (data) {
+            $scope.restaurants = data;
+    });
 });
 

@@ -1,0 +1,55 @@
+<div ng-if="currentUser" class="col-md-12">
+    <div class="col-md-12">
+        <div class="col-md-12" style="margin-bottom: 20px;">
+            <div class="input-group">
+                <div class="input-group-btn search-panel">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span id="search_concept">Filter by</span> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="">
+                                <input type="checkbox"> It's equal</a>
+                        </li>
+                        <li><a href="#its_equal">It's equal</a></li>
+                        <li><a href="#greather_than">Greather than ></a></li>
+                        <li><a href="#less_than">Less than < </a></li>
+                        <li class="divider"></li>
+                        <li><a href="#all">Anything</a></li>
+                    </ul>
+                </div>
+                <input type="hidden" name="search_param" value="all" id="search_param">
+                <input type="text" class="form-control" name="x" placeholder="Search term..." ng-model="searchQuery.naziv">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+
+        <div ng-repeat="r in restaurants | filter:searchQuery" class="col-sm-6 col-md-6">
+                <div class="thumbnail col-md-12">
+                    <div class="ke-store col-md-12">
+                        <div class="col-md-12">
+                            <span class="ke-title"><a href="">{{r.name}}</a></span>
+                            <span class="ke-address">{{r.description_restaurant}}, {{s.drzava}}</span>
+                            <div class="ke-info">
+                                <span class="label label-default ke-data-label"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> {{r.phone_restaurant}}</span>
+                                <span class="label label-default ke-data-label"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> {{r.address_restaurant}}</span>
+                                <span class="label label-default ke-data-label"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{s.odgovorniProdavac}}</span>
+                                
+                            </div>
+                            <div class="ke-info">
+                                <span class="label label-warning ke-data-label"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> 4.6</span>
+                                <span class="label label-info ke-data-label"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> {{s.recenzije.length}} Recenzija</span>
+                            </div>
+                            <div class="ke-info">
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+</div>

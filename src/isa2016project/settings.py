@@ -148,9 +148,8 @@ EMAIL_HOST_USER = 'isaftn2016@gmail.com'
 EMAIL_HOST_PASSWORD = get_email_password()
 
 REST_FRAMEWORK = {
-
     'DEFAULT_PERMISSION_CLASSES': (
-         'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
@@ -189,7 +188,7 @@ JWT_AUTH = {
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_LEEWAY': 0,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=50000),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUDIENCE': None,
     'JWT_ISSUER': None,
 

@@ -19,6 +19,13 @@ app.controller('RestaurantController', function ($scope, $location, RestaurantSe
         $location.path('/employee/add');
     };
 
+    $scope.getAll = function() {
+        RestaurantService.getAll().success(function (data) {
+            $scope.restaurants = data;
+        });
+    };
+
+
 });
 
 

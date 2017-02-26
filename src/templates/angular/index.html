@@ -30,7 +30,8 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul ng-if="currentUser" class="nav navbar-nav">
-                    <li><a href="#/restaurants">Moj restorana</a></li>
+                    <li><a ng-if="currentUser.user_type == 'GU'" href="#/restaurants/all">Restorani</a></li>
+                    <li><a href="#/restaurants">Moj restoran</a></li>
                     <li><a href="#/proizvodi">Proizvodi</a></li>
                     <li><a href="#/prodavnice">Prodavnice</a></li>
                     <!-- ng-if znaci da ce prikazati taj html element ako je ispunjen uslov unutra -->
@@ -60,7 +61,7 @@
                                 </button>
                             </a>
                             <span>&nbsp;&nbsp;</span>
-                            <button ng-controller="logoutController" type="button" class="btn btn-danger btn-sm" ng-click="logout()">
+                            <button ng-controller="BasicUserController" type="button" class="btn btn-danger btn-sm" ng-click="logout()">
                                 <span class="glyphicon glyphicon-off"></span> {{currentUser.username}}
                             </button>
                         </form>

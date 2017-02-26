@@ -19,6 +19,7 @@ USER_TYPE = (
 
 class BasicUser(User):
     user_type = models.CharField(max_length=2, choices=USER_TYPE, null=False)
+
     class Meta:
         verbose_name = 'Basic User'
         verbose_name_plural = 'Basic Users'
@@ -28,7 +29,6 @@ class Guest(BasicUser):
     Model za gosta platforme.
     """
     city = models.CharField(max_length=50, blank=True, default='')
-    is_activated = models.BooleanField(null=False, default=False)
     activation_code = models.CharField(max_length=32, blank=True)
 
     def __str__(self):
@@ -43,10 +43,10 @@ class Guest(BasicUser):
 
     def activate(self, code):
         if code == self.activation_code:
-            self.is_activated = True
+            self.is_active = True
             self.save()
         
-        return self.is_activated
+        return self.is_active
 
     def save(self, *args, **kwargs):
         self.gen_activation_code()
@@ -85,7 +85,12 @@ class Employee(BasicUser):
     shoe_size = models.IntegerField(default=0)
 
     def __str__(self):
-        return ' '.join([self.first_name, self.username, self.restaurant.name])
+        return ' '.join([self.first_name])
+
+    class Meta:
+        verbose_name = 'Employee'
+        verbose_name_plural = 'Employees'
+
 #Waiter (konobar)
 class Waiter(Employee):
     """

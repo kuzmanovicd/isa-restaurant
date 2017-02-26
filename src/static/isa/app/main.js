@@ -11,7 +11,7 @@ app.config(function ($routeProvider) {
         })
         .when('/login', {
             controller: 'BasicUserController',
-            templateUrl: static_file + 'partials/login.html',
+            templateUrl: static_file + 'partials/student1/login.html',
             controllerAs: 'vm'
         })
         .when('/register', {
@@ -22,6 +22,11 @@ app.config(function ($routeProvider) {
         .when('/restaurants', {
             controller: 'RestaurantController',
             templateUrl: static_file + 'partials/student2_restoran/profil_restorana.html',
+            controllerAs: 'vm'
+        })
+        .when('/restaurants/all', {
+            controller: 'AllRestaurantsController',
+            templateUrl: static_file + 'partials/student1/restaurants.html',
             controllerAs: 'vm'
         })
         .when('/provider/add', {
@@ -140,8 +145,9 @@ function run($rootScope, $location, $cookieStore, $cookies, $http, Authenticatio
     });
 
     $http.defaults.headers.post['X-CSRFToken'] = $cookies['csrftoken'];
-    $http.defaults.headers.common['Authorization'] = "JWT " + $cookies.get("token");
-    console.log($http.defaults.headers.common['Authorization']);
+    if($cookies.get("token")) {
+        $http.defaults.headers.common['Authorization'] = "JWT " + $cookies.get("token");
+    }
     
     var d = { "token": $cookies.get("token")};
 

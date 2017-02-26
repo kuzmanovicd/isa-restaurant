@@ -39,6 +39,8 @@ class GuestCreate(generics.CreateAPIView):
         serializer.save()
         location = '/api/users/activate/'
         g = models.Guest.objects.get(username=serializer.validated_data['username'])
+        g.is_active = False
+        g.save()
         location += g.activation_code
         full_path = self.request.build_absolute_uri(location)
 
