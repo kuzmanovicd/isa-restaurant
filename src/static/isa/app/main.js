@@ -15,8 +15,8 @@ app.config(function ($routeProvider) {
             controllerAs: 'vm'
         })
         .when('/register', {
-            controller: 'registerController',
-            templateUrl: static_file + 'partials/register.html',
+            controller: 'BasicUserController',
+            templateUrl: static_file + 'partials/student1/register.html',
             controllerAs: 'vm'
         })
         .when('/restaurants', {
