@@ -38,15 +38,15 @@ app.controller('RadnikController', function ($scope, RadnikService) {
 
     $scope.create = function() {
         if($scope.employee.type == 'WA') {
-            RadnikService.create('provider', $scope.employee);
+            RadnikService.create('waiter', $scope.employee);
         }
 
         if($scope.employee.type == 'BA') {
-            RadnikService.create('provider', $scope.employee);
+            RadnikService.create('bartender', $scope.employee);
         }
 
         if($scope.employee.type == 'CO') {
-            RadnikService.create('provider', $scope.employee);
+            RadnikService.create('cook', $scope.employee);
         }
         
     };

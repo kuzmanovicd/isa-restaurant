@@ -54,7 +54,7 @@ class CSRFSerializer(serializers.Serializer):
 class WaiterSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Waiter
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type', 'region']
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type', 'region', 'date_of_birth', 'clothes_size', 'shoe_size']
         read_only_fields = ('id', 'user_type')
 
         extra_kwargs = {
@@ -64,7 +64,7 @@ class WaiterSerializer(serializers.ModelSerializer):
 class CookSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Cook
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type']
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type', 'date_of_birth', 'clothes_size', 'shoe_size']
         read_only_fields = ('id', 'user_type')
 
         extra_kwargs = {
@@ -74,7 +74,7 @@ class CookSerializer(serializers.ModelSerializer):
 class BartenderSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Bartender
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type']
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type', 'date_of_birth', 'clothes_size', 'shoe_size']
         read_only_fields = ('id', 'user_type')
 
         extra_kwargs = {
