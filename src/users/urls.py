@@ -22,6 +22,22 @@ urlpatterns = [
 
     #url(r'^(?P<pk>[0-9]+)/?$', UserDetailRetrieve.as_view(), name='rud_user'),
 
+    #za waiter-a
+    url(r'^waiter/all/?$', WaiterList.as_view(), name='waiter_list'),
+    url(r'^waiter/(?P<pk>[0-9]+)/?$', WaiterDetail.as_view(), name='rud_waiter_detail'),
+    url(r'^waiter/create/?$', WaiterCreate.as_view(), name='waiter_create'),
+
+    #za cook-a
+    url(r'^cook/all/?$', CookList.as_view(), name='cook_list'),
+    url(r'^cook/(?P<pk>[0-9]+)/?$', CookDetail.as_view(), name='rud_cook_detail'),
+    url(r'^cook/create/?$', CookCreate.as_view(), name='cook_create'),
+
+    #za bartender-a
+    url(r'^bartender/all/?$', BartenderList.as_view(), name='bartender_list'),
+    url(r'^bartender/(?P<pk>[0-9]+)/?$', BartenderDetail.as_view(), name='rud_bartender_detail'),
+    url(r'^bartender/create/?$', BartenderList.as_view(), name='bartender_detail'),
+
+
     # za Provider-a     Dodao: Spiric
     url(r'^provider/all/?$', ProviderList.as_view(), name='provider_list'),
     url(r'^provider/(?P<pk>[0-9]+)/?$', ProviderDetail.as_view(), name='rud_provider'),

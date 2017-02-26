@@ -86,6 +86,45 @@ class GuestViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.GuestSerializer
 
 
+#za Waiter-a 
+class WaiterList(generics.ListAPIView):
+    queryset = models.Waiter.objects.all()
+    serializer_class = serializers.WaiterSerializer
+
+class WaiterDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Waiter.objects.all()
+    serializer_class = serializers.WaiterSerializer
+
+class WaiterCreate(generics.CreateAPIView):
+    queryset = models.Waiter.objects.all()
+    serializer_class = serializers.WaiterSerializer
+
+#za Cook-a
+class CookList(generics.ListAPIView):
+    queryset = models.Cook.objects.all()
+    serializer_class = serializers.WaiterSerializer
+
+class CookDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Cook.objects.all()
+    serializer_class = serializers.CookSerializer
+
+class CookCreate(generics.CreateAPIView):
+    queryset = models.Cook.objects.all()
+    serializer_class = serializers.CookSerializer
+
+#za Bartender-a 
+class BartenderList(generics.ListAPIView):
+    queryset = models.Bartender.objects.all()
+    serializer_class = serializers.BartenderSerializer
+
+class BartenderDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Bartender.objects.all()
+    serializer_class = serializers.BartenderSerializer
+
+class BartenderCreate(generics.CreateAPIView):
+    queryset = models.Bartender.objects.all()
+    serializer_class = serializers.BartenderSerializer
+
 #za Provider-a   Dodao:Spiric
 class ProviderList(generics.ListAPIView):
     queryset = models.Provider.objects.all()

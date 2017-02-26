@@ -50,6 +50,38 @@ class ActivationSerializer(serializers.ModelSerializer):
 class CSRFSerializer(serializers.Serializer):
     status = serializers.CharField()
 
+#za Waiter-a 
+class WaiterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Waiter
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type', 'region']
+        read_only_fields = ('id', 'user_type')
+
+        extra_kwargs = {
+            'password' : {'write_only' : True}
+        }
+#za Cook-a
+class CookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Cook
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type']
+        read_only_fields = ('id', 'user_type')
+
+        extra_kwargs = {
+            'password' : {'write_only' : True}
+        }
+#za Bartender-a
+class BartenderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Bartender
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type']
+        read_only_fields = ('id', 'user_type')
+
+        extra_kwargs = {
+            'password' : {'write_only' : True}
+        }
+
+
 
 #za Probider-a  Dodao: Spiric
 class ProviderSerializer(serializers.ModelSerializer):

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -24,6 +25,18 @@ class Menu(models.Model):
      restaurant = models.OneToOneField(Restaurant, on_delete=models.CASCADE)
 
 
+
+#model: Order (narudzbina)
+class Order(models.Model):   
+    date_and_time = models.DateTimeField(default=timezone.now())
+    
+#model: Bill (racun)
+class Bill(models.Model):
+    order_to_pay = models.OneToOneField(Order, on_delete=models.CASCADE)
+
+
+
+
 # Model: MenuItem (Stavka Menu-a)
 # Polja: naziv, opis, cena, kolicina tip
 # Sadrzi: veza ka menu (jedna menu ima vise tipova)
@@ -35,6 +48,9 @@ class MenuItem(models.Model):
     quantity_item = models.IntegerField(null=False)
     type_item = models.BooleanField(default=True, null=False)
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    
+    #jedna stavka iz menija moze se nalaziti na vise narudzbina (valjda ovako ide)
+    #order = models.ForeignKey(Order, on_delete=None)
 
     def __str__(self):
         return self.name_item
@@ -64,3 +80,4 @@ class Table(models.Model):
     column = models.IntegerField()
     is_free = models.BooleanField(default=True)
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
+
