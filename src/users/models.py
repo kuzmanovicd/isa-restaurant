@@ -17,6 +17,9 @@ USER_TYPE = (
 
 class BasicUser(User):
     user_type = models.CharField(max_length=2, choices=USER_TYPE, null=False)
+    class Meta:
+        verbose_name = 'Basic User'
+        verbose_name_plural = 'Basic Users'
 
 class Guest(BasicUser):
     """
