@@ -10,7 +10,7 @@ app.config(function ($routeProvider) {
             template: '<h1>Homepage</h1>'
         })
         .when('/login', {
-            controller: 'loginController',
+            controller: 'BasicUserController',
             templateUrl: static_file + 'partials/login.html',
             controllerAs: 'vm'
         })
