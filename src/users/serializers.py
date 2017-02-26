@@ -57,7 +57,6 @@ class ProviderSerializer(serializers.ModelSerializer):
 
 
 
-
 # za RestaurantManager-a     Dodao: Spiric
 class RestaurantManagerSerializer(serializers.ModelSerializer):
     class Meta:
