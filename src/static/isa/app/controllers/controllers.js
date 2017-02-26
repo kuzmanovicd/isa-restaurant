@@ -22,6 +22,7 @@ app.controller('RestaurantController', function ($scope, $location, RestaurantSe
 });
 
 
+//kontroler za radnika
 app.controller('RadnikController', function ($scope, RadnikService) {
     //WA - Waiter
     //BA - Bartender
