@@ -82,7 +82,6 @@ class Waiter(Employee):
         verbose_name_plural = 'Waiters'
 
 
-
 # Model: Provider (dobavljac)
 # Polja: naziv, ostalo iz usera
 # Sadrzi: --

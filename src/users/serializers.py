@@ -27,8 +27,8 @@ class GuestSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = models.Guest
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'is_activated', 'city', 'user_type' ]
-        read_only_fields = ('id', 'user_type')
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'is_activated', 'city', 'user_type', ]
+        read_only_fields = ('id', 'user_type', )
 
         # zbog nekog glupog razloga, write-only polja moraju ovako
         extra_kwargs = {
