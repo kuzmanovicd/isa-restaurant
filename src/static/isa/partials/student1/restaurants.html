@@ -19,7 +19,7 @@
                     </ul>
                 </div>
                 <input type="hidden" name="search_param" value="all" id="search_param">
-                <input type="text" class="form-control" name="x" placeholder="Search term..." ng-model="searchQuery.naziv">
+                <input type="text" class="form-control" name="x" placeholder="Search term..." ng-model="searchQuery.name">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
                 </span>
@@ -30,7 +30,7 @@
                 <div class="thumbnail col-md-12">
                     <div class="ke-store col-md-12">
                         <div class="col-md-12">
-                            <span class="ke-title"><a href="">{{r.name}}</a></span>
+                            <span class="ke-title"><a href="#/restaurants">{{r.name}}</a></span>
                             <span class="ke-address">{{r.description_restaurant}}, {{s.drzava}}</span>
                             <div class="ke-info">
                                 <span class="label label-default ke-data-label"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> {{r.phone_restaurant}}</span>
