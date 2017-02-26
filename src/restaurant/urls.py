@@ -23,4 +23,10 @@ urlpatterns = [
     url(r'^region/(?P<pk>[0-9]+)/?$', RegionDetail.as_view(), name='rud_region'),
     url(r'^region/create/?$', RegionCreate.as_view(), name='region_create'),
 
+    # za Table
+    # Dodao: Spiric
+    url(r'^table/all/?$', TableList.as_view(), name='table_list'),
+    url(r'^table/(?P<pk>[0-9]+)/?$', TableDetail.as_view(), name='rud_table'),
+    url(r'^table/create/?$', TableCreate.as_view(), name='table_create'),
+
 ]

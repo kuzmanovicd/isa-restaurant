@@ -31,3 +31,13 @@ class RegionSerializer(serializers.ModelSerializer):
         model = Region
         fields = ['id', 'is_frontSide', 'is_forSmoke', 'is_open', 'restaurant']
         read_only_fields = ('id',)
+
+
+# za Table
+# Dodao: Spiric
+class TableSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Table
+        fields = ['id', 'row', 'column', 'is_free', 'region']
+        read_only_fields = ('id',)
+
