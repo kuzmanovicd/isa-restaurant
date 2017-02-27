@@ -54,13 +54,13 @@ class GuestCreate(generics.CreateAPIView):
 
 class FrienshipCreate(APIView):
     def post(self, request, *args, **kwargs):
-        #print(request.user.pk)
-        if request.user.user_type == 'GU':
+        guest = models.Guest.objects.filter(pk=request.user.id)[0]
+        if guest.user_type == 'GU' and guest.id == request.data['user_b']:
             data = request.data
-            data.user_a = request.user.pk
+            data['user_a'] = guest.id
             serializer = serializers.FriendshipSerializer(data=request.data)
             if serializer.is_valid():
-                #serializer.save()
+                serializer.save()
                 return Response(serializer.data, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_401_UNAUTHORIZED)
 

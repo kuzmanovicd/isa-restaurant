@@ -40,7 +40,7 @@ class FriendshipSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Friendship
         fields = ['id', 'user_a', 'user_b', 'accepted']
-        read_only_fields = ('id', 'user_a', 'accepted')
+        read_only_fields = ('id', 'accepted')
 
 class ActivationSerializer(serializers.ModelSerializer):
     class Meta:

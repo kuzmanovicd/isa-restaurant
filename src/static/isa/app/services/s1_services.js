@@ -11,6 +11,7 @@ function BasicUserService($http) {
     service.createGuest = createGuest;
     service.getGuest = getGuest;
     service.updateGuest = updateGuest;
+    service.addFriend = addFriend;
     service.createRestaurantManager = createRestaurantManager;
     service.getRestaurantManager = getRestaurantManager;
     service.getAllGuests = getAllGuests;
@@ -32,6 +33,10 @@ function BasicUserService($http) {
 
     function getAllGuests() {
         return $http.get('api/users/guests/all/');
+    }
+
+    function addFriend(data) {
+        return $http.post('api/users/friend/add/', angular.toJson(data));
     }
 
     

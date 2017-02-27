@@ -1,4 +1,9 @@
-<table ng-if="currentUser.user_type == 'GU'" class="table table-striped table-hover" ng-controller="UserController">
+<table ng-init="getAllGuests()" ng-if="currentUser.user_type == 'GU'" class="table table-striped table-hover">
+    <div ng-if="status.ok" class="alert alert-info alert-dismissable">
+          <a class="panel-close close" data-dismiss="alert">×</a> 
+          <i class="fa fa-coffee"></i>
+          Uspesno ste dodali prijatelja.
+    </div>
     <thead>
         <th>Korisnicko ime</th>
         <th>Ime</th>
@@ -8,13 +13,17 @@
         <th>Drzava</th>
     </thead>
     <tbody>
-        <tr ng-repeat="user in users">
-            <td>{{user.username}}</td>
-            <td>{{user.first_name}}</td>
-            <td>{{user.last_name}}</td>
-            <td>{{user.email}}</td>
-            <td>{{user.city}}</td>
-            <td>{{user.drzava}}</td>
+        <tr ng-repeat="u in guests" ng-if="u.id != currentUser.id">
+            <td>{{u.username}}</td>
+            <td>{{u.first_name}}</td>
+            <td>{{u.last_name}}</td>
+            <td>{{u.email}}</td>
+            <td>{{u.city}}</td>
+            <td>
+                <button type="button" class="btn btn-default btn-xs" ng-click="addFriend(u.id)">
+                    <span class="glyphicon glyphicon-add"></span> Dodaj u prijatelje
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>

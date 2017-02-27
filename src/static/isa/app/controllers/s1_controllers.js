@@ -56,12 +56,10 @@ app.controller('GuestController', function ($scope, $rootScope, $route, BasicUse
     $scope.status = {};
 
     $scope.loadUser = function () {
-            BasicUserService.getGuest($rootScope.currentUser.id).success(function (data) {
+        BasicUserService.getGuest($rootScope.currentUser.id).success(function (data) {
             $scope.user = data;
         });
     }
-
-    $scope.loadUser();
 
     $scope.update = function() {
         BasicUserService.updateGuest($scope.user.id, $scope.user).success(function(data) {
@@ -78,5 +76,25 @@ app.controller('GuestController', function ($scope, $rootScope, $route, BasicUse
     $scope.reload = function() {
         $route.reload();
     };
+
+    $scope.getAllGuests = function () {
+        console.log('pozvan getAllGuests');
+        BasicUserService.getAllGuests().success(function(data){
+            $scope.guests = data;
+        });
+    };
+
+    $scope.addFriend = function (id) {
+        var data = {
+            "user_b": id
+        }
+        BasicUserService.addFriend(data).success( function(data) {
+            $scope.status.ok = true;
+            $scope.status.fail = false;
+        });
+    };
+
+    //$scope.loadUser();
+
 });
 
