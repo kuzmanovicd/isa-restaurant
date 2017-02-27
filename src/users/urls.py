@@ -10,15 +10,16 @@ router.register(r'guest_test', GuestViewSet)
 
 urlpatterns = [
     #url(r'^', include(router.urls)),
-    url(r'^all/?$', UserList.as_view(), name='user_list'),
-    url(r'^(?P<pk>[0-9]+)/?$', UserDetailRetrieve.as_view(), name='rud_user'),
-    url(r'^guests/all/?$', GuestList.as_view(), name='guest_list'),
-    url(r'^guests/(?P<pk>[0-9]+)/?$', GuestDetail.as_view(), name='rud_guest'),
-    url(r'^guests/create/?$', GuestCreate.as_view(), name='guest_create'),
-    url(r'^activate/(?P<code>[a-z0-9]{32})/?$', ActivateGuestView.as_view(), name='guest_activate'),
-    url(r'^csrf/?$', CSRFView.as_view(), name='csrf_token'),
+    url(r'^all/?$', UserList.as_view(), name='user-list'),
+    url(r'^(?P<pk>[0-9]+)/?$', UserDetailRetrieve.as_view(), name='rud-user'),
+    url(r'^guests/all/?$', GuestList.as_view(), name='guest-list'),
+    url(r'^guests/(?P<pk>[0-9]+)/?$', GuestDetail.as_view(), name='rud-guest'),
+    url(r'^guests/create/?$', GuestCreate.as_view(), name='guest-create'),
+    url(r'^activate/(?P<code>[a-z0-9]{32})/?$', ActivateGuestView.as_view(), name='guest-activate'),
+    url(r'^csrf/?$', CSRFView.as_view(), name='csrf-token'),
 
-    url(r'^friend/add/?$', FrienshipCreate.as_view(), name='friendship_create'),
+    url(r'^friends/add/?$', FriendshipCreate.as_view(), name='friendship_create'),
+    url(r'^friends/my/?$', MyFriendsView.as_view(), name='my-friends'),
 
     #url(r'^(?P<pk>[0-9]+)/?$', UserDetailRetrieve.as_view(), name='rud_user'),
 

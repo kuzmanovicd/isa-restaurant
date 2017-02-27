@@ -4,15 +4,15 @@ app.controller('BasicUserController', function ($scope, $location, BasicUserServ
 
 
     $scope.registerSubmit = function(user) {
-        
         if(user.password == $scope.password2) {
-            BasicUserService.createGuest(user).success(function(data){
+            BasicUserService.createGuest(user).success( function(data){
                 $scope.status = 'Uspesno';
+                $location.path('/');
             }).error(function(data){
                 $scope.status = 'Neuspesno';
             });
         } else {
-
+            console.log('GRESKA PRI REGISTER SUBMIT');
         }
     }
 
@@ -84,9 +84,16 @@ app.controller('GuestController', function ($scope, $rootScope, $route, BasicUse
         });
     };
 
+    $scope.getMyFriends = function () {
+        console.log('pozvan getMyFriends');
+        BasicUserService.getMyFriends().success(function(data){
+            $scope.friends = data;
+        });
+    };
+
     $scope.addFriend = function (id) {
         var data = {
-            "user_b": id
+            "to_user": id
         }
         BasicUserService.addFriend(data).success( function(data) {
             $scope.status.ok = true;
