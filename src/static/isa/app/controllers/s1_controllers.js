@@ -53,12 +53,30 @@ app.controller('MyRestaurantController', function ($scope, $rootScope, BasicUser
 });
 
 app.controller('GuestController', function ($scope, $rootScope, $route, BasicUserService) {
-    BasicUserService.getGuest($rootScope.currentUser.id).success(function (data) {
-        $scope.user = data;
-    });
+    $scope.status = {};
+
+    $scope.loadUser = function () {
+            BasicUserService.getGuest($rootScope.currentUser.id).success(function (data) {
+            $scope.user = data;
+        });
+    }
+
+    $scope.loadUser();
+
+    $scope.update = function() {
+        BasicUserService.updateGuest($scope.user.id, $scope.user).success(function(data) {
+            $scope.user = data;
+            $scope.status.ok = true;
+            $scope.status.fail = false;
+        }).error(function(data){
+            $scope.status.fail = true;
+            $scope.status.ok = false;
+            $scope.loadUser();
+        });
+    };
 
     $scope.reload = function() {
         $route.reload();
-    }
+    };
 });
 

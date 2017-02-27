@@ -26,8 +26,8 @@ function BasicUserService($http) {
         return $http.get('api/users/guests/' + id);
     }
 
-    function updateGuest() {
-        return;
+    function updateGuest(id, data) {
+        return $http.patch('api/users/guests/' + id + '/', angular.toJson(data));
     }
 
     function getAllGuests() {
