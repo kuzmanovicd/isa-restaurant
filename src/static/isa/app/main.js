@@ -24,6 +24,11 @@ app.config(function ($routeProvider) {
             templateUrl: static_file + 'partials/student2_restoran/profil_restorana.html',
             controllerAs: 'vm'
         })
+        .when('/restaurant', {
+            controller: 'MyRestaurantController',
+            templateUrl: static_file + 'partials/student2_restoran/profil_restorana.html',
+            controllerAs: 'vm'
+        })
         .when('/restaurants', {
             controller: 'AllRestaurantsController',
             templateUrl: static_file + 'partials/student1/restaurants.html',
@@ -138,9 +143,9 @@ app.config(function ($routeProvider) {
 
 });
 
-function run($rootScope, $location, $cookieStore, $cookies, $http, AuthenticationService, ShoppingCartService) {
+function run($rootScope, $location, $cookieStore, $cookies, $http, AuthService, ShoppingCartService) {
 
-    AuthenticationService.Csrf(function(data) {
+    AuthService.Csrf(function(data) {
         
     });
 
@@ -151,10 +156,10 @@ function run($rootScope, $location, $cookieStore, $cookies, $http, Authenticatio
     
     var d = { "token": $cookies.get("token")};
 
-    AuthenticationService.Auth(d, function (data) {
+    AuthService.Auth(d, function (data) {
         if (data.user.username) {
             console.log("Auth in run: " + data);
-            AuthenticationService.SetCredentials(data);
+            AuthService.SetCredentials(data);
             ShoppingCartService.getCartCount().success(function (data) {
                 if (data) {
                     $rootScope.cartCount = data;
@@ -163,7 +168,7 @@ function run($rootScope, $location, $cookieStore, $cookies, $http, Authenticatio
 
             console.log('auth set credentials ' + $rootScope.currentUser)
         } else {
-            AuthenticationService.ClearCredentials();
+            AuthService.ClearCredentials();
         }
         changeLocation();
     });

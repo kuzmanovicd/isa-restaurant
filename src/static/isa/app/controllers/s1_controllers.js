@@ -39,6 +39,15 @@ app.controller('AllRestaurantsController', function ($scope, $location, Restaura
     RestaurantService.getAll().success(function (data) {
         $scope.restaurants = data;
     });
-    
+
 });
 
+app.controller('MyRestaurantController', function ($scope, $rootScope, BasicUserService, RestaurantService) {
+    if($rootScope.currentUser.user_type == 'RM') {
+        BasicUserService.getRestaurantManager($rootScope.currentUser.id).success(function (data) {
+            RestaurantService.get(data.working_in).success(function(data) {
+                $scope.restaurant = data;
+            });
+        });
+    }
+});

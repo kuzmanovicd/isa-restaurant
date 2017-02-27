@@ -34,7 +34,7 @@ function BasicUserService($http) {
     }
 
     function getRestaurantManager(id) {
-        return $http.post('api/users/restaurant_manager/' + id);
+        return $http.get('api/users/restaurant_manager/' + id);
     }
 
     function getAllRestaurantManagers() {

@@ -31,7 +31,7 @@
             <div id="navbar" class="collapse navbar-collapse">
                 <ul ng-if="currentUser" class="nav navbar-nav">
                     <li><a ng-if="currentUser.user_type == 'GU'" href="#/restaurants">Restorani</a></li>
-                    <li><a ng-if="currentUser.user_type == 'RM'" href="#/restaurant/1">Moj restoran</a></li>
+                    <li><a ng-if="currentUser.user_type == 'RM'" href="#/restaurant">Moj restoran</a></li>
                     <!-- ng-if znaci da ce prikazati taj html element ako je ispunjen uslov unutra -->
                     <li><a ng-if="currentUser.user_type == 'RM'" href="#/prodavnice">Dodaj provider</a></li>
                     
