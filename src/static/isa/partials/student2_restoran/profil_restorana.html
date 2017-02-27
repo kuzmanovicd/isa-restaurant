@@ -1,37 +1,27 @@
 <div class="container-fluid ke-container">
     <div class="col-md-12">
-        <button type="button" class="btn btn-danger btn-xs pull-right" ng-click="remove(pr.selectedProduct)">
-            <span class="glyphicon glyphicon-remove"></span> Obrisi
-        </button>
+        <div ng-if="currentUser.id == restaurant.owner.id">
+            <button type="button" class="btn btn-success btn-xs" ng-click="addProvider()">
+                <span class="glyphicon glyphicon-plus"></span> Dodaj Providera
+            </button>
+            <button type="button" class="btn btn-default btn-xs" ng-click="addRadnik()">
+                <span class="glyphicon glyphicon-plus"></span> Dodaj Radnika
+            </button>
+            <button type="button" class="btn btn-success btn-xs" ng-click="">
+                <span class="glyphicon glyphicon-plus"></span> Raspored
+            </button>
+        </div>
         <div class="ke-title"> {{restaurant.name}} 
             <span class="label label-warning ke-data-label"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{restaurant.address_restaurant}}</span>
-            <span ng-if="pr.selectedProduct.akcija" class="label label-danger pull-right">AKCIJA -{{pr.selectedProduct.akcija}}%</span></div>
-        <div class="ke-address">{{pr.selectedProduct.prodavnica}}</div>
+        <div class="ke-address">{{restaurant.descr}}</div>
         <hr>
-        <div class="ke-address">Dimenzije: <strong>{{pr.selectedProduct.sirina}}x{{pr.selectedProduct.duzina}}x{{pr.selectedProduct.visina}}</strong></div>
-        <div class="ke-address">Tezina: <strong>{{pr.selectedProduct.tezina}}g</strong></div>
-        <div class="ke-address">Zemlja proizvodnje: <strong>{{pr.selectedProduct.zemljaProizvodnje}}</strong></div>
-        <div class="ke-address">Proizvodjac: <strong>{{pr.selectedProduct.nazivProizvodjaca}}</strong></div>
-        <div><a href="#/employee/add">dodaj radnika</a></div>
-        <div>
-            <h3>
-                <div ng-if="!pr.selectedProduct.akcija">
-                            <label  class="ke-price">{{pr.selectedProduct.jedinicnaCena | currency : "€"}}</label>
-                        </div>
-                        <div ng-if="pr.selectedProduct.akcija">
-                            <label class="ke-price ke-price-new">{{pr.selectedProduct.jedinicnaCena * (1 - pr.selectedProduct.akcija/100) | currency : "€"}}</label>
-                            <label class="ke-price ke-price-old"><sup>{{pr.selectedProduct.jedinicnaCena | currency : "€"}}</sup></label>
-                        </div>
-            </h3>
-        </div>
+        <div class="ke-address">Vlasnik: <strong>{{restaurant.owner.first_name}} {{restaurant.owner.last_name}}</strong></div>
+        <div class="ke-address">Telefon: <strong>{{restaurant.phone_restaurant}}</strong></div>
         <hr>
         <div>
-            <!-- button za dodavanje providera -->
+            <!-- button za dodavanje providera 
             <a class="btn btn-success btn-lg" ng-click="addProvider()">Dodaj Providera</a>
-            <!-- button za dodavanje radnika -->
-            <a class="btn btn-success btn-lg" ng-click="addRadnik()">Dodaj Radnika</a>
-            
-            <a class="btn btn-default btn-lg pull-right" ng-click="addToWishList(product.sifra)"><span class="glyphicon glyphicon-heart-empty"></span> Dodaj u listu zelja</a>
+            -->
         </div>
         <hr>
         <div class="panel panel-default">
@@ -46,10 +36,11 @@
             </div>
         </div>
 
+        <!-- OVO ISPOD CE DA BUDE ZA OCENE -->
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
-						Recenzije
+						Ocene
                     </h3>
             </div>
             <div class="panel-body">
@@ -101,28 +92,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- proba neka za Table -->
-        <div>
-            <table border="2">
-                 <tr ng-repeat="row in table">
-                    <td ng-repeat="column in row">
-                        {{column}}
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        
-
-    </div>
-    <div class="col-md-12">
-        <div class="col-md-5">
-
-        </div>
-        <div class="col-md-7">
-
         </div>
     </div>
 </div>

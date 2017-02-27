@@ -38,13 +38,7 @@ app.controller('AllRestaurantsController', function ($scope, $location, Restaura
     
     RestaurantService.getAll().success(function (data) {
         $scope.restaurants = data;
-        BasicUserService.getAllRestaurantManagers().success(function (data) {
-            $scope.managers = data;
-        });
     });
-
     
-
-
 });
 

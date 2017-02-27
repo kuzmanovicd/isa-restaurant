@@ -11,8 +11,8 @@ import users
 class Restaurant(models.Model):
     name = models.CharField(max_length=100, null=False)
     description_restaurant = models.CharField(max_length=100)
-    address_restaurant = models.CharField(max_length=50, default="adresa")
-    phone_restaurant = models.CharField(max_length=50, default="broj_tel")
+    address_restaurant = models.CharField(max_length=50)
+    phone_restaurant = models.CharField(max_length=50)
     owner = models.OneToOneField(users.models.RestaurantManager, on_delete=models.CASCADE, related_name="working_in")
 
     def __str__(self):

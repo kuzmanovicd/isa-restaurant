@@ -101,6 +101,10 @@ class WaiterCreate(generics.CreateAPIView):
     queryset = models.Waiter.objects.all()
     serializer_class = serializers.WaiterSerializer
 
+    def perform_create(self, serializer):
+        serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
+        serializer.save()
+
 #za Cook-a
 class CookList(generics.ListAPIView):
     queryset = models.Cook.objects.all()
@@ -114,6 +118,10 @@ class CookCreate(generics.CreateAPIView):
     queryset = models.Cook.objects.all()
     serializer_class = serializers.CookSerializer
 
+    def perform_create(self, serializer):
+        serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
+        serializer.save()
+
 #za Bartender-a 
 class BartenderList(generics.ListAPIView):
     queryset = models.Bartender.objects.all()
@@ -126,6 +134,10 @@ class BartenderDetail(generics.RetrieveUpdateDestroyAPIView):
 class BartenderCreate(generics.CreateAPIView):
     queryset = models.Bartender.objects.all()
     serializer_class = serializers.BartenderSerializer
+
+    def perform_create(self, serializer):
+        serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
+        serializer.save()
 
 #za Provider-a   Dodao:Spiric
 class ProviderList(generics.ListAPIView):
@@ -142,6 +154,10 @@ class ProviderCreate(generics.CreateAPIView):
     queryset = models.Provider.objects.all()
     serializer_class = serializers.ProviderSerializer
 
+    def perform_create(self, serializer):
+        serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
+        serializer.save()
+
 
 # za RestaurantManager-a    Dodao: Spiric
 class RestaurantManagerList(generics.ListAPIView):
@@ -157,3 +173,7 @@ class RestaurantManagerDetail(generics.RetrieveUpdateDestroyAPIView):
 class RestaurantManagerCreate(generics.CreateAPIView):
     queryset = models.RestaurantManager.objects.all()
     serializer_class = serializers.RestaurantManagerSerializer
+
+    def perform_create(self, serializer):
+        serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
+        serializer.save()
