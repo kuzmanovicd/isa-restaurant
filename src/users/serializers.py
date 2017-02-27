@@ -102,7 +102,7 @@ class RestaurantManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.RestaurantManager
         fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'user_type', 'working_in', ]
-        read_only_fields = ('id', 'user_type')
+        read_only_fields = ('id', 'user_type', 'working_in')
 
         extra_kwargs = {
             'password' : {'write_only' : True}
