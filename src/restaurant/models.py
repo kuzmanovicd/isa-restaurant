@@ -81,5 +81,5 @@ class Table(models.Model):
     row = models.IntegerField(null=False)
     column = models.IntegerField()
     is_free = models.BooleanField(default=True)
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name='tables')
 

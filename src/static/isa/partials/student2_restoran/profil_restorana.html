@@ -36,13 +36,26 @@
             </div>
         </div>
 
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+						Raspored stolova:
+                </h3>
+            </div>    
+            <table ng-init="getTables()" ng-controller="TableController">
+	                <tr ng-repeat="table in tables">
+		                <td>{{table.id}} - {{table.row}} - {{table.column}}</td>
+		            </tr>
+                </table>       
         <!-- OVO ISPOD CE DA BUDE ZA OCENE -->
+        <!--
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
 						Ocene
                     </h3>
             </div>
+            -->
             <div class="panel-body">
                 <div ng-repeat="recenzija in recenzije | orderBy: '-ocena'">
                     <div class="testimonials">

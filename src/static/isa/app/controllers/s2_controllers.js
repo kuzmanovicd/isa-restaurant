@@ -62,6 +62,18 @@ app.controller('ProviderController', function ($scope, $location, ProviderServic
 });
 
 
+//kontroler za stolove
+app.controller('TableController', function($scope, TableService){
+    
+    $scope.getTables = function() {
+        TableService.getAll().success(function(data) {
+            $scope.tables = data;
+        });
+    }
 
+    $scope.myObj = {
+       
+    }
+})
 
 

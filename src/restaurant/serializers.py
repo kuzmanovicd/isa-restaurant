@@ -47,7 +47,7 @@ class MenuItemSerializer(serializers.ModelSerializer):
 class RegionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Region
-        fields = ['id', 'is_frontSide', 'is_forSmoke', 'is_open', 'restaurant']
+        fields = ['id', 'is_frontSide', 'is_forSmoke', 'is_open', 'restaurant', 'tables',]
         read_only_fields = ('id',)
 
 
