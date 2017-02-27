@@ -10,6 +10,7 @@ function BasicUserService($http) {
 
     service.createGuest = createGuest;
     service.getGuest = getGuest;
+    service.updateGuest = updateGuest;
     service.createRestaurantManager = createRestaurantManager;
     service.getRestaurantManager = getRestaurantManager;
     service.getAllGuests = getAllGuests;
@@ -25,9 +26,15 @@ function BasicUserService($http) {
         return $http.get('api/users/guests/' + id);
     }
 
+    function updateGuest() {
+        return;
+    }
+
     function getAllGuests() {
         return $http.get('api/users/guests/all/');
     }
+
+    
 
     function createRestaurantManager(data) {
         return $http.post('api/users/restaurant_manager/create/', angular.toJson(data));

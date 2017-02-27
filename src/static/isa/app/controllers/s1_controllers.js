@@ -52,9 +52,13 @@ app.controller('MyRestaurantController', function ($scope, $rootScope, BasicUser
     }
 });
 
-app.controller('GuestController', function ($scope, $rootScope, BasicUserService) {
+app.controller('GuestController', function ($scope, $rootScope, $route, BasicUserService) {
     BasicUserService.getGuest($rootScope.currentUser.id).success(function (data) {
         $scope.user = data;
     });
+
+    $scope.reload = function() {
+        $route.reload();
+    }
 });
 
