@@ -10,6 +10,22 @@ class RestaurantSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description_restaurant', 'address_restaurant', 'phone_restaurant', 'owner' ]
         read_only_fields = ('id', )
 
+#za order
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['id', 'date_created']
+        read_only_fields = ('id',)
+
+#za bill 
+class BillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bill
+        fields = ['id', 'order_to_pay']
+        read_only_fields = ('id',)
+
+
+
 #za  Menu     Dodao: Spiric
 class MenuSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,7 +38,7 @@ class MenuSerializer(serializers.ModelSerializer):
 class MenuItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuItem
-        fields = ['id', 'name_item', 'description_item', 'price_item', 'quantity_item', 'type_item', 'menu']
+        fields = ['id', 'name_item', 'description_item', 'price_item', 'quantity_item', 'type_item', 'menu', 'order']
         read_only_fields = ('id',)
 
 

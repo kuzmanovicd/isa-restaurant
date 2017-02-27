@@ -20,6 +20,35 @@ class RestaurantCreate(generics.CreateAPIView):
     queryset = models.Restaurant.objects.all()
     serializer_class = serializers.RestaurantSerializer
 
+#za order
+class OrderList(generics.ListAPIView):
+    queryset = models.Order.objects.all()
+    serializer_class = serializers.OrderSerializer
+
+class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Order.objects.all()
+    serializer_class = serializers.OrderSerializer
+
+class OrderCreate(generics.CreateAPIView):
+    queryset = models.Order.objects.all()
+    serializer_class = serializers.OrderSerializer
+
+#za bill
+class BillList(generics.ListAPIView):
+    queryset = models.Bill.objects.all()
+    serializer_class = serializers.BillSerializer
+
+class BillDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Bill.objects.all()
+    serializer_class = serializers.BillSerializer
+
+class BillCreate(generics.CreateAPIView):
+    queryset = models.Bill.objects.all()
+    serializer_class = serializers.BillSerializer
+
+
+
+
 
 #za Menu   Dodao: Spiric
 class MenuList(generics.ListAPIView):

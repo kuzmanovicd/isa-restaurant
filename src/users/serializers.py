@@ -87,7 +87,7 @@ class BartenderSerializer(serializers.ModelSerializer):
 class ProviderSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Provider
-        fields = ['id', 'username', 'email', 'password', 'naziv', 'user_type']
+        fields = ['id', 'username', 'email', 'password', 'naziv', 'user_type', 'restaurant']
         read_only_fields = ('id', 'user_type')
 
         extra_kwargs = {
