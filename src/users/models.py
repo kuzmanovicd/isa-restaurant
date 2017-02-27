@@ -139,6 +139,7 @@ class Bartender(Employee):
 # Dodao: Spiric
 class Provider(BasicUser):
     naziv = models.CharField(max_length=50)
+    restaurant = models.ForeignKey('restaurant.Restaurant', on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         self.user_type = 'PR'

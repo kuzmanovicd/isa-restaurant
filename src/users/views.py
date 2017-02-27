@@ -157,6 +157,7 @@ class ProviderCreate(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
         serializer.save()
+        
 
 
 # za RestaurantManager-a    Dodao: Spiric
