@@ -29,4 +29,14 @@ urlpatterns = [
     url(r'^table/(?P<pk>[0-9]+)/?$', TableDetail.as_view(), name='rud_table'),
     url(r'^table/create/?$', TableCreate.as_view(), name='table_create'),
 
+    #za order 
+    url(r'^order/all/?$', OrderList.as_view(), name='order_list'),
+    url(r'^order/(?P<pk>[0-9]+)/?$', OrderDetail.as_view(), name='rud_order'),
+    url(r'^order/create/?$', OrderCreate.as_view(), name='order_create'),
+
+    #za bill 
+    url(r'^bill/all/?$', BillList.as_view(), name='bill_list'),
+    url(r'^bill/(?P<pk>[0-9]+)/?$', BillDetail.as_view(), name='rud_bill'),
+    url(r'^bill/create/?$', BillCreate.as_view(), name='bill_create'),
+
 ]
