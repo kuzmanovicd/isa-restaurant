@@ -58,7 +58,6 @@ class MenuItem(models.Model):
         return self.name_item
 
 
-
 # Model: Region   (regioni restorana)
 # Polja: front/back, somoke/nosmoke, open/closed
 # Sadrzi: veza ka restoranu  (jedan restoran ima vise regiona)
@@ -67,10 +66,9 @@ class Region(models.Model):
     is_frontSide = models.BooleanField(default=True)
     is_forSmoke = models.BooleanField(default=True)
     is_open = models.BooleanField(default=True)
-
+    row_count = models.IntegerField(default=1)
+    column_count = models.IntegerField(default=1)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-
-
 
 
 # Model: Table  (stolovi)
@@ -82,4 +80,9 @@ class Table(models.Model):
     column = models.IntegerField()
     is_free = models.BooleanField(default=True)
     region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name='tables')
+
+
+
+
+
 

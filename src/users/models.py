@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError, FieldError
 import hashlib
 import datetime
 from django.utils import timezone
@@ -56,23 +57,112 @@ class Guest(BasicUser):
         verbose_name = 'Guest'
         verbose_name_plural = 'Guests'
 
+"""
+class FriendshipRequest(models.Model):
+    from_user = models.ForeignKey(Guest, related_name='friendship_request_sent')
+    to_user = models.ForeignKey(Guest, related_name='friendship_request_received')
 
-class Friendship(models.Model):
-    created = models.DateTimeField(auto_now_add=True, editable=False)
-    user_a = models.ForeignKey(User, related_name="user_a")
-    user_b = models.ForeignKey(User, related_name="user_b")
-    accepted = models.NullBooleanField()
-
-    def accept(self):
-        self.accepted = True
-
-    def reject(self):
-        self.accepted = False
+    created = models.DateTimeField(default=timezone.now)
+    rejected = models.DateTimeField(blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Friendship'
-        verbose_name_plural = 'Friendships'
+        verbose_name = 'Friendship Request'
+        verbose_name_plural = 'Friendship Requests'
+        unique_together = ('from_user', 'to_user')
 
+    #def __str__(self):
+    #    return ' '.join([self.from_user, 'je poslao zahtev za prijateljstvo ka', self.to_user])
+
+    def accept(self):
+        relation1 = Friend.objects.create(from_user=self.from_user, to_user=self.to_user)
+        relation2 = Friend.objects.create(from_user=self.to_user, to_user=self.from_user)
+
+        self.delete()
+
+        FriendshipRequest.objects.filter(from_user=self.to_user, to_user=self.from_user).delete()
+
+        return True
+    
+    def reject(self):
+        self.rejected = timezone.now()
+        self.save()
+
+"""
+
+class FriendshipManager(models.Manager):
+
+    def friends(self, user):
+        qs = Friend.objects.select_related('from_user', 'to_user').filter(to_user=user).all()
+        friends = [u.from_user for u in qs]
+        return friends
+
+    def create_friendship(self, user1, user2):
+        relation1 = Friend.objects.create(from_user=user1, to_user=user2)
+        relation2 = Friend.objects.create(from_user=user2, to_user=user1)
+
+        return relation1
+
+    def are_friends(self, user1, user2):
+        q1 = Friend.objects.filter(to_user=user1, from_user=user2)
+        q2 = Friend.objects.filter(to_user=user2, from_user=user1)
+
+        if len(q1) or len(q2):
+            return True
+        else:
+            return False
+    """
+    def requests(self, user):
+        qs = FriendshipRequest.objects.select_related('from_user', 'to_user').filter(to_user=user).all()
+        requests = list(qs)
+        return requests
+
+    def sent_requests(self, user):
+        qs = FriendshipRequest.objects.select_related('from_user', 'to_user').filter(from_user=user).all()
+        requests = list(qs)
+        return requests
+    
+    def rejected_requests(self, user):
+        qs = FriendshipRequest.objects.select_related('from_user', 'to_user').filter(to_user=user, rejected__isnull=False).all()
+        rejected = list(qs)
+        return rejected
+
+    
+    def add_friend(self, from_user, to_user):
+        if from_user == to_user:
+            raise ValidationError("Gosti ne mogu biti prijatelji sa sobom.")
+        
+        if self.are_friends(from_user, to_user):
+            raise ValidationError("Vec su prijatelji.")
+
+        request, created = FriendshipRequest.objects.get_or_create(from_user=from_user, to_user=to_user)
+
+        if created is False:
+            raise ValidationError("Friendship vec postoji")
+
+        return request
+    """
+
+class Friend(models.Model):
+    to_user = models.ForeignKey(Guest, related_name='friends')
+    from_user = models.ForeignKey(Guest, related_name='_unused_friend_relation')
+    created = models.DateTimeField(default=timezone.now)
+
+    objects = FriendshipManager()
+
+    class Meta:
+        verbose_name = 'Friend'
+        verbose_name_plural = 'Friends'
+        unique_together = ('from_user', 'to_user')
+
+    #def __str__(self):  
+    #    return ' '.join([self.to_user.id, 'je prijatelj sa', self.from_user.id])
+
+    def save(self, *args, **kwargs):
+        if self.to_user == self.from_user:
+            raise ValidationError("Gost ne moze da doda sebe za prijatelja")
+        super(Friend, self).save(*args, **kwargs)
+
+    
 
 class Employee(BasicUser):
     """

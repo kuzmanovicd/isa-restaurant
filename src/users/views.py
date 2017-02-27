@@ -52,18 +52,70 @@ class GuestCreate(generics.CreateAPIView):
 
 ### Guest End
 
-class FrienshipCreate(APIView):
+class MyFriendsView(APIView):
+    def get(self, request, format=None):
+        g = get_guest_user(request)
+        #print(g.username)
+        friends = models.Friend.objects.friends(g)
+        serializer = serializers.FriendSerializer(friends, many=True)
+        return Response(serializer.data)
+
+        
+
+class FriendshipCreate(APIView):
     def post(self, request, *args, **kwargs):
-        guest = models.Guest.objects.filter(pk=request.user.id)[0]
-        if guest.user_type == 'GU' and guest.id == request.data['user_b']:
+        guest1 = get_guest_user(request)
+        guest2 = models.Guest.objects.get(pk=request.data['to_user'])
+        print('gosti:', guest1, guest2)
+        
+        friendship = models.Friend.objects.create_friendship(guest1, guest2)
+        serializer = serializers.FriendSerializer(data=friendship)
+
+        if serializer.is_valid():
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        
+        """
+        if guest.user_type == 'GU' and guest.id != request.data['to_user']:
             data = request.data
-            data['user_a'] = guest.id
+            data['from_user'] = guest.id
             serializer = serializers.FriendshipSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=HTTP_201_CREATED)
-        return Response(serializer.errors, status=HTTP_401_UNAUTHORIZED)
+            else:
+                return Response(serializer.errors, status=HTTP_401_UNAUTHORIZED)
+        
+        return Response(status=HTTP_400_BAD_REQUEST)
+        """
 
+    def patch(self, request, *args, **kwargs):
+        print('pogodjen')
+        return Response(status=HTTP_400_BAD_REQUEST)
+"""
+
+class FriendshipView(generics.ListAPIView):
+    #queryset = models.Friendship.objects.all()
+    serializer_class = serializers.FriendshipSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return models.Friendship.objects.filter(user_a=user.id)
+
+
+class MyFriendsView(generics.ListAPIView):
+    serializer_class = serializers.GuestSerializer
+
+    def get_queryset(self):
+        return models.Guest.objects.all()
+
+
+class FriendshipViewFilter(generics.ListAPIView):
+    serializer_class = serializers.FriendshipSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return models.Friendship.objects.filter(user_a=user.id)
+"""
 
 
 class ActivateGuestView(APIView):
@@ -178,3 +230,18 @@ class RestaurantManagerCreate(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
         serializer.save()
+
+
+
+
+
+
+
+
+#####
+def get_guest_user(request):
+        try:
+            g = models.Guest.objects.get(pk=request.user)
+            return g
+        except:
+            raise ValueError("greskaaaaaa sjdisaj kdnsadj ksa")
