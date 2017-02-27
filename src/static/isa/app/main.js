@@ -34,6 +34,11 @@ app.config(function ($routeProvider) {
             templateUrl: static_file + 'partials/student1/restaurants.html',
             controllerAs: 'vm'
         })
+        .when('/guest', {
+            controller: 'GuestController',
+            templateUrl: static_file + 'partials/student1/guest_profile.html',
+            controllerAs: 'vm'
+        })
         .when('/provider/add', {
             controller: 'ProviderController',
             templateUrl: static_file + 'partials/student2_restoran/provider_add.html',

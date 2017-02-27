@@ -3,11 +3,11 @@ from users.serializers import RestaurantManagerSerializer
 from restaurant.models import *
 
 class RestaurantSerializer(serializers.ModelSerializer):
-    owner = RestaurantManagerSerializer()
+    owner = RestaurantManagerSerializer(read_only=True)
 
     class Meta:
         model = Restaurant
-        fields = ['id', 'name', 'description_restaurant', 'address_restaurant', 'phone_restaurant', 'owner',]
+        fields = ['id', 'name', 'description_restaurant', 'address_restaurant', 'phone_restaurant', 'owner' ]
         read_only_fields = ('id', )
 
 #za  Menu     Dodao: Spiric
