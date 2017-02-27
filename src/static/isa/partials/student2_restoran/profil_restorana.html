@@ -1,12 +1,10 @@
 <div class="container-fluid ke-container">
     <div class="col-md-12">
-        <span class="label label-default ke-data-label"> {{pr.selectedProduct.sifra}}</span>
-        <span class="label label-primary ke-data-label"> {{pr.selectedProduct.kategorijaProizvoda}}</span>
-        <button ng-if="isAllowed(pr.selectedProduct.sifra, pr.selectedProduct.prodavnica)" type="button" class="btn btn-danger btn-xs pull-right" ng-click="remove(pr.selectedProduct)">
+        <button type="button" class="btn btn-danger btn-xs pull-right" ng-click="remove(pr.selectedProduct)">
             <span class="glyphicon glyphicon-remove"></span> Obrisi
         </button>
         <div class="ke-title"> {{restaurant.name}} 
-            <span class="label label-warning ke-data-label"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{prosecnaOcena | currency: " "}}</span>
+            <span class="label label-warning ke-data-label"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{restaurant.address_restaurant}}</span>
             <span ng-if="pr.selectedProduct.akcija" class="label label-danger pull-right">AKCIJA -{{pr.selectedProduct.akcija}}%</span></div>
         <div class="ke-address">{{pr.selectedProduct.prodavnica}}</div>
         <hr>

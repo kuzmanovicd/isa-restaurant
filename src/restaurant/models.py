@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+import users
 
 # Create your models here.
 
@@ -12,6 +13,7 @@ class Restaurant(models.Model):
     description_restaurant = models.CharField(max_length=100)
     address_restaurant = models.CharField(max_length=50, default="adresa")
     phone_restaurant = models.CharField(max_length=50, default="broj_tel")
+    owner = models.OneToOneField(users.models.RestaurantManager, on_delete=models.CASCADE, related_name="working_in")
 
     def __str__(self):
         return self.name

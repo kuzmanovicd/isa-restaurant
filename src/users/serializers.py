@@ -12,8 +12,8 @@ User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.BasicUser
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'user_type', 'is_active']
-        read_only_fields = ('id', 'user_type', 'is_active')
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'user_type', 'is_active', 'is_superuser', ]
+        read_only_fields = ('id', 'user_type', 'is_active', 'is_superuser')
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -100,7 +100,19 @@ class ProviderSerializer(serializers.ModelSerializer):
 class RestaurantManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.RestaurantManager
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type']
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'user_type']
+        read_only_fields = ('id', 'user_type')
+
+        extra_kwargs = {
+            'password' : {'write_only' : True}
+        }
+
+
+# za RestaurantManager-a     Dodao: Spiric
+class SystemManagerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.SystemManager
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'user_type']
         read_only_fields = ('id', 'user_type')
 
         extra_kwargs = {

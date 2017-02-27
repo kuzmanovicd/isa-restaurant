@@ -8,12 +8,37 @@ function BasicUserService($http) {
 
     var service = {};
 
-    service.create = create;
+    service.createGuest = createGuest;
+    service.getGuest = getGuest;
+    service.createRestaurantManager = createRestaurantManager;
+    service.getRestaurantManager = getRestaurantManager;
+    service.getAllGuests = getAllGuests;
+    service.getAllRestaurantManagers = getAllRestaurantManagers;
 
     return service;
 
-    function create(data) {
+    function createGuest(data) {
         return $http.post('api/users/guests/create/', angular.toJson(data));
+    }
+
+    function getGuest(id) {
+        return $http.get('api/users/guests/' + id);
+    }
+
+    function getAllGuests() {
+        return $http.get('api/users/guests/all/');
+    }
+
+    function createRestaurantManager(data) {
+        return $http.post('api/users/restaurant_manager/create/', angular.toJson(data));
+    }
+
+    function getRestaurantManager(id) {
+        return $http.post('api/users/restaurant_manager/' + id);
+    }
+
+    function getAllRestaurantManagers() {
+        return $http.get('api/users/restaurant_manager/all/');
     }
 
 }

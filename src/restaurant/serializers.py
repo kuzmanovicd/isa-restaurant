@@ -1,12 +1,14 @@
 from rest_framework import serializers
-
+from users import serializers as user_serializers
 from .models import *
 
 class RestaurantSerializer(serializers.ModelSerializer):
+    owner = user_serializers.RestaurantManagerSerializer(read_only=True)
+
     class Meta:
         model = Restaurant
-        fields = ['id', 'name', 'description_restaurant', 'address_restaurant', 'phone_restaurant']
-        read_only_fields = ('id',)
+        fields = ['id', 'name', 'description_restaurant', 'address_restaurant', 'phone_restaurant', 'owner', ]
+        read_only_fields = ('id', )
 
 #za  Menu     Dodao: Spiric
 class MenuSerializer(serializers.ModelSerializer):

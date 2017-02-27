@@ -19,12 +19,12 @@ app.config(function ($routeProvider) {
             templateUrl: static_file + 'partials/student1/register.html',
             controllerAs: 'vm'
         })
-        .when('/restaurants', {
+        .when('/restaurant/:id', {
             controller: 'RestaurantController',
             templateUrl: static_file + 'partials/student2_restoran/profil_restorana.html',
             controllerAs: 'vm'
         })
-        .when('/restaurants/all', {
+        .when('/restaurants', {
             controller: 'AllRestaurantsController',
             templateUrl: static_file + 'partials/student1/restaurants.html',
             controllerAs: 'vm'

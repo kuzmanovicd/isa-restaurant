@@ -1,9 +1,8 @@
 'use strict';
 
-app.controller('RestaurantController', function ($scope, $location, RestaurantService) {
+app.controller('RestaurantController', function ($scope, $location, $routeParams, RestaurantService) {
     
-    RestaurantService.get(1).success(function(data) {
-        //console.log(data);
+    RestaurantService.get($routeParams.id).success(function(data) {
         $scope.restaurant = data;
     });
 

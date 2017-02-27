@@ -6,7 +6,7 @@ app.controller('BasicUserController', function ($scope, $location, BasicUserServ
     $scope.registerSubmit = function(user) {
         
         if(user.password == $scope.password2) {
-            BasicUserService.create(user).success(function(data){
+            BasicUserService.createGuest(user).success(function(data){
                 $scope.status = 'Uspesno';
             }).error(function(data){
                 $scope.status = 'Neuspesno';
@@ -34,10 +34,17 @@ app.controller('BasicUserController', function ($scope, $location, BasicUserServ
 
 });
 
-app.controller('AllRestaurantsController', function ($scope, $location, RestaurantService) {
+app.controller('AllRestaurantsController', function ($scope, $location, RestaurantService, BasicUserService) {
     
     RestaurantService.getAll().success(function (data) {
-            $scope.restaurants = data;
+        $scope.restaurants = data;
+        BasicUserService.getAllRestaurantManagers().success(function (data) {
+            $scope.managers = data;
+        });
     });
+
+    
+
+
 });
 

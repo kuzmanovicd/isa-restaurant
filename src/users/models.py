@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from restaurant.models import *
 import hashlib
 import datetime
 from django.utils import timezone
@@ -79,7 +78,7 @@ class Employee(BasicUser):
     """
     Zaposleni u restoranu.
     """
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=False)
+    restaurant = models.ForeignKey('restaurant.Restaurant', on_delete=models.CASCADE)
     date_of_birth = models.DateField(default=datetime.date.today)
     clothes_size = models.IntegerField(default=0)
     shoe_size = models.IntegerField(default=0)
@@ -155,8 +154,22 @@ class Provider(BasicUser):
 # Sadrzi
 # Dodao: Spiric
 class RestaurantManager(BasicUser):
-    restaurant = models.OneToOneField(Restaurant, on_delete=models.CASCADE)
-
+    
     def save(self, *args, **kwargs):
         self.user_type = 'RM'
         super(RestaurantManager, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'RestaurantManager'
+        verbose_name_plural = 'RestaurantManagers'
+
+class SystemManager(BasicUser):
+
+    def save(self, *args, **kwargs):
+        self.user_type = 'SM'
+        self.is_superuser = True
+        super(SystemManager, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'System Manager'
+        verbose_name_plural = 'System Managers'
