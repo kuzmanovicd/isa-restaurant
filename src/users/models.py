@@ -134,7 +134,7 @@ class Bartender(Employee):
 
 
 # Model: Provider (dobavljac)
-# Polja: naziv, ostalo iz usera
+# Polja: id, naziv, user name, type, email, passwor
 # Sadrzi: --
 # Dodao: Spiric
 class Provider(BasicUser):
