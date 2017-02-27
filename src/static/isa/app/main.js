@@ -154,7 +154,7 @@ function run($rootScope, $location, $cookieStore, $cookies, $http, AuthService, 
         $http.defaults.headers.common['Authorization'] = "JWT " + $cookies.get("token");
     }
     
-    var d = { "token": $cookies.get("token")};
+    var d = { "token": $cookies.get("token")};  
 
     AuthService.Auth(d, function (data) {
         if (data.user.username) {
