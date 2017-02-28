@@ -69,10 +69,12 @@ class FriendshipCreate(APIView):
         print('gosti:', guest1, guest2)
         
         friendship = models.Friend.objects.create_friendship(guest1, guest2)
-        serializer = serializers.FriendSerializer(data=friendship)
 
-        if serializer.is_valid():
-            return Response(serializer.data, status=HTTP_201_CREATED)
+        if friendship is None:
+            return Response(status=HTTP_401_UNAUTHORIZED)
+
+        serializer = serializers.FriendSerializer(friendship)
+        return Response(serializer.data, status=HTTP_201_CREATED)
         
         """
         if guest.user_type == 'GU' and guest.id != request.data['to_user']:
