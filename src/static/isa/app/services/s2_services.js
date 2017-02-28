@@ -84,8 +84,8 @@ function TableService($http) {
         return $http.get('api/restaurant/table/all/');
     }
 
-     function getRegions() {
-        return $http.get('/api/restaurant/region/all/');
+     function getRegions(id) {
+        return $http.get('/api/restaurant/region/' + id + '/');
     }
 
 }

@@ -90,16 +90,15 @@ class MenuItemCreate(generics.CreateAPIView):
 # za Regione 
 # Dodao: Spiric
 class RegionList(generics.ListAPIView):
-    queryset = models.Region.objects.all()
+    #queryset = models.Region.objects.all()
     serializer_class = serializers.RegionSerializer
+
+    def get_queryset(self):
+        r_id = self.kwargs['restaurant']
+        return models.Region.objects.filter(restaurant=r_id)
 
 
 class RegionDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = models.Region.objects.all()
-    serializer_class = serializers.RegionSerializer
-
-
-class RegionCreate_old(generics.CreateAPIView):
     queryset = models.Region.objects.all()
     serializer_class = serializers.RegionSerializer
 
