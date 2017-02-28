@@ -39,8 +39,8 @@
 				</div>
 			</div>
 		</div>
-		<div ng-controller="TableController" ng-init="getRegions()">
-			{{selected}}
+		<div ng-init="getRegions(restaurant.id)">
+			x: {{restaurant.id}}
 			<div class="panel panel-default" ng-if="selected.length && currentUser.user_type == 'GU'">
 				<div class="panel-heading">
 					<h3 class="panel-title">
@@ -77,12 +77,10 @@
 							</div>
 						</div>
 					</form>
-					<div ng-repeat="t in selected">
-						{{t.id}}
-					</div>
+					
 				</div>
 			</div>
-			<div ng-repeat="region in regions" ng-if="region.restaurant == restaurant.id">
+			<div ng-repeat="region in regions">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">
