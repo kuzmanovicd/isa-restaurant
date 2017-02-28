@@ -1,4 +1,4 @@
-<div class="container-fluid ke-container">
+<div class="container-fluid ke-container" >
     <div class="col-md-12">
         <div ng-if="currentUser.id == restaurant.owner.id">
             <button type="button" class="btn btn-success btn-xs" ng-click="addProvider()">
@@ -36,13 +36,45 @@
             </div>
         </div>
 
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+						Raspored stolova:
+                </h3>
+            </div>  
+            <div ng-init="getRegions()" ng-controller="TableController">
+                <div class="col-xs-12" ng-repeat="region in regions">
+                    <label class="label label-primary ke-label-title">Region {{region.id}}</label>
+                    <div class="col-xs-3 sto" ng-repeat="table in region.tables" ng-click="reserve(table.id)">
+                        <p ng-if="table.is_free">Slobodan</p>
+                        <p ng-if="!table.is_free">Zauzet</p>
+                    </div>
+                </div>   
+                <!--
+                <table class="sto" border="1" ng-repeat="region in regions">
+                    <tr ng-repeat="table in region.tables">
+                        <!--<td ng-repeat="table in region.tables">r:{{table.row}} c:{{table.column}}</td> 
+                        <td>c</td>
+                    </tr>
+                    
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                -->
+            </div>
         <!-- OVO ISPOD CE DA BUDE ZA OCENE -->
+        <!--
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
 						Ocene
                     </h3>
             </div>
+            -->
             <div class="panel-body">
                 <div ng-repeat="recenzija in recenzije | orderBy: '-ocena'">
                     <div class="testimonials">

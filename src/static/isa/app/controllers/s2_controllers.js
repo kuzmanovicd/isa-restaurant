@@ -62,6 +62,25 @@ app.controller('ProviderController', function ($scope, $location, ProviderServic
 });
 
 
+//kontroler za stolove
+app.controller('TableController', function($scope, TableService){
+    
+    $scope.getRegions = function() {
+        TableService.getRegions().success(function(data) {
+            $scope.regions = data;
+            $scope.columns = [];
+            var i;
+            for (i = 0; i < data.length; i++) { 
+                $scope.columns.push(new Array(data[i].column_count));
+            }
+            console.log($scope.columns);
+        });
+    }
 
+    $scope.reserve = function (id) {
+        console.log(id);
+    };
+
+})
 
 

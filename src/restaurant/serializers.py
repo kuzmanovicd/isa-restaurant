@@ -42,20 +42,19 @@ class MenuItemSerializer(serializers.ModelSerializer):
         read_only_fields = ('id',)
 
 
-# za Regione
-# Dodao: Spiric
-class RegionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Region
-        fields = ['id', 'is_frontSide', 'is_forSmoke', 'is_open', 'restaurant']
-        read_only_fields = ('id',)
-
-
 # za Table
 # Dodao: Spiric
 class TableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Table
-        fields = ['id', 'row', 'column', 'is_free', 'region']
+        fields = ['id', 'is_free', 'region']
         read_only_fields = ('id',)
 
+# za Regione
+# Dodao: Spiric
+class RegionSerializer(serializers.ModelSerializer):
+    tables = TableSerializer(many=True, read_only=True)
+    class Meta:
+        model = Region
+        fields = ['id', 'is_frontSide', 'is_forSmoke', 'is_open', 'restaurant', 'tables', 'table_count', ]
+        read_only_fields = ('id',)
