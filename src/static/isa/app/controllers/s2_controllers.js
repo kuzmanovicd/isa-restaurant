@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('RestaurantController', function ($scope, $rootScope, $location, $routeParams, RestaurantService, BasicUserService) {
+app.controller('RestaurantController', function ($scope, $rootScope, $location, $routeParams, $route, RestaurantService, BasicUserService) {
     
     RestaurantService.get($routeParams.id).success(function(data) {
         $scope.restaurant = data;
@@ -30,12 +30,13 @@ app.controller('RestaurantController', function ($scope, $rootScope, $location, 
         });
     };
 
-    if($rootScope.currentUser.user_type == 'RM') {
+    if($rootScope.currentUser && $rootScope.currentUser.user_type == 'RM') {
         BasicUserService.getRestaurantManager($rootScope.currentUser.id).success(function (data) {
             RestaurantService.get(data.working_in).success(function(data) {
                 $scope.restaurant = data;
             });
         });
+    } else {
     }
 
 
@@ -86,8 +87,26 @@ app.controller('TableController', function($scope, TableService){
         });
     }
 
-    $scope.reserve = function (id) {
-        console.log(id);
+    //dejan
+    $scope.selected = [];
+
+    $scope.reserve = function (r) {
+        var index = -1;
+        for(var i = 0; i < $scope.selected.length; i++) {
+            if($scope.selected[i].id == r.id) {
+                index = i;
+                break;
+            }
+        }
+
+        if(index == -1) {
+            $scope.selected.push(r);
+            r.selected = true;
+        } else {
+            $scope.selected.splice(index, 1);
+            r.selected = false;
+        }
+        
     };
 
 })

@@ -1,33 +1,39 @@
-<table ng-init="getAllGuests()" ng-if="currentUser.user_type == 'GU'" class="table table-striped table-hover">
-    <div ng-if="status.ok_add" class="alert alert-info alert-dismissable">
-          <a class="panel-close close" data-dismiss="alert">×</a> 
-          <i class="fa fa-coffee"></i>
-          Uspesno ste dodali prijatelja.
+<div class="col-md-12" style="margin-bottom: 20px;">
+    <div class="input-group">
+        <input type="text" class="form-control" name="x" placeholder="Pretrazi prijatelje..." ng-model="searchQuery">
+        <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+        </span>
     </div>
-    <thead ng-init="getMyFriends()">
-        <th>Korisnicko ime</th>
-        <th>Ime</th>
-        <th>Prezime</th>
-        <th>Email</th>
-        <th>Grad</th>
-        <th>Drzava</th>
-    </thead>
-    <tbody>
-        <tr ng-repeat="u in guests"  ng-if="u.id != currentUser.id">
-            <td>{{u.username}}</td>
-            <td>{{u.first_name}}</td>
-            <td>{{u.last_name}}</td>
-            <td>{{u.email}}</td>
-            <td>{{u.city}}</td>
-            <td>
-                <button ng-if="!isFriend(u.id)" type="button" class="btn btn-default btn-xs" ng-click="addFriend(u.id)">
+    <table ng-init="getAllGuests()" ng-if="currentUser.user_type == 'GU'" class="table table-striped table-hover">
+        <div ng-if="status.ok_add" class="alert alert-info alert-dismissable">
+            <a class="panel-close close" data-dismiss="alert">×</a>
+            <i class="fa fa-coffee"></i> Uspesno ste dodali prijatelja.
+        </div>
+        <thead ng-init="getMyFriends()">
+            <th>Korisnicko ime</th>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Email</th>
+            <th>Grad</th>
+            <th>Drzava</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="u in guests | filter:searchQuery" ng-if="u.id != currentUser.id">
+                <td>{{u.username}}</td>
+                <td>{{u.first_name}}</td>
+                <td>{{u.last_name}}</td>
+                <td>{{u.email}}</td>
+                <td>{{u.city}}</td>
+                <td>
+                    <button ng-if="!isFriend(u.id)" type="button" class="btn btn-default btn-xs" ng-click="addFriend(u.id)">
                     <span class="glyphicon glyphicon-add"></span> Dodaj u prijatelje
                 </button>
-                <button ng-if="isFriend(u.id)" type="button" class="btn btn-danger btn-xs" ng-click="deleteFriend2(u.id)">
+                    <button ng-if="isFriend(u.id)" type="button" class="btn btn-danger btn-xs" ng-click="deleteFriend2(u.id)">
                     <span class="glyphicon glyphicon-add"></span> Ukloni
                 </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

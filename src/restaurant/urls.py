@@ -39,4 +39,9 @@ urlpatterns = [
     url(r'^bill/(?P<pk>[0-9]+)/?$', BillDetail.as_view(), name='rud_bill'),
     url(r'^bill/create/?$', BillCreate.as_view(), name='bill_create'),
 
+    #reservacije
+    url(r'^reservations/(?P<restaurant>[0-9]+)/?$', ReservationList.as_view(), name='reservation-for-restaurant'),
+    url(r'^reservations/create/?$', ReservationCreate.as_view(), name='reservation-create'),
+
+
 ]

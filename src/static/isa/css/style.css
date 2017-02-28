@@ -478,13 +478,24 @@ article a {
 .sto {
 	width: 100px;
 	height: 70px;
-	background-color: #ccc;
+	background-color: #eee;
 	text-align: center;
-    margin: 3px;
-    font-size: 16px;
+    margin: 10px;
+    font-size: 15px;
+    border-radius: 10px;
 }
 
-.sto:hover {
-	background-color: #029f5b;
+.sto_green {
+	width: 100px;
+	height: 70px;
+	background-color: mediumseagreen;
+	text-align: center;
+    margin: 10px;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.sto:hover, .sto_green:hover {
+	background-color: #53A3CD;
 	cursor: pointer;
 }

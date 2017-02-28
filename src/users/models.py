@@ -164,8 +164,8 @@ class Friend(models.Model):
         verbose_name_plural = 'Friends'
         unique_together = ('from_user', 'to_user')
 
-    #def __str__(self):  
-    #    return self.to_user, self.from_user
+    def __str__(self):  
+        return str(self.to_user) + ' - ' + str(self.from_user)
 
     def save(self, *args, **kwargs):
         if self.to_user == self.from_user:

@@ -5,6 +5,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_201_CREATED, HTTP_401_UNAUTHORIZED
+from django.core.exceptions import ObjectDoesNotExist
 import users
 
 # Create your views here.
@@ -105,7 +106,6 @@ class RegionCreate_old(generics.CreateAPIView):
 
 class RegionCreate(APIView):
     def post(self, request):
-        print('USAOOOO')
         rm = users.models.RestaurantManager.objects.get(pk=request.user.id)
         request.data['restaurant'] = rm.working_in.id
 
@@ -136,3 +136,27 @@ class TableDetail(generics.RetrieveUpdateDestroyAPIView):
 class TableCreate(generics.CreateAPIView):
     queryset = models.Table.objects.all()
     serializer_class = serializers.TableSerializer
+
+
+class ReservationList(generics.ListAPIView):
+    serializer_class = serializers.ReservationSerializer
+
+    def get_queryset(self):
+        r_id = self.kwargs['restaurant']
+        return models.Reservation.objects.filter(restaurant=r_id)
+
+class ReservationCreate(APIView):
+    def post(self, request):
+        try:
+            guest = users.models.Guest.objects.get(pk=request.user.id)
+            request.data['guest'] = guest.id
+            
+            serializer = serializers.ReservationSerializer(data=request.data)
+
+            if serializer.is_valid():
+                return Response(serializer.data, status=HTTP_201_CREATED)
+            else:
+                return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+        except ObjectDoesNotExist:
+            return Response(status=HTTP_401_UNAUTHORIZED)

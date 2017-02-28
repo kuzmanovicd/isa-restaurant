@@ -67,7 +67,10 @@ class Region(models.Model):
     is_forSmoke = models.BooleanField(default=True)
     is_open = models.BooleanField(default=True)
     table_count = models.IntegerField(default=1)
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name="regions")
+
+    def __str__(self):
+        return ' '.join([str(self.restaurant), 'broj stolova', str(self.table_count)])
 
 
 # Model: Table  (stolovi)
@@ -78,8 +81,22 @@ class Table(models.Model):
     is_free = models.BooleanField(default=True)
     region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name='tables')
 
+    def __str__(self):
+        name = ''
+        if self.is_free:
+            name = 'Slobodan'
+        else:
+            name = 'Zauzet'
+        return ' '.join([str(self.region), '-', name, str(self.pk)])
 
 
+class Reservation(models.Model):
+    coming = models.DateTimeField()
+    duration = models.IntegerField()
+    guest = models.ForeignKey('users.Guest', on_delete=models.SET_NULL, null=True)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    reserved_tables = models.ManyToManyField('restaurant.Table')
+    #test = models.ManyToManyField('restaurant.Restaurant.regions.tables')
 
 
 

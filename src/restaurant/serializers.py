@@ -58,3 +58,12 @@ class RegionSerializer(serializers.ModelSerializer):
         model = Region
         fields = ['id', 'is_frontSide', 'is_forSmoke', 'is_open', 'restaurant', 'tables', 'table_count', ]
         read_only_fields = ('id',)
+
+
+###Dejan
+
+class ReservationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reservation
+        fields = ['id', 'coming', 'duration', 'guest', 'restaurant', 'reserved_tables',]
+        read_only_fields = ('guest',)
