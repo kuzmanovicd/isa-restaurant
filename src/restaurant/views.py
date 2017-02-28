@@ -3,6 +3,7 @@ from restaurant import models
 from restaurant import serializers
 from rest_framework import generics
 from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_201_CREATED, HTTP_401_UNAUTHORIZED
 
 # Create your views here.
@@ -96,24 +97,25 @@ class RegionDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.RegionSerializer
 
 
-class RegionCreate(generics.CreateAPIView):
+class RegionCreate_old(generics.CreateAPIView):
     queryset = models.Region.objects.all()
     serializer_class = serializers.RegionSerializer
 
 
-class RegionCreate2(APIView):
+class RegionCreate(APIView):
     def post(self, request, format=None):
+        print(request.data)
         serializer = serializers.RegionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-
+            region = serializer.instance
+            for i in range(region.table_count):
+                    models.Table.objects.create(region=region)
             #reg = models.Region.objects.get()
             return Response(status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
-    def create_tables(self, region):
-        for i in range(region.row_count):
-            for j in range(region.column_count):
-                models.Table.objects.create(row=i, column=j, region=region)
+    
 
 
 # za Table

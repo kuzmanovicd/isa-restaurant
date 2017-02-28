@@ -474,3 +474,17 @@ article a {
     color: #fff;
     text-align: center;
 }
+
+.sto {
+	width: 100px;
+	height: 70px;
+	background-color: #ccc;
+	text-align: center;
+    margin: 3px;
+    font-size: 16px;
+}
+
+.sto:hover {
+	background-color: #029f5b;
+	cursor: pointer;
+}
