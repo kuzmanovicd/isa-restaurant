@@ -2,9 +2,8 @@
 <div class="col-md-6 col-md-offset-3 ke-container" style="padding-top: 0px;">
     <div class="modal-header login-header">
         <button type="button" class="close" data-dismiss="modal">×</button>
-        <h4 class="modal-title"> Broj stolova: </h4>
+        <h4 class="modal-title"> Broj stolova: {{region.table_count}}</h4>
     </div>
-    {{region}}
     <form name="form" ng-submit="create()">
         <div class="modal-body">
             <input type="number" placeholder="TableCount" ng-model="region.table_count" required>

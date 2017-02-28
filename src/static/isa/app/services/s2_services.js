@@ -63,9 +63,9 @@ function ProviderService($http) {
 
     return service;
     
-    function create(link, provider) {
+    function create(provider) {
         console.log(provider);
-        return $http.post('api/users/' + link + '/create/', angular.toJson(provider));
+        return $http.post('api/users/provider/create/', angular.toJson(provider));
     }
 
 }
@@ -98,9 +98,9 @@ function RegionService($http) {
 
     return service;
     
-    function create(link, region) {
+    function create(region) {
         console.log(region);
-        return $http.post('api/restaurants/' + link + '/create/', angular.toJson(region));
+        return $http.post('api/restaurant/region/create/', angular.toJson(region));
     }
 }
 

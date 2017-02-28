@@ -39,7 +39,8 @@
 				</div>
 			</div>
 			<div ng-controller="TableController" ng-init="getRegions()">
-				<div ng-repeat="region in regions">
+				<div ng-repeat="region in regions" ng-if="region.restaurant == restaurant.id">
+					{{region.restaurant}} - {{restaurant.id}}
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">

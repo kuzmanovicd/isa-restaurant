@@ -70,7 +70,9 @@ app.controller('RadnikController', function ($scope, RadnikService) {
 app.controller('ProviderController', function ($scope, $location, ProviderService) {
 
     $scope.create = function() {
-         ProviderService.create('provider', $scope.provider); 
+         ProviderService.create($scope.provider).success(function(data) {
+             $location.path('/');
+         }); 
     };
   
 });
@@ -78,18 +80,9 @@ app.controller('ProviderController', function ($scope, $location, ProviderServic
 
 //kontroler za stolove
 app.controller('TableController', function($scope, TableService){
-    
-
-
     $scope.getRegions = function() {
         TableService.getRegions().success(function(data) {
-            $scope.regions = data;
-            $scope.columns = [];
-            var i;
-            for (i = 0; i < data.length; i++) { 
-                $scope.columns.push(new Array(data[i].column_count));
-            }
-            console.log($scope.columns);
+           $scope.regions = data;
         });
     }
 
@@ -111,7 +104,9 @@ app.controller('RegionController', function ($scope, $location, RegionService) {
     $scope.create = function() {
         $scope.region.is_frontSide = true;
         console.log($scope.region);
-        //RegionService.create('region', $scope.region); 
+        RegionService.create($scope.region).success(function(data) {
+            $location.path('/');
+        }); 
     };
 
     //console.log(angular.toJson(region));

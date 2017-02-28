@@ -104,10 +104,10 @@ class RegionCreate_old(generics.CreateAPIView):
 
 
 class RegionCreate(APIView):
-    def post(self, request, format=None):
-        
+    def post(self, request):
+        print('USAOOOO')
         rm = users.models.RestaurantManager.objects.get(pk=request.user.id)
-        request.data['restaurant'] = rm.working_in
+        request.data['restaurant'] = rm.working_in.id
 
         print(request.data)
         serializer = serializers.RegionSerializer(data=request.data)
@@ -117,11 +117,9 @@ class RegionCreate(APIView):
             for i in range(region.table_count):
                     models.Table.objects.create(region=region)
             #reg = models.Region.objects.get()
-            return Response(status=HTTP_201_CREATED)
+            return Response(serializer.data, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
-
-
 
 # za Table
 # Dodao: Spiric
