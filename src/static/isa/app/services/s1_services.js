@@ -12,6 +12,7 @@ function BasicUserService($http) {
     service.getGuest = getGuest;
     service.updateGuest = updateGuest;
     service.addFriend = addFriend;
+    service.deleteFriend = deleteFriend;
     service.getMyFriends = getMyFriends;
     service.createRestaurantManager = createRestaurantManager;
     service.getRestaurantManager = getRestaurantManager;
@@ -41,7 +42,11 @@ function BasicUserService($http) {
     }
 
     function addFriend(data) {
-        return $http.post('api/users/friends/add/', angular.toJson(data));
+        return $http.post('api/users/friends/', angular.toJson(data));
+    }
+
+    function deleteFriend(data) {
+        return $http.post('api/users/friends/delete/', angular.toJson(data));
     }
 
     function createRestaurantManager(data) {

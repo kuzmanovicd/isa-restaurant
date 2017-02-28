@@ -52,7 +52,7 @@ app.controller('MyRestaurantController', function ($scope, $rootScope, BasicUser
     }
 });
 
-app.controller('GuestController', function ($scope, $rootScope, $route, BasicUserService) {
+app.controller('GuestController', function ($scope, $rootScope, $route, $location, BasicUserService) {
     $scope.status = {};
 
     $scope.loadUser = function () {
@@ -91,15 +91,52 @@ app.controller('GuestController', function ($scope, $rootScope, $route, BasicUse
         });
     };
 
+    $scope.deleteFriend = function(friend) {
+        console.log('pozvan deleteFrienship');
+        BasicUserService.deleteFriend(friend).success(function(data) {
+             $route.reload();
+        });
+    }
+
+    $scope.deleteFriend2 = function(id) {
+        console.log('pozvan deleteFrienship2');
+        var friend;
+        var i;
+        for(i = 0; i < $scope.friends.length; i++) {
+            if($scope.friends[i].to_user == id) {
+                friend = $scope.friends[i];
+                break;
+            }
+        }
+
+        if(friend == null) {
+            return;
+        }
+
+
+        BasicUserService.deleteFriend(friend).success(function(data) {
+             $route.reload();
+        });
+    }
+
     $scope.addFriend = function (id) {
         var data = {
             "to_user": id
         }
         BasicUserService.addFriend(data).success( function(data) {
-            $scope.status.ok = true;
-            $scope.status.fail = false;
+            $route.reload();
         });
     };
+
+    $scope.isFriend = function(id) {
+        var i = 0;
+        for(i = 0; i < $scope.friends.length; i++) {
+            if($scope.friends[i].to_user == id) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     //$scope.loadUser();
 

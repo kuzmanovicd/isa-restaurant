@@ -105,6 +105,13 @@ class FriendshipManager(models.Manager):
 
         return relation1
 
+    def delete_friendship(self, user1, user2):
+        Friend.objects.filter(from_user=user1, to_user=user2).delete()
+        Friend.objects.filter(from_user=user2, to_user=user1).delete()
+
+        
+        return True
+
     def are_friends(self, user1, user2):
         q1 = Friend.objects.filter(to_user=user1, from_user=user2)
         q2 = Friend.objects.filter(to_user=user2, from_user=user1)

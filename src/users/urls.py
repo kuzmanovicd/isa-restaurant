@@ -18,7 +18,8 @@ urlpatterns = [
     url(r'^activate/(?P<code>[a-z0-9]{32})/?$', ActivateGuestView.as_view(), name='guest-activate'),
     url(r'^csrf/?$', CSRFView.as_view(), name='csrf-token'),
 
-    url(r'^friends/add/?$', FriendshipCreate.as_view(), name='friendship_create'),
+    url(r'^friends/?$', FriendshipCreate.as_view(), name='friendship-create'),
+    url(r'^friends/delete/?$', FriendshipDelete.as_view(), name='friendship-delete'),
     url(r'^friends/my/?$', MyFriendsView.as_view(), name='my-friends'),
 
     #url(r'^(?P<pk>[0-9]+)/?$', UserDetailRetrieve.as_view(), name='rud_user'),
