@@ -167,6 +167,8 @@ function run($rootScope, $location, $cookieStore, $cookies, $http, AuthService, 
     $http.defaults.headers.post['X-CSRFToken'] = $cookies['csrftoken'];
     if($cookies.get("token")) {
         $http.defaults.headers.common['Authorization'] = "JWT " + $cookies.get("token");
+    } else {
+        $http.defaults.headers.common['Authorization'] = "";
     }
     
     var d = { "token": $cookies.get("token")};  

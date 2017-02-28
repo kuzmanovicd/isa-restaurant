@@ -92,15 +92,25 @@ class FriendshipRequest(models.Model):
 class FriendshipManager(models.Manager):
 
     def friends(self, user):
-        qs = Friend.objects.select_related('from_user', 'to_user').filter(to_user=user).all()
-        friends = [u.from_user for u in qs]
-        return friends
+        qs = Friend.objects.select_related('from_user', 'to_user').filter(from_user=user).all()
+        print(qs)
+        return qs
+
+    def friends2(self, user):
+        qs = Friend.objects.select_related('from_user', 'to_user').filter(from_user=user).all()
 
     def create_friendship(self, user1, user2):
         relation1 = Friend.objects.create(from_user=user1, to_user=user2)
         relation2 = Friend.objects.create(from_user=user2, to_user=user1)
 
         return relation1
+
+    def delete_friendship(self, user1, user2):
+        Friend.objects.filter(from_user=user1, to_user=user2).delete()
+        Friend.objects.filter(from_user=user2, to_user=user1).delete()
+
+        
+        return True
 
     def are_friends(self, user1, user2):
         q1 = Friend.objects.filter(to_user=user1, from_user=user2)
@@ -155,7 +165,7 @@ class Friend(models.Model):
         unique_together = ('from_user', 'to_user')
 
     #def __str__(self):  
-    #    return ' '.join([self.to_user.id, 'je prijatelj sa', self.from_user.id])
+    #    return self.to_user, self.from_user
 
     def save(self, *args, **kwargs):
         if self.to_user == self.from_user:

@@ -37,9 +37,10 @@ class GuestSerializer(serializers.ModelSerializer):
 
 
 class FriendSerializer(serializers.ModelSerializer):
-    model = models.Friend
-    fields = ['to_user', 'from_user', 'created']
-    read_only_fields = ('created',)
+    class Meta:
+        model = models.Friend
+        fields = ['to_user', 'from_user', 'created']
+        read_only_fields = ('created',)
 
 class ActivationSerializer(serializers.ModelSerializer):
     class Meta:

@@ -66,13 +66,14 @@ class FriendshipCreate(APIView):
     def post(self, request, *args, **kwargs):
         guest1 = get_guest_user(request)
         guest2 = models.Guest.objects.get(pk=request.data['to_user'])
-        print('gosti:', guest1, guest2)
         
         friendship = models.Friend.objects.create_friendship(guest1, guest2)
-        serializer = serializers.FriendSerializer(data=friendship)
 
-        if serializer.is_valid():
-            return Response(serializer.data, status=HTTP_201_CREATED)
+        if friendship is None:
+            return Response(status=HTTP_401_UNAUTHORIZED)
+
+        serializer = serializers.FriendSerializer(friendship)
+        return Response(serializer.data, status=HTTP_201_CREATED)
         
         """
         if guest.user_type == 'GU' and guest.id != request.data['to_user']:
@@ -91,6 +92,16 @@ class FriendshipCreate(APIView):
     def patch(self, request, *args, **kwargs):
         print('pogodjen')
         return Response(status=HTTP_400_BAD_REQUEST)
+
+
+class FriendshipDelete(APIView):
+    def post(self, request, *args, **kwargs):
+        #print(request.data)
+        guest1 = get_guest_user(request)
+        guest2 = models.Guest.objects.get(pk=request.data['to_user'])
+
+        models.Friend.objects.delete_friendship(guest1, guest2)
+        return Response(status=HTTP_200_OK)
 """
 
 class FriendshipView(generics.ListAPIView):
