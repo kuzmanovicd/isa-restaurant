@@ -1,0 +1,21 @@
+<!-- FORMA ZA REGION (Za dodavanje) -->
+<div class="col-md-6 col-md-offset-3 ke-container" style="padding-top: 0px;">
+    <div class="modal-header login-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title"> Broj stolova: </h4>
+    </div>
+    <form name="form" ng-submit="create()">
+        <div class="modal-body">
+            <input type="number" placeholder="TableCount" ng-model="region.table_count" required>
+            <div class="panel-title"> 
+                Basta <input type="checkbox"  ng-model="region.is_forSmoke" required>
+            </div>
+            <div class="panel-title">
+                Dozvoljeno pusenje <input type="checkbox" placeholder="Open" ng-model="region.is_open" required>
+            <div>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Potvrdi" ng-disabled="form.$invalid">
+        </div>
+    </form>
+</div>

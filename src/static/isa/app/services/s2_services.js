@@ -8,6 +8,8 @@ app.factory('ProviderService', ProviderService);
 
 app.factory('TableService', TableService);
 
+app.factory('RegionService', RegionService);
+
 function RestaurantService($http) {
     var service = {};
     
@@ -86,5 +88,19 @@ function TableService($http) {
         return $http.get('/api/restaurant/region/all/');
     }
 
+}
+
+//service za region
+function RegionService($http) {
+    var service = {};
+
+    service.create = create;
+
+    return service;
+    
+    function create(link, region) {
+        console.log(region);
+        return $http.post('api/restaurants/' + link + '/create/', angular.toJson(region));
+    }
 }
 

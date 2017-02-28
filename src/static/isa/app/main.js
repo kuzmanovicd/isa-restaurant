@@ -25,7 +25,7 @@ app.config(function ($routeProvider) {
             controllerAs: 'vm'
         })
         .when('/restaurant', {
-            controller: 'MyRestaurantController',
+            controller: 'RestaurantController',
             templateUrl: static_file + 'partials/student2_restoran/profil_restorana.html',
             controllerAs: 'vm'
         })
@@ -52,6 +52,11 @@ app.config(function ($routeProvider) {
         .when('/employee/add', {
             controller: 'RadnikController',
             templateUrl: static_file + 'partials/student2_restoran/radnik_add.html',
+            controllerAs: 'vm'
+        })
+        .when('/region/add', {
+            controller: 'RegionController',
+            templateUrl: static_file + 'partials/student2_restoran/region_add.html',
             controllerAs: 'vm'
         })
         .when('/proizvodi', {

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('RestaurantController', function ($scope, $location, $routeParams, RestaurantService) {
+app.controller('RestaurantController', function ($scope, $rootScope, $location, $routeParams, RestaurantService, BasicUserService) {
     
     RestaurantService.get($routeParams.id).success(function(data) {
         $scope.restaurant = data;
@@ -8,14 +8,20 @@ app.controller('RestaurantController', function ($scope, $location, $routeParams
 
     //dodavanje providera
     $scope.addProvider = function() {
-        console.log('ceeeekksladkslkdlsad');
+        console.log('addProvider');
         $location.path('/provider/add');
     };
 
     //dodavanje randika
     $scope.addRadnik = function() {
-        console.log('ceeeekksladkslkdlsad');
+        console.log('addRadnik');
         $location.path('/employee/add');
+    };
+
+    //dodavanje regiona
+     $scope.addRegion = function() {
+        console.log('addRegion');
+        $location.path('/region/add');
     };
 
     $scope.getAll = function() {
@@ -23,6 +29,14 @@ app.controller('RestaurantController', function ($scope, $location, $routeParams
             $scope.restaurants = data;
         });
     };
+
+    if($rootScope.currentUser.user_type == 'RM') {
+        BasicUserService.getRestaurantManager($rootScope.currentUser.id).success(function (data) {
+            RestaurantService.get(data.working_in).success(function(data) {
+                $scope.restaurant = data;
+            });
+        });
+    }
 
 
 });
@@ -82,5 +96,20 @@ app.controller('TableController', function($scope, TableService){
     };
 
 })
+
+
+
+//kontroler za Region
+app.controller('RegionController', function ($scope, $location, RegionService) {
+
+    $scope.create = function() {
+        $scope.region.is_frontSide = true;
+         RegionService.create('region', $scope.region); 
+    };
+
+    console.log(angular.toJson(region));
+  
+});
+
 
 

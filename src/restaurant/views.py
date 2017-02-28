@@ -5,6 +5,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_201_CREATED, HTTP_401_UNAUTHORIZED
+import users
 
 # Create your views here.
 
@@ -104,6 +105,10 @@ class RegionCreate_old(generics.CreateAPIView):
 
 class RegionCreate(APIView):
     def post(self, request, format=None):
+        
+        rm = users.models.RestaurantManager.objects.get(pk=request.user.id)
+        request.data['restaurant'] = rm.working_in
+
         print(request.data)
         serializer = serializers.RegionSerializer(data=request.data)
         if serializer.is_valid():
@@ -115,7 +120,7 @@ class RegionCreate(APIView):
             return Response(status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
-    
+
 
 
 # za Table

@@ -1,129 +1,112 @@
-<div class="container-fluid ke-container" >
-    <div class="col-md-12">
-        <div ng-if="currentUser.id == restaurant.owner.id">
-            <button type="button" class="btn btn-success btn-xs" ng-click="addProvider()">
+<div class="container-fluid ke-container">
+	<div class="col-md-12">
+		<div ng-if="currentUser.id == restaurant.owner.id">
+			<button type="button" class="btn btn-success btn-xs" ng-click="addProvider()">
                 <span class="glyphicon glyphicon-plus"></span> Dodaj Providera
             </button>
-            <button type="button" class="btn btn-default btn-xs" ng-click="addRadnik()">
+			<button type="button" class="btn btn-default btn-xs" ng-click="addRadnik()">
                 <span class="glyphicon glyphicon-plus"></span> Dodaj Radnika
             </button>
-            <button type="button" class="btn btn-success btn-xs" ng-click="">
+			<button type="button" class="btn btn-success btn-xs" ng-click="">
                 <span class="glyphicon glyphicon-plus"></span> Raspored
             </button>
-        </div>
-        <div class="ke-title"> {{restaurant.name}} 
-            <span class="label label-warning ke-data-label"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{restaurant.address_restaurant}}</span>
-        <div class="ke-address">{{restaurant.descr}}</div>
-        <hr>
-        <div class="ke-address">Vlasnik: <strong>{{restaurant.owner.first_name}} {{restaurant.owner.last_name}}</strong></div>
-        <div class="ke-address">Telefon: <strong>{{restaurant.phone_restaurant}}</strong></div>
-        <hr>
-        <div>
-            <!-- button za dodavanje providera 
+			<button type="button" class="btn btn-success btn-xs" ng-click="addRegion()">
+                <span class="glyphicon glyphicon-plus"></span> Dodaj Region
+            </button>
+		</div>
+		<div class="ke-title"> {{restaurant.name}}
+			<span class="label label-warning ke-data-label"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>			{{restaurant.address_restaurant}}</span>
+			<div class="ke-address">{{restaurant.descr}}</div>
+			<hr>
+			<div class="ke-address">Vlasnik: <strong>{{restaurant.owner.first_name}} {{restaurant.owner.last_name}}</strong></div>
+			<div class="ke-address">Telefon: <strong>{{restaurant.phone_restaurant}}</strong></div>
+			<hr>
+			<div>
+				<!-- button za dodavanje providera 
             <a class="btn btn-success btn-lg" ng-click="addProvider()">Dodaj Providera</a>
             -->
-        </div>
-        <hr>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
+			</div>
+			<hr>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
 						Opis
-                    </h3>
-            </div>
-            <div class="panel-body">
-                {{restaurant.description_restaurant}}
+					</h3>
+				</div>
+				<div class="panel-body">
+					{{restaurant.description_restaurant}}
 
-            </div>
-        </div>
-
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-						Raspored stolova:
-                </h3>
-            </div>  
-            <div ng-init="getRegions()" ng-controller="TableController">
-                <div class="col-xs-12" ng-repeat="region in regions">
-                    <label class="label label-primary ke-label-title">Region {{region.id}}</label>
-                    <div class="col-xs-3 sto" ng-repeat="table in region.tables" ng-click="reserve(table.id)">
-                        <p ng-if="table.is_free">Slobodan</p>
-                        <p ng-if="!table.is_free">Zauzet</p>
-                    </div>
-                </div>   
-                <!--
-                <table class="sto" border="1" ng-repeat="region in regions">
-                    <tr ng-repeat="table in region.tables">
-                        <!--<td ng-repeat="table in region.tables">r:{{table.row}} c:{{table.column}}</td> 
-                        <td>c</td>
-                    </tr>
-                    
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-                -->
-            </div>
-        <!-- OVO ISPOD CE DA BUDE ZA OCENE -->
-        <!--
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-						Ocene
-                    </h3>
-            </div>
-            -->
-            <div class="panel-body">
-                <div ng-repeat="recenzija in recenzije | orderBy: '-ocena'">
-                    <div class="testimonials">
-                        <div class="active item">
-                            <blockquote style="margin-bottom: 5px;">
-                                <span class="pull-right" style="padding-right: 30px;">
+				</div>
+			</div>
+			<div ng-controller="TableController" ng-init="getRegions()">
+				<div ng-repeat="region in regions">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								Broj stolova: {{region.table_count}}
+							</h3>
+						</div>
+						<div class="panel-body">
+							<div class="col-xs-12">
+								<div class="col-xs-3 sto" ng-repeat="table in region.tables" ng-click="reserve(table.id)">
+									<p ng-if="table.is_free">Slobodan</p>
+									<p ng-if="!table.is_free">Zauzet</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- OVO ISPOD CE DA BUDE ZA OCENE -->
+			<div class="panel-body">
+				<div ng-repeat="recenzija in recenzije | orderBy: '-ocena'">
+					<div class="testimonials">
+						<div class="active item">
+							<blockquote style="margin-bottom: 5px;">
+								<span class="pull-right" style="padding-right: 30px;">
                                     <button ng-if="recenzija.korisnik == currentUser.korisnickoime" type="button" class="btn btn-default btn-xs" ng-click="editRecenzija(recenzija)">
                                         <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
-                                <button ng-if="currentUser.role == 'ADMIN'" type="button" class="btn btn-danger btn-xs" ng-click="removeRecenzija(recenzija)">
+								</button>
+								<button ng-if="currentUser.role == 'ADMIN'" type="button" class="btn btn-danger btn-xs" ng-click="removeRecenzija(recenzija)">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </button>
-                                </span>
-                                <p>{{recenzija.komentar}}</p>
-                            </blockquote>
-                            <div class="carousel-info">
-                                <div class="pull-left">
-                                    <span class="testimonials-name"><strong>{{recenzija.korisnik}}</strong></span>
-                                    <span class="testimonials-post"> 
-                                         - <span class="label label-warning"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{recenzija.ocena}}</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div ng-if="currentUser.role == 'BUYER'" class="panel panel-warning">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            Dodaj recenziju
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        <form name="form" ng-submit="createRecenzija(rec)">
-                            <div class="modal-body">
-                                <div ng-if="failure" class="alert alert-danger">
-                                    <strong>Nesto nije u redu! Pokusajte ponovo.</strong>
-                                </div>
-                                <input class="col-md-4" type="number" placeholder="Ocena (1 - 5)" min="1" max="5" ng-model="rec.ocena" required>
-                                <textarea placeholder="Vasa recenzija" ng-model="rec.komentar" required></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="submit" class="btn btn-primary" value="Potvrdi">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+								</span>
+								<p>{{recenzija.komentar}}</p>
+							</blockquote>
+							<div class="carousel-info">
+								<div class="pull-left">
+									<span class="testimonials-name"><strong>{{recenzija.korisnik}}</strong></span>
+									<span class="testimonials-post"> 
+                                         - <span class="label label-warning"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>									{{recenzija.ocena}}</span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr>
+				</div>
+				<div ng-if="currentUser.role == 'BUYER'" class="panel panel-warning">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Dodaj recenziju
+						</h3>
+					</div>
+					<div class="panel-body">
+						<form name="form" ng-submit="createRecenzija(rec)">
+							<div class="modal-body">
+								<div ng-if="failure" class="alert alert-danger">
+									<strong>Nesto nije u redu! Pokusajte ponovo.</strong>
+								</div>
+								<input class="col-md-4" type="number" placeholder="Ocena (1 - 5)" min="1" max="5" ng-model="rec.ocena" required>
+								<textarea placeholder="Vasa recenzija" ng-model="rec.komentar" required></textarea>
+							</div>
+							<div class="modal-footer">
+								<input type="submit" class="btn btn-primary" value="Potvrdi">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
