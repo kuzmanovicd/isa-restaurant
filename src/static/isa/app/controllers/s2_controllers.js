@@ -215,6 +215,12 @@ app.controller('MenuController', function ($scope, $location, $routeParams, Menu
         });
     }
 
+    $scope.addMenuItem = function(data) {
+        data.menu = $scope.menu.id;
+        $scope.return = data;
+        MenuService.create(data);
+    }
+
     
 
 });

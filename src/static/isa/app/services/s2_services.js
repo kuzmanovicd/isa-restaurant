@@ -130,6 +130,10 @@ function MenuService($http) {
     function destroy(id) {
         return $http.delete('api/restaurant/menu_item/' + id + '/');
     }
+
+    function addItem(menuItem) {
+        return $http.post('api/restaurant/menu_item/create/', angular.toJson(menuItem))
+    }
 }
 
 

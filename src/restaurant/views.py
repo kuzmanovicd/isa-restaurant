@@ -117,7 +117,7 @@ class RegionCreate(APIView):
     def post(self, request):
         rm = users.models.RestaurantManager.objects.get(pk=request.user.id)
         request.data['restaurant'] = rm.working_in.id
-
+        
         print(request.data)
         serializer = serializers.RegionSerializer(data=request.data)
         if serializer.is_valid():
