@@ -70,7 +70,15 @@ class MenuCreate(generics.CreateAPIView):
     queryset = models.Menu.objects.all()
     serializer_class = serializers.MenuSerializer
 
+class MenuForRestaurant(generics.RetrieveAPIView):
+    serializer_class = serializers.MenuSerializer2
 
+    def get_queryset(self):
+        r_id = self.kwargs['pk']
+        return models.Menu.objects.filter(restaurant=r_id)
+
+
+       
 #za MenuItem   Dodao:Spiric
 class MenuItemList(generics.ListAPIView):
     queryset = models.MenuItem.objects.all()
@@ -85,6 +93,8 @@ class MenuItemDetail(generics.RetrieveUpdateDestroyAPIView):
 class MenuItemCreate(generics.CreateAPIView):
     queryset = models.MenuItem.objects.all()
     serializer_class = serializers.MenuItemSerializer
+
+
 
 
 # za Regione 

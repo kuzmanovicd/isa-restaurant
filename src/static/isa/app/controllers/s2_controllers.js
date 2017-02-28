@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('RestaurantController', function ($scope, $rootScope, $location, $routeParams, $route, RestaurantService, BasicUserService, TableService) {
+app.controller('RestaurantController', function ($scope, $rootScope, $location, $routeParams, $route, RestaurantService, BasicUserService, TableService, MenuService) {
     
     RestaurantService.get($routeParams.id).success(function(data) {
         $scope.restaurant = data;
@@ -24,6 +24,18 @@ app.controller('RestaurantController', function ($scope, $rootScope, $location, 
         $location.path('/region/add');
     };
 
+    //dodaj menu item
+    //dodavanje regiona
+     $scope.addMenuItem = function() {
+        $location.path('/menu_item/add');
+    };
+
+
+    //pogledaj meni
+    $scope.openMenu = function(id) {
+        $location.path('/menu/open/' + id);
+    };
+
     $scope.getAll = function() {
         RestaurantService.getAll().success(function (data) {
             $scope.restaurants = data;
@@ -35,6 +47,8 @@ app.controller('RestaurantController', function ($scope, $rootScope, $location, 
             RestaurantService.get(data.working_in).success(function(data) {
                 $scope.restaurant = data;
                 $scope.getRegions(data.id);
+
+                //$scope.getMenus(data.id);
             });
         });
     } else {
@@ -172,6 +186,37 @@ app.controller('RegionController', function ($scope, $location, RegionService) {
 
     //console.log(angular.toJson(region));
   
+});
+
+
+//kontroler za menu
+app.controller('MenuController', function ($scope, $location, $routeParams, MenuService) {
+
+    $scope.create = function() {
+        MenuService.create($scope.menu).success(function(data) {
+            $location.path('/');
+        }); 
+    };
+
+    $scope.getAllMenuItems = function () {
+        console.log('aaaaaaa')
+        $scope.get();
+    };
+
+    $scope.get = function() {
+        MenuService.get($routeParams.id).success( function(data) {
+            $scope.menu = data;
+        });
+    }
+
+    $scope.deleteMenuItem = function(id) {
+        MenuService.destroy(id).success(function(data) {
+            $scope.get();
+        });
+    }
+
+    
+
 });
 
 

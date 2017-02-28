@@ -49,6 +49,11 @@ app.config(function ($routeProvider) {
             templateUrl: static_file + 'partials/student2_restoran/provider_add.html',
             controllerAs: 'vm'
         })
+        .when('/menu_item/add', {
+            controller: 'ProviderController',
+            templateUrl: static_file + 'partials/student2_restoran/menu_item_add.html',
+            controllerAs: 'vm'
+        })
         .when('/employee/add', {
             controller: 'RadnikController',
             templateUrl: static_file + 'partials/student2_restoran/radnik_add.html',
@@ -57,6 +62,11 @@ app.config(function ($routeProvider) {
         .when('/region/add', {
             controller: 'RegionController',
             templateUrl: static_file + 'partials/student2_restoran/region_add.html',
+            controllerAs: 'vm'
+        })
+        .when('/menu/open/:id', {
+            controller: 'MenuController',
+            templateUrl: static_file + 'partials/student2_restoran/pogledaj_meni.html',
             controllerAs: 'vm'
         })
         .when('/proizvodi', {

@@ -10,6 +10,7 @@ urlpatterns = [
     #za Menu      Dodao: Spiric
     url(r'^menu/all/?$', MenuList.as_view(), name='menu_list'),
     url(r'^menu/(?P<pk>[0-9]+)/?$', MenuDetail.as_view(), name='rud_menu'),
+    url(r'^menu/restaurant/(?P<pk>[0-9]+)/?$', MenuForRestaurant.as_view(), name='r_menu'),
     url(r'^menu/create/?$', MenuCreate.as_view(), name='menu_icreate'),
 
     #za MenuItem  Dodao: Spiric

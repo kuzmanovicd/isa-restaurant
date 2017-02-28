@@ -28,127 +28,138 @@
             -->
 			</div>
 			<hr>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Opis
-					</h3>
-				</div>
-				<div class="panel-body">
-					{{restaurant.description_restaurant}}
-				</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					Opis
+				</h3>
+			</div>
+			<div class="panel-body">
+				{{restaurant.description_restaurant}}
 			</div>
 		</div>
-		<div ng-init="getRegions(restaurant.id)">
-			x: {{restaurant.id}}
-			<div class="panel panel-default" ng-if="selected.length && currentUser.user_type == 'GU'">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						Rezervisi
-					</h3>
-				</div>
-				<div class="panel-body">
-					<form class="form-horizontal" role="form">
-						<div class="form-group">
-							<label class="col-lg-3 control-label">Datum:</label>
-							<div class="col-lg-8">
-								<!-- yyyy-MM-ddTHH:mm:ss -->
-								<input class="form-control" type="datetime-local" min="{{todayDate | date:'yyyy-MM-ddThh:mm'}}" value="{{todayDate | date:'yyyy-MM-ddThh:mm'}}" ng-model="reservation.time" required>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-lg-3 control-label">Trajanje (h):</label>
-							<div class="col-lg-8">
-								<input class="form-control" type="text" ng-model="reservation.duration">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-lg-3 control-label">Izabrano stolova:</label>
-							<div class="col-lg-8">
-								<input class="form-control" type="text" ng-model="selected.length" disabled>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-3 control-label"></label>
-							<div class="col-md-8">
-								<input type="button" class="btn btn-primary" value="Završi rezervaciju" ng-click="">
-								<span></span>
-								<input type="reset" class="btn btn-default" value="Poništi" ng-click="">
-							</div>
-						</div>
-					</form>
-					
-				</div>
+	</div>
+
+	<div class="container-fluid ke-container">
+		<div class="col-md-12">
+			<button type="button" class="btn btn-default btn-md" ng-click="openMenu(restaurant.restaurant_menu)">
+              			<span class="glyphicon glyphicon-plus"></span> Pogledaj meni
+            </button>
+		</div>
+	</div>
+
+
+	<div ng-init="getRegions(restaurant.id)">
+		<div class="panel panel-default" ng-if="selected.length && currentUser.user_type == 'GU'">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					Rezervisi
+				</h3>
 			</div>
-			<div ng-repeat="region in regions">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">
-							Broj stolova: {{region.table_count}}
-						</h3>
-					</div>
-					<div class="panel-body">
-						<div class="col-xs-12">
-							<div class="col-xs-3 ng-class:{'sto': !table.selected, 'sto_green': table.selected};" ng-repeat="table in region.tables"
-							    ng-click="reserve(table)">
-								<p ng-if="table.is_free">Slobodan</p>
-								<p ng-if="!table.is_free">Zauzet</p>
-							</div>
+			<div class="panel-body">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Datum:</label>
+						<div class="col-lg-8">
+							<!-- yyyy-MM-ddTHH:mm:ss -->
+							<input class="form-control" type="datetime-local" min="{{todayDate | date:'yyyy-MM-ddThh:mm'}}" value="{{todayDate | date:'yyyy-MM-ddThh:mm'}}"
+								ng-model="reservation.time" required>
 						</div>
 					</div>
-				</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Trajanje (h):</label>
+						<div class="col-lg-8">
+							<input class="form-control" type="text" ng-model="reservation.duration">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Izabrano stolova:</label>
+						<div class="col-lg-8">
+							<input class="form-control" type="text" ng-model="selected.length" disabled>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label"></label>
+						<div class="col-md-8">
+							<input type="button" class="btn btn-primary" value="Završi rezervaciju" ng-click="">
+							<span></span>
+							<input type="reset" class="btn btn-default" value="Poništi" ng-click="">
+						</div>
+					</div>
+				</form>
+
 			</div>
 		</div>
-		<!-- OVO ISPOD CE DA BUDE ZA OCENE -->
-		<div class="panel-body">
-			<div ng-repeat="recenzija in recenzije | orderBy: '-ocena'">
-				<div class="testimonials">
-					<div class="active item">
-						<blockquote style="margin-bottom: 5px;">
-							<span class="pull-right" style="padding-right: 30px;">
-                                    <button ng-if="recenzija.korisnik == currentUser.korisnickoime" type="button" class="btn btn-default btn-xs" ng-click="editRecenzija(recenzija)">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-							</button>
-							<button ng-if="currentUser.role == 'ADMIN'" type="button" class="btn btn-danger btn-xs" ng-click="removeRecenzija(recenzija)">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
-							</span>
-							<p>{{recenzija.komentar}}</p>
-						</blockquote>
-						<div class="carousel-info">
-							<div class="pull-left">
-								<span class="testimonials-name"><strong>{{recenzija.korisnik}}</strong></span>
-								<span class="testimonials-post"> 
-                                         - <span class="label label-warning"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>								{{recenzija.ocena}}</span>
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<hr>
-			</div>
-			<div ng-if="currentUser.role == 'BUYER'" class="panel panel-warning">
+		<div ng-repeat="region in regions">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						Dodaj recenziju
+						Broj stolova: {{region.table_count}}
 					</h3>
 				</div>
 				<div class="panel-body">
-					<form name="form" ng-submit="createRecenzija(rec)">
-						<div class="modal-body">
-							<div ng-if="failure" class="alert alert-danger">
-								<strong>Nesto nije u redu! Pokusajte ponovo.</strong>
-							</div>
-							<input class="col-md-4" type="number" placeholder="Ocena (1 - 5)" min="1" max="5" ng-model="rec.ocena" required>
-							<textarea placeholder="Vasa recenzija" ng-model="rec.komentar" required></textarea>
+					<div class="col-xs-12">
+						<div class="col-xs-3 ng-class:{'sto': !table.selected, 'sto_green': table.selected};" ng-repeat="table in region.tables"
+							ng-click="reserve(table)">
+							<p ng-if="table.is_free">Slobodan</p>
+							<p ng-if="!table.is_free">Zauzet</p>
 						</div>
-						<div class="modal-footer">
-							<input type="submit" class="btn btn-primary" value="Potvrdi">
-						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- OVO ISPOD CE DA BUDE ZA OCENE -->
+	<div class="panel-body">
+		<div ng-repeat="recenzija in recenzije | orderBy: '-ocena'">
+			<div class="testimonials">
+				<div class="active item">
+					<blockquote style="margin-bottom: 5px;">
+						<span class="pull-right" style="padding-right: 30px;">
+                                    <button ng-if="recenzija.korisnik == currentUser.korisnickoime" type="button" class="btn btn-default btn-xs" ng-click="editRecenzija(recenzija)">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+						</button>
+						<button ng-if="currentUser.role == 'ADMIN'" type="button" class="btn btn-danger btn-xs" ng-click="removeRecenzija(recenzija)">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+						</span>
+						<p>{{recenzija.komentar}}</p>
+					</blockquote>
+					<div class="carousel-info">
+						<div class="pull-left">
+							<span class="testimonials-name"><strong>{{recenzija.korisnik}}</strong></span>
+							<span class="testimonials-post"> 
+                                         - <span class="label label-warning"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>							{{recenzija.ocena}}</span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr>
+		</div>
+		<div ng-if="currentUser.role == 'BUYER'" class="panel panel-warning">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					Dodaj recenziju
+				</h3>
+			</div>
+			<div class="panel-body">
+				<form name="form" ng-submit="createRecenzija(rec)">
+					<div class="modal-body">
+						<div ng-if="failure" class="alert alert-danger">
+							<strong>Nesto nije u redu! Pokusajte ponovo.</strong>
+						</div>
+						<input class="col-md-4" type="number" placeholder="Ocena (1 - 5)" min="1" max="5" ng-model="rec.ocena" required>
+						<textarea placeholder="Vasa recenzija" ng-model="rec.komentar" required></textarea>
+					</div>
+					<div class="modal-footer">
+						<input type="submit" class="btn btn-primary" value="Potvrdi">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 </div>
 </div>
