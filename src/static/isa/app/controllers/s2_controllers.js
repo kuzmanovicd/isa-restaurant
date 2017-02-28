@@ -89,6 +89,8 @@ app.controller('TableController', function($scope, TableService){
 
     //dejan
     $scope.selected = [];
+    $scope.todayDate = new Date();
+    //$scope.nowTime = new Time
 
     $scope.reserve = function (r) {
         var index = -1;

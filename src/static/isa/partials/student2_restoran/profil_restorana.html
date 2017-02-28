@@ -41,7 +41,7 @@
 		</div>
 		<div ng-controller="TableController" ng-init="getRegions()">
 			{{selected}}
-			<div class="panel panel-default" ng-if="selected.length">
+			<div class="panel panel-default" ng-if="selected.length && currentUser.user_type == 'GU'">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						Rezervisi
@@ -52,13 +52,8 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Datum:</label>
 							<div class="col-lg-8">
-								<input class="form-control" type="date" ng-model="reservation.date" required>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-lg-3 control-label">Vreme:</label>
-							<div class="col-lg-8">
-								<input class="form-control" type="time" ng-model="reservation.time" required>
+								<!-- yyyy-MM-ddTHH:mm:ss -->
+								<input class="form-control" type="datetime-local" min="{{todayDate | date:'yyyy-MM-ddThh:mm'}}" value="{{todayDate | date:'yyyy-MM-ddThh:mm'}}" ng-model="reservation.time" required>
 							</div>
 						</div>
 						<div class="form-group">
