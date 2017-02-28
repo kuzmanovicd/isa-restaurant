@@ -79,6 +79,8 @@ app.controller('ProviderController', function ($scope, $location, ProviderServic
 //kontroler za stolove
 app.controller('TableController', function($scope, TableService){
     
+
+
     $scope.getRegions = function() {
         TableService.getRegions().success(function(data) {
             $scope.regions = data;
@@ -102,12 +104,17 @@ app.controller('TableController', function($scope, TableService){
 //kontroler za Region
 app.controller('RegionController', function ($scope, $location, RegionService) {
 
+    $scope.region = {};
+    $scope.region.is_open = false;
+    $scope.region.is_forSmoke = false;
+
     $scope.create = function() {
         $scope.region.is_frontSide = true;
-         RegionService.create('region', $scope.region); 
+        console.log($scope.region);
+        //RegionService.create('region', $scope.region); 
     };
 
-    console.log(angular.toJson(region));
+    //console.log(angular.toJson(region));
   
 });
 

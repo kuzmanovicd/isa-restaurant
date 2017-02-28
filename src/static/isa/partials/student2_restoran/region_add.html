@@ -4,14 +4,15 @@
         <button type="button" class="close" data-dismiss="modal">×</button>
         <h4 class="modal-title"> Broj stolova: </h4>
     </div>
+    {{region}}
     <form name="form" ng-submit="create()">
         <div class="modal-body">
             <input type="number" placeholder="TableCount" ng-model="region.table_count" required>
             <div class="panel-title"> 
-                Basta <input type="checkbox"  ng-model="region.is_forSmoke" required>
+                Basta <input type="checkbox" ng-model="region.is_forSmoke">
             </div>
             <div class="panel-title">
-                Dozvoljeno pusenje <input type="checkbox" placeholder="Open" ng-model="region.is_open" required>
+                Dozvoljeno pusenje <input type="checkbox" placeholder="Open" ng-model="region.is_open">
             <div>
         </div>
         <div class="modal-footer">
