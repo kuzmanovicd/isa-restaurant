@@ -145,7 +145,7 @@ app.controller('RestaurantController', function ($scope, $rootScope, $location, 
 
 
 //kontroler za radnika
-app.controller('RadnikController', function ($scope, $routeParams, RadnikService, TableService) {
+app.controller('RadnikController', function ($scope, $routeParams, RadnikService, TableService, ShiftService) {
     //WA - Waiter
     //BA - Bartender
     //C0 - Cook
@@ -190,6 +190,12 @@ app.controller('RadnikController', function ($scope, $routeParams, RadnikService
         RadnikService.update(m.id, data).success(function(data){
             $scope.regions = data;
             $scope.getAllEmployees();
+        })
+    };
+
+    $scope.getAllShifts = function() {
+        ShiftService.get().success(function(data) {
+            $scope.shift = data;
         })
     };
 

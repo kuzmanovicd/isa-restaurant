@@ -183,11 +183,16 @@ function ShiftService($http) {
     var service = {};
 
     service.create = create;
+    service.get = get;
 
     return service;
     
     function create(shift) {
         return $http.post('api/restaurant/shift/create/', angular.toJson(shift));
+    }
+
+     function get() {
+        return $http.get('api/restaurant/shift/all/');
     }
 }
 
