@@ -150,6 +150,14 @@ class TableCreate(generics.CreateAPIView):
     serializer_class = serializers.TableSerializer
 
 
+class MyReservationsList(generics.ListAPIView):
+    serializer_class = serializers.ReservationSerializerDetail
+
+    def get_queryset(self):
+        guest_id = self.request.user.id
+        return models.Reservation.objects.filter(guest=guest_id)
+
+
 class ReservationList(generics.ListAPIView):
     serializer_class = serializers.ReservationSerializer
 
