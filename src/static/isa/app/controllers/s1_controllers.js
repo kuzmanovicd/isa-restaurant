@@ -194,5 +194,13 @@ app.controller('GuestController', function ($scope, $rootScope, $route, $locatio
 
 });
 
+app.controller('ReservationController', function($scope, $rootScope, $location, ReservationService) {
+
+    $scope.load = function () {
+        ReservationService.myReservations().success(function(data){
+            $scope.reservations = data;
+        });
+    }
+});
 
 

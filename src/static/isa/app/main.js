@@ -39,6 +39,11 @@ app.config(function ($routeProvider) {
             templateUrl: static_file + 'partials/student1/guest_profile.html',
             controllerAs: 'vm'
         })
+        .when('/reservations', {
+            controller: 'ReservationController',
+            templateUrl: static_file + 'partials/student1/my_reservations.html',
+            controllerAs: 'vm'
+        })
         .when('/guests', {
             controller: 'GuestController',
             templateUrl: static_file + 'partials/student1/guest_list.html',
