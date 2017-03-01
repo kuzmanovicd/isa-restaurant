@@ -31,7 +31,7 @@ class Menu(models.Model):
 #model: Order (narudzbina)
 class Order(models.Model):   
     date_created = models.DateTimeField('date created', default=timezone.now)
-    menu_items = models.ForeignKey('restaurant.MenuItem', on_delete=models.CASCADE, related_name="orders")
+    menu_items = models.ManyToManyField('restaurant.MenuItem', related_name="orders")
     
 #model: Bill (racun)
 class Bill(models.Model):
@@ -106,6 +106,7 @@ class Invite(models.Model):
     reservation = models.ForeignKey('restaurant.Reservation', on_delete=models.CASCADE, related_name="invites")
     guest = models.ForeignKey('users.Guest', on_delete=models.CASCADE, related_name="invites")
     confirmed = models.NullBooleanField()
+    order = models.OneToOneField('restaurant.Order', on_delete=models.CASCADE, null=True, related_name="invite")
 
     class Meta:
         verbose_name = 'Invite'

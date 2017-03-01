@@ -70,16 +70,26 @@ class RegionSerializer(serializers.ModelSerializer):
 
 
 ###Dejan
-
 class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reservation
         fields = ['id', 'coming', 'duration', 'guest', 'restaurant', 'reserved_tables',]
-        #read_only_fields = ('guest',)
 
+class ReservationSerializerDetail(serializers.ModelSerializer):
+    restaurant = RestaurantSerializer(read_only=True)
+    class Meta:
+        model = Reservation
+        fields = ['id', 'coming', 'duration', 'guest', 'restaurant', 'reserved_tables',]
 
 class InviteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Invite
         fields = ['id', 'reservation', 'guest' ]
-        read_only_fields = ('guest',)
+        read_only_fields = ('id',)
+
+class InviteSerializerDetail(serializers.ModelSerializer):
+    reservation = ReservationSerializerDetail(read_only=True)
+    class Meta:
+        model = Invite
+        fields = ['id', 'reservation', 'guest' ]
+        read_only_fields = ('id','reservation',)

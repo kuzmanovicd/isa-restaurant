@@ -44,6 +44,9 @@ urlpatterns = [
     #reservacije
     url(r'^reservations/(?P<restaurant>[0-9]+)/?$', ReservationList.as_view(), name='reservation-for-restaurant'),
     url(r'^reservations/create/?$', ReservationCreate.as_view(), name='reservation-create'),
+    url(r'^reservations/invite/create/?$', InviteCreate.as_view(), name='invite-create'),
+    url(r'^reservations/invite/my/?$', MyInvitesView.as_view(), name='invites-my'),
+    
 
 
 ]

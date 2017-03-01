@@ -68,7 +68,7 @@
 							<div class="col-lg-8">
 								<!-- yyyy-MM-ddTHH:mm:ss -->
 								<input class="form-control" type="datetime-local" min="{{todayDate | date:'yyyy-MM-ddThh:mm'}}" value="{{todayDate | date:'yyyy-MM-ddThh:mm'}}"
-									ng-model="reservation.coming" required>
+								    ng-model="reservation.coming" required>
 							</div>
 						</div>
 						<div class="form-group">
@@ -81,6 +81,21 @@
 							<label class="col-lg-3 control-label">Izabrano stolova:</label>
 							<div class="col-lg-8">
 								<input class="form-control" type="text" ng-model="selected.length" disabled>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Da li zelite da pozovete prijatelje?</label>
+							<div class="col-lg-1">
+								<input class="form-control pull-left" type="checkbox" ng-model="selected.invite">
+							</div>
+						</div>
+						<div class="form-group" ng-if="selected.invite" ng-init="getFriends()">
+							<label class="col-lg-3 control-label">Izaberite prijatelje:</label>
+							<div class="col-lg-8">
+								<select multiple class="form-control" ng-model="selected.friends">
+                					<option ng-repeat="f in friends" value="{{f.id}}">{{f.username}} - {{f.first_name}} {{f.last_name}}</option>
+            					</select>
 							</div>
 						</div>
 						<div class="form-group">
@@ -105,7 +120,7 @@
 				<div class="panel-body">
 					<div class="col-xs-12">
 						<div class="col-xs-3 ng-class:{'sto': !table.selected, 'sto_green': table.selected};" ng-repeat="table in region.tables"
-							ng-click="reserve(table)">
+						    ng-click="reserve(table)">
 							<p ng-if="table.is_free">Slobodan</p>
 							<p ng-if="!table.is_free">Zauzet</p>
 						</div>

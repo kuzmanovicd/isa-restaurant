@@ -52,7 +52,7 @@ app.controller('MyRestaurantController', function ($scope, $rootScope, BasicUser
     }
 });
 
-app.controller('GuestController', function ($scope, $rootScope, $route, $location, BasicUserService) {
+app.controller('GuestController', function ($scope, $rootScope, $route, $location, BasicUserService, ReservationService) {
     $scope.status = {};
 
     $scope.loadUser = function () {
@@ -72,6 +72,12 @@ app.controller('GuestController', function ($scope, $rootScope, $route, $locatio
             $scope.loadUser();
         });
     };
+
+    $scope.loadInvites = function () {
+        ReservationService.getInvites().success(function(data) {
+            $scope.invites = data;
+        });
+    }
 
     $scope.reload = function() {
         $route.reload();

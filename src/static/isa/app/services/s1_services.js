@@ -130,10 +130,20 @@ function ReservationService($http) {
     var service = {};
 
     service.create = create;
+    service.sendInvites = sendInvites;
+    service.getInvites = getInvites;
 
     return service;
 
     function create(data) {
         return $http.post('api/restaurant/reservations/create/', angular.toJson(data));
+    }
+
+    function sendInvites(data) {
+        return $http.post('api/restaurant/reservations/invite/create/', angular.toJson(data));
+    }
+
+    function getInvites() {
+        return $http.get('api/restaurant/reservations/invite/my/');
     }
 }

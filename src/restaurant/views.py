@@ -202,3 +202,32 @@ class ReservationCreate(APIView):
 
         except ObjectDoesNotExist:
             return Response(status=HTTP_401_UNAUTHORIZED)
+
+class InviteCreate(APIView):
+    def post(self, request):
+        #guest = users.models.Guest.objects.get(pk=request.user.id)
+        print(request.data['guests'])
+        is_done = True
+        for g_id in request.data['guests']:
+            data = {}
+            data['guest'] = g_id
+            data['reservation'] = request.data['reservation']
+
+            serializer = serializers.InviteSerializer(data=data)
+
+            if serializer.is_valid():
+                serializer.save()
+            else:
+                return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        
+        if is_done:
+            return Response(status=HTTP_201_CREATED)
+        return Response(status=HTTP_404_NOT_FOUND)
+
+
+class MyInvitesView(generics.ListAPIView):
+
+    serializer_class = serializers.InviteSerializerDetail
+    def get_queryset(self):
+        guest = users.models.Guest.objects.get(pk=self.request.user.id)
+        return models.Invite.objects.filter(guest=guest)

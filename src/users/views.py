@@ -63,7 +63,16 @@ class MyFriendsView(APIView):
 
 class AllMyFriendsView(generics.ListAPIView):
     serializer_class = serializers.GuestSerializer
-    queryset = models.Guest.objects.all()
+
+    def get_queryset(self):
+        #r_id = self.kwargs['restaurant']
+        guest = get_guest_user(self.request)
+
+        qs_friends = models.Friend.objects.friends(guest)
+        primary_keys = [i.to_user for i in qs_friends]
+        qs_users = models.Guest.objects.filter(pk__in=primary_keys)
+
+        return qs_users
 
 
 class FriendshipCreate(APIView):

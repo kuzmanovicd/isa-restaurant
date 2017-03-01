@@ -66,6 +66,12 @@ app.controller('RestaurantController', function ($scope, $rootScope, $location, 
         });
     }
 
+    $scope.getFriends = function() {
+        BasicUserService.getMyFriendsGuests().success(function(data){
+            $scope.friends = data;
+        });
+    };
+
     //dejan
     $scope.selected = [];
     $scope.todayDate = new Date();
@@ -102,8 +108,22 @@ app.controller('RestaurantController', function ($scope, $rootScope, $location, 
         console.log(data);
 
         ReservationService.create(data).success(function(data){
-            $scope.ok = true;
-            $scope.error = false;
+            console.log(data);
+            var invite = {};
+            invite.guests = $scope.selected.friends;
+            invite.reservation = data.id;
+            console.log(invite);
+            //return;
+            if($scope.selected.invite) {
+                ReservationService.sendInvites(invite).success(function(data) {
+                    $scope.ok = true;
+                    $scope.error = false;
+                });
+            } else {
+                $scope.ok = true;
+                $scope.error = false;
+            }
+            
         }).error(function(data){
             $scope.error = true;
             $scope.ok = false;
