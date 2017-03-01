@@ -335,3 +335,11 @@ class ItemsRequestCreate(APIView):
         itemreq.save()
         print(itemreq)
         return Response(status=HTTP_201_CREATED)
+
+
+class ItemsRequestList(APIView):
+    serializer_class = serializers.ItemsRequestSerializer
+
+    def get_queryset(self):
+        pr = users.models.Provider.objects.get(pk=self.request.user.id)
+        return models.ItemsRequest.objects.filter(restaurant=pr.restaurant.id)

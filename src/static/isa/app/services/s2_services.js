@@ -16,6 +16,8 @@ app.factory('MenuItemService', MenuItemService);
 
 app.factory('ShiftService', ShiftService);
 
+app.factory('ItemsRequestService', ItemsRequestService);
+
 function RestaurantService($http) {
     var service = {};
     
@@ -197,4 +199,16 @@ function ShiftService($http) {
 }
 
 
+//servis za itemRequest
+function ItemsRequestService($http) {
+    var service = {};
+
+    service.get = get;
+
+    return service;
+
+     function get() {
+        return $http.get('api/restaurant/itemsrequest/all/');
+    }
+}
 

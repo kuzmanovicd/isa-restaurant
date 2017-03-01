@@ -108,7 +108,7 @@ class ShiftSerializer(serializers.ModelSerializer):
 class ItemsRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemsRequest
-        fields = ['id', 'end', 'items', 'price_accepted', 'restaurant']
+        fields = ['id', 'items', 'price_accepted', 'restaurant']
         read_only_fields = ('id',)
 
 
