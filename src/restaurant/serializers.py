@@ -102,3 +102,25 @@ class ShiftSerializer(serializers.ModelSerializer):
         fields = ['id', 'name_shift', 'begin', 'end', 'restaurant',]
         read_only_fields = ('id',)
 
+
+
+# porudzbina serializers
+class ItemsRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ItemsRequest
+        fields = ['id', 'end', 'items', 'price_accepted',]
+        read_only_fields = ('id',)
+
+
+class ItemOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ItemOrder
+        fields = ['id', 'menu_item', 'quantity',]
+        read_only_fields = ('id',)
+
+
+class OfferSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Offer
+        fields = ['id', 'request', 'price',]
+        read_only_fields = ('id',)

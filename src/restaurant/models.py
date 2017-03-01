@@ -131,6 +131,7 @@ class ItemsRequest(models.Model):
     end = models.DateTimeField(default=timezone.now)
     items = models.ManyToManyField('restaurant.ItemOrder', related_name="request")
     price_accepted = models.DecimalField(max_digits=9, decimal_places=2, null=True)
+    restaurant = models.ForeignKey("Restaurant", related_name="requests")
 
 class ItemOrder(models.Model):
     menu_item = models.ForeignKey('restaurant.MenuItem', related_name="in_orders")
@@ -139,4 +140,7 @@ class ItemOrder(models.Model):
 class Offer(models.Model):
     request = models.ForeignKey('restaurant.ItemsRequest', related_name="offers")
     price = models.DecimalField(max_digits=9, decimal_places=2)
+    accepted = models.NullBooleanField()
 
+    def confirm(self, accepted):
+        self.accepted = accepted
