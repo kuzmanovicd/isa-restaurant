@@ -51,7 +51,7 @@
                     <li ng-if="currentUser.user_type == 'GU'"><a href="#/reservations">Moje rezervacije</a></li>
                     <li ng-if="currentUser.user_type == 'PR'"><a href="#/provider">Moj profil</a></li>
                     <li ng-if="currentUser.user_type == 'GU'"><a href="#/guests">Prijatelji</a></li>
-                    <li ng-if="currentUser.user_type == 'PR'"><a href="#/itemsrequest">Lista porudzbina</a></li>
+                    <li ng-if="currentUser.user_type == 'PR' || currentUser.user_type == 'RM'"><a href="#/itemsrequest">Lista porudzbina</a></li>
                     <li ng-if="currentUser">
                         <form class="navbar-form">
                             <span>&nbsp;&nbsp;</span>

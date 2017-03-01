@@ -341,5 +341,27 @@ class ItemsRequestList(generics.ListAPIView):
     serializer_class = serializers.ItemsRequestSerializer
 
     def get_queryset(self):
-        pr = users.models.Provider.objects.get(pk=self.request.user.id)
-        return models.ItemsRequest.objects.filter(restaurant=pr.restaurant.id)
+        pr = users.models.Provider.objects.filter(pk=self.request.user.id).first()
+        rm = users.models.RestaurantManager.objects.filter(pk=self.request.user.id).first()
+
+        id = None
+
+        if pr:
+            id = pr.restaurant
+        elif rm:
+            id = rm.working_in
+        else:
+            print('e sad si ga zajebao')
+
+        return models.ItemsRequest.objects.filter(restaurant=id)
+
+class CreateOffer(APIView):
+    def post(self, request):
+        try:
+            pr = users.models.Provider.objects.get(pk=request.user.id)
+            ir = models.ItemsRequest.objects.get(pk=request.data['r_id'])
+            offer = models.Offer.objects.create(request=ir, price=request.data['price'])
+            #ir.price_accepted = offer.price
+            return Response(status=HTTP_201_CREATED)
+        except:
+            return Response(status=HTTP_400_BAD_REQUEST)

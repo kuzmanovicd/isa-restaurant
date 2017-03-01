@@ -65,6 +65,7 @@ urlpatterns = [
 
     #ItemsRequestView
     url(r'^itemsrequest/all/?$', ItemsRequestList.as_view(), name='items_request_list'),
+    url(r'^offer/create/?$', CreateOffer.as_view(), name='offer-create'),
     
 
 ]

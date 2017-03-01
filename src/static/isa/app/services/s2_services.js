@@ -204,11 +204,16 @@ function ItemsRequestService($http) {
     var service = {};
 
     service.get = get;
+    service.offer = offer;
 
     return service;
 
-     function get() {
+    function get() {
         return $http.get('api/restaurant/itemsrequest/all/');
+    }
+
+    function offer(data) {
+        return $http.post('api/restaurant/offer/create/', angular.toJson(data));
     }
 }
 

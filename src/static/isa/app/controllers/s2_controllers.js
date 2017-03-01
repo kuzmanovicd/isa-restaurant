@@ -384,6 +384,18 @@ app.controller('ItemsRequestController', function ($scope, $location, $routePara
         });
     };
 
+    $scope.offer = function(r) {
+        var data = {};
+        data.price = r.final_price;
+        data.r_id = r.id;
+
+        $scope.data2 = data;
+
+        ItemsRequestService.offer(data).success(function(data) {
+            $scope.load();
+        });
+    }
+
 });
 
 

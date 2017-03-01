@@ -141,7 +141,7 @@ class ItemOrder(models.Model):
 class Offer(models.Model):
     request = models.ForeignKey('restaurant.ItemsRequest', related_name="offers")
     price = models.DecimalField(max_digits=9, decimal_places=2)
-    accepted = models.NullBooleanField()
+    accepted = models.BooleanField(default=False)
 
     def confirm(self, accepted):
         self.accepted = accepted
