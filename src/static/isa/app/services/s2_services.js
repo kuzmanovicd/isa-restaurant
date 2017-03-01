@@ -65,7 +65,7 @@ function ProviderService($http) {
 
     service.create = create;
     service.getProvider = getProvider;
-    service.upadeteProvider = upadeteProvider;
+    service.updateProvider = updateProvider;
 
     return service;
     
@@ -75,7 +75,7 @@ function ProviderService($http) {
     }
 
     function getProvider(id) {
-        return $http.get('api/users/provider/' + id);
+        return $http.get('api/users/provider/' + id + '/');
     }
 
     function updateProvider(id, data) {
