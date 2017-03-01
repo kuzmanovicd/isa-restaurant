@@ -115,6 +115,7 @@ function MenuService($http) {
     service.create = create;
     service.get = get;
     service.destroy = destroy;
+    service.addItem = addItem;
 
     return service;
     

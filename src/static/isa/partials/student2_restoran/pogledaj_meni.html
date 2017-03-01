@@ -12,6 +12,7 @@
 			<th>Opis stavke</th>
 			<th>Stavka je hrana</th>
 			<th>Cena stavke</th>
+            <th ng-if="currentUser.user_type == 'RM'">Kolicina stavke</th>
 		</thead>
 		<tbody>
 			<tr ng-repeat="m in menu.menu_items | filter:searchQuery">
@@ -19,6 +20,7 @@
 				<td>{{m.description_item}}</td>
 				<td>{{m.type_item}}</td>
 				<td>{{m.price_item}}</td>
+                <td ng-if="currentUser.user_type == 'RM'">{{m.quantity_item}}</td>
 				<td ng-if="currentUser.user_type == 'RM'">
 					<button type="button" class="btn btn-danger btn-xs" ng-click="deleteMenuItem(m.id)">
                     <span class="glyphicon glyphicon-add"></span> Ukloni
@@ -31,7 +33,6 @@
 	</div>
 
 	<!-- forma za dodavanje MenuItem-a -->
-    {{return}}
 	<div ng-if="currentUser.user_type == 'RM'" class="col-md-6 col-md-offset-3 ke-container" style="padding-top: 0px;">
 		<div class="modal-header login-header">
 			<button type="button" class="close" data-dismiss="modal">×</button>
@@ -45,6 +46,7 @@
 					Hrana <input type="checkbox" ng-model="menuItem.type_item">
 				</div>
 				<input type="number" placeholder="Cena stavke" ng-model="menuItem.price_item" required>
+                <input type="number" placeholder="Kolicina stavke" ng-model="menuItem.quantity_item" required>
 			</div>
 			<div class="modal-footer">
 				<input type="submit" class="btn btn-primary" value="Potvrdi" ng-disabled="form.$invalid">
