@@ -337,7 +337,7 @@ class ItemsRequestCreate(APIView):
         return Response(status=HTTP_201_CREATED)
 
 
-class ItemsRequestList(APIView):
+class ItemsRequestList(generics.ListAPIView):
     serializer_class = serializers.ItemsRequestSerializer
 
     def get_queryset(self):
