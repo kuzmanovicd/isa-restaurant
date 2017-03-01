@@ -105,6 +105,7 @@ class Reservation(models.Model):
     guest = models.ForeignKey('users.Guest', on_delete=models.SET_NULL, null=True)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     reserved_tables = models.ManyToManyField('restaurant.Table', related_name="reservations")
+    cancelled = models.BooleanField(default=False)
     #test = models.ManyToManyField('restaurant.Restaurant.regions.tables')
 
     def __str__(self):

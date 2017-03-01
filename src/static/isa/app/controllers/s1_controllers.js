@@ -201,6 +201,12 @@ app.controller('ReservationController', function($scope, $rootScope, $location, 
             $scope.reservations = data;
         });
     }
+
+    $scope.cancelReservation = function (id) {
+        ReservationService.cancelReservation(id).success(function(data) {
+            $scope.load();
+        });
+    };
 });
 
 

@@ -137,6 +137,7 @@ function ReservationService($http) {
     service.confirmInvite = confirmInvite;
     service.makeOrder = makeOrder;
     service.myReservations = myReservations;
+    service.cancelReservation = cancelReservation;
 
     return service;
 
@@ -162,6 +163,10 @@ function ReservationService($http) {
 
     function myReservations() {
         return $http.get('api/restaurant/reservations/my/');
+    }
+
+    function cancelReservation(id) {
+        return $http.get('api/restaurant/reservations/cancel/' + id + '/');
     }
 
     
