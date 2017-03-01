@@ -1,14 +1,24 @@
 <!-- Spisak porudzbina -->
-<div class="col-md-12" style="margin-bottom: 20px;" ng-init="getAllMyOffers()">
-	<table ng-if="currentUser.user_type == 'PR'" class="table table-striped table-hover">
+<div class="col-md-12" style="margin-bottom: 20px;" ng-init="load()">
+	<table class="table table-striped table-hover">
 		<thead>
-			<th>Stavka</th>
+			<th>Br stavki</th>
 			<th>Restoran</th>
-			<th>Cena</th>
+			<th>Dogovorena cena</th>
+			<th ng-if="currentUser.user_type == 'PR'">Cena za datu ponudu</th>
+			<th ng-if="currentUser.user_type == 'PR'">Opcija</th>
 		</thead>
-		<tbody>
-			<tr ng-repeat="m in menu.menu_items | filter:searchQuery">
-				
+		<tbody ng-repeat="m in requests">
+			<tr>
+				<td>{{m.id}}</td>
+				<td>{{m.items.length}}</td>
+				<td>{{m.price_accepted}}</td>
+				<td ng-if="currentUser.user_type == 'PR'"><input type="text" placeholder="cena" ng-model="m.final_price" required></td>
+				<td ng-if="currentUser.user_type == 'PR'">
+					<button type="button" class="btn btn-default btn-xs" ng-click="offer(m)">
+                    	<span class="glyphicon glyphicon-add"></span> Posalji
+                	</button>
+				</td>
 			</tr>
 		</tbody>
 	</table>

@@ -378,14 +378,24 @@ app.controller('ShiftController', function ($scope, $location, $routeParams, Shi
 //kontroler za itemsRequest
 app.controller('ItemsRequestController', function ($scope, $location, $routeParams, ItemsRequestService) {
 
-
-      $scope.create = function() {
-        MenuService.create($scope.menu).success(function(data) {
-            $location.path('/');
-        }); 
+    $scope.load = function() {
+        ItemsRequestService.get().success(function(data) {
+            $scope.requests = data;
+        });
     };
 
-    
+    $scope.offer = function(r) {
+        var data = {};
+        data.price = r.final_price;
+        data.r_id = r.id;
+
+        $scope.data2 = data;
+
+        ItemsRequestService.offer(data).success(function(data) {
+            $scope.load();
+        });
+    }
+
 });
 
 
