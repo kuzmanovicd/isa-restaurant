@@ -174,5 +174,6 @@ function OfferService($http) {
         return $http.post('api/restaurant/itemsrequest/create/', angular.toJson(data));
     }
 
+    
 
 }
