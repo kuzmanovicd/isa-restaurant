@@ -240,7 +240,7 @@ class ConfirmInviteView(APIView):
             invite = models.Invite.objects.get(pk=id)
             confirm = request.data['confirm']
             invite.confirm(confirm)
-            #invite.save()
+            invite.save()
             return Response(status=HTTP_200_OK)
         except Exception as e:
             #print(e)
@@ -295,6 +295,8 @@ class MakeOrder(APIView):
 
         if serializer.is_valid():
             serializer.save()
+            invite.order = serializer.instance
+            invite.save()
             return Response(serializer.data, status=HTTP_201_CREATED)
 
         

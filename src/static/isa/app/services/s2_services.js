@@ -14,7 +14,7 @@ app.factory('MenuService', MenuService);
 
 app.factory('MenuItemService', MenuItemService);
 
-app.factory('ShiftService', ShiftService)
+app.factory('ShiftService', ShiftService);
 
 function RestaurantService($http) {
     var service = {};
