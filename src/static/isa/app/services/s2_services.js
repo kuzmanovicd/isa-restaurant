@@ -49,6 +49,7 @@ function RadnikService($http) {
 
     service.create = create;
     service.get = get;
+    service.update = update;
 
     return service;
     
@@ -59,6 +60,10 @@ function RadnikService($http) {
 
      function get(id) {
         return $http.get('api/users/employee/' + id + '/');
+    }
+
+    function update(id, data) {
+        return $http.patch('api/users/employee/update/' + id + '/', angular.toJson(data));
     }
 
      

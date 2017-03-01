@@ -287,6 +287,12 @@ class EmployeeList(generics.ListAPIView):
 
 
 
+class RegionEmployeeUpdate(generics.UpdateAPIView):
+    serializer_class = serializers.EmployeeSerializer
+    queryset = models.Employee.objects.all()
+
+
+
 
 #####
 def get_guest_user(request):

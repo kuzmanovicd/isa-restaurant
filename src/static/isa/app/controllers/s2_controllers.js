@@ -140,7 +140,7 @@ app.controller('RestaurantController', function ($scope, $rootScope, $location, 
 
 
 //kontroler za radnika
-app.controller('RadnikController', function ($scope, $routeParams, RadnikService) {
+app.controller('RadnikController', function ($scope, $routeParams, RadnikService, TableService) {
     //WA - Waiter
     //BA - Bartender
     //C0 - Cook
@@ -167,8 +167,25 @@ app.controller('RadnikController', function ($scope, $routeParams, RadnikService
         });
     }
 
+    $scope.getRegions = function() {
+        TableService.getRegions($routeParams.id).success(function(data) {
+           $scope.regions = data;
+        });
+    }
+
+
      $scope.getAllEmployees = function () {
         $scope.get();
+        $scope.getRegions();
+    };
+
+    $scope.updateRegion = function(m) {
+        var data = {};
+        data.region = m.updated_region;
+        RadnikService.update(m.id, data).success(function(data){
+            $scope.regions = data;
+            $scope.getAllEmployees();
+        })
     };
 
 });

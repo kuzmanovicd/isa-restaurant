@@ -19,6 +19,7 @@
             <th>Smena</th>
             <th>Opcija</th>
 		</thead>
+        
 		<tbody>
 			<tr ng-repeat="m in employee | filter:searchQuery">
 				<td>{{m.first_name}}</td>
@@ -30,22 +31,18 @@
                 <td>
                     <span ng-if="m.region">Trenutno: {{m.region}}</span>
                     <span ng-if="!m.region">Nije dodeljeno</span>
-                    <select class="form-control" ng-model="selected.friends">
-                        <option ng-repeat="f in friends" value="{{f.id}}">{{m.region}}</option>
+                    <select class="form-control" ng-model="m.updated_region">
+                        <option ng-repeat="f in regions" value="{{f.id}}">Region {{f.table_count}} stolova</option>
                     </select>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-default btn-xs" ng-click="">
+                    <button type="button" class="btn btn-default btn-xs" ng-click="updateRegion(m)">
                     <span class="glyphicon glyphicon-add"></span> Potvrdi
                 </button>
                 </td>
 
                 <td>
-                    <span ng-if="m.smena">Trenutno: {{m.smena}}</span>
-                    <span ng-if="!m.smena">Nije dodeljeno</span>
-                    <select class="form-control" ng-model="selected.friends">
-                        <option ng-repeat="f in friends" value="{{f.id}}">{{f.username}} - {{f.first_name}} {{f.last_name}}</option>
-                    </select>
+                    SMENA
                 </td>
                 <td>
                     <button type="button" class="btn btn-default btn-xs" ng-click="">

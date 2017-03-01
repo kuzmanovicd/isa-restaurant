@@ -18,6 +18,9 @@ urlpatterns = [
     url(r'^menu_item/(?P<pk>[0-9]+)/?$', MenuItemDetail.as_view(), name='rud_menu_item'),
     url(r'^menu_item/create/?$', MenuItemCreate.as_view(), name='menu_item_create'),
 
+    #api/users/employee/update/
+    
+
     # za Regione
     # Dodao: Spiric
     url(r'^region/all/?$', RegionList.as_view(), name='region_list'),
