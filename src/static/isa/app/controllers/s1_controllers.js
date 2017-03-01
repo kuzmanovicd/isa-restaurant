@@ -92,6 +92,7 @@ app.controller('GuestController', function ($scope, $rootScope, $route, $locatio
             if(confirm) {
                 $scope.order_waiting = true;
                 $scope.order_invite_id = id;
+                $scope.loadInvites();
                 MenuService.get(invite.reservation.restaurant.restaurant_menu).success( function(data) {
                     $scope.menu = data;
                 });
