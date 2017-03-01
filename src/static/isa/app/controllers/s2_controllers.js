@@ -339,6 +339,22 @@ app.controller('MenuController', function ($scope, $rootScope, $location, $route
         });
     };
 
+    $scope.sendOrder  = function(data) {
+        var items = $scope.menu.menu_items;
+        var data = {};
+        data.menu_item_id = [];
+        data.quantity = [];
+        data.restaurant = $scope.menu.restaurant;
+        for(var i = 0; i < items.length; i++) {
+            if(items[i].order_quantity) {
+                data.menu_item_id.push(items[i].id);
+                data.quantity.push(items[i].order_quantity);
+            }
+        }
+
+        $scope.data2 = data;
+    }
+
 
 });
 
