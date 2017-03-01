@@ -306,7 +306,7 @@ app.controller('RegionController', function ($scope, $location, RegionService) {
 
 
 //kontroler za menu
-app.controller('MenuController', function ($scope, $rootScope, $location, $routeParams, MenuService) {
+app.controller('MenuController', function ($scope, $rootScope, $location, $routeParams, MenuService, OfferService) {
 
     $scope.create = function() {
         MenuService.create($scope.menu).success(function(data) {
@@ -342,17 +342,22 @@ app.controller('MenuController', function ($scope, $rootScope, $location, $route
     $scope.sendOrder  = function(data) {
         var items = $scope.menu.menu_items;
         var data = {};
-        data.menu_item_id = [];
-        data.quantity = [];
+        data.items = [];
+        //data.quantity = [];
         data.restaurant = $scope.menu.restaurant;
         for(var i = 0; i < items.length; i++) {
             if(items[i].order_quantity) {
-                data.menu_item_id.push(items[i].id);
-                data.quantity.push(items[i].order_quantity);
+                var item = {};
+                item.id = items[i].id;
+                item.quantity = items[i].order_quantity;
+                data.items.push(item);
             }
         }
-
         $scope.data2 = data;
+
+        OfferService.create(data).success(function(data) {
+            console.log('uspesno');
+        });
     }
 
 

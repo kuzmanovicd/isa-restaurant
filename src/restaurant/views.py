@@ -305,14 +305,25 @@ class MakeOrder(APIView):
 
 
 # za itemsRequest
-class ItemsRequestView(APIView):
+class ItemsRequestCreate(APIView):
     def post(self, request):
+
+        #kreiraj ItemOrders
         rm = users.models.RestaurantManager.objects.get(pk=request.user.id)
-        request.data['restaurant'] = rm.working_in.id
+        menu_items_ids = [i['id'] for i in request.data['items']]
+
+        print(menu_items_ids)
+        for item in request.data['items']:
+            menuitem = models.MenuItem.objects.get(pk=item['id'])
+            orderitem = models.ItemOrder.objects.create(menu_item=menuitem, quantity=item['quantity'])
+            #print(orderitem)
+
+        qs = models.ItemOrder.objects.filter(menu_item__in=menu_items_ids)
+        itemreq = models.ItemsRequest.objects.create(restaurant=rm.working_in)
         
-        print(request.data)
-        serializer = serializers.ItemsRequestSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=HTTP_201_CREATED)
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        for q in qs:
+            itemreq.items.add(q)
+
+        itemreq.save()
+        print(itemreq)
+        return Response(status=HTTP_201_CREATED)

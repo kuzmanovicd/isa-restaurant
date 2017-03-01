@@ -58,6 +58,8 @@ urlpatterns = [
     url(r'^shift/(?P<restaurant>[0-9]+)/?$', ShiftDetail.as_view(), name='shift_rud'),
     url(r'^shift/create/?$', ShiftCreate.as_view(), name='shift_create'),
 
+    #za item request ItemsRequestCreate
+    url(r'^itemsrequest/create/?$', ItemsRequestCreate.as_view(), name='item-request-create'),
     #api/restaurant/reservation/make-order/
     url(r'^reservations/make-order/(?P<id>[0-9]+)/?$', MakeOrder.as_view(), name='invites-confirm'),
     
