@@ -73,13 +73,13 @@ class RegionSerializer(serializers.ModelSerializer):
 class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reservation
-        fields = ['id', 'coming', 'duration', 'guest', 'restaurant', 'reserved_tables',]
+        fields = ['id', 'coming', 'duration', 'guest', 'restaurant', 'reserved_tables','cancelled']
 
 class ReservationSerializerDetail(serializers.ModelSerializer):
     restaurant = RestaurantSerializer(read_only=True)
     class Meta:
         model = Reservation
-        fields = ['id', 'coming', 'duration', 'guest', 'restaurant', 'reserved_tables',]
+        fields = ['id', 'coming', 'duration', 'guest', 'restaurant', 'reserved_tables','cancelled']
 
 class InviteSerializer(serializers.ModelSerializer):
     class Meta:
