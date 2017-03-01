@@ -12,13 +12,13 @@
     <tbody>
         <tr ng-repeat="r in reservations">
             <td>{{r.id}}</td>
-            <td>{{r.coming}}</td>
+            <td>{{r.coming | date: 'yyyy-MM-ddThh:mm'}}</td>
             <td>{{r.duration}}</td>
             <td>{{r.restaurant.name}}</td>
             <td>{{r.reserved_tables.length}}</td>
             <td>{{r.guest}}</td>
             <td>
-                <button ng-if="!r.cancelled" type="button" class="btn btn-danger btn-xs" ng-click="cancelReservation(r.id)">
+                <button ng-if="!r.cancelled && canCancel(r)" type="button" class="btn btn-danger btn-xs" ng-click="cancelReservation(r.id)">
                     <span class="glyphicon glyphicon-add"></span> Otkazi
                 </button>
             </td>

@@ -207,6 +207,15 @@ app.controller('ReservationController', function($scope, $rootScope, $location, 
             $scope.load();
         });
     };
+
+
+    $scope.canCancel = function (reservation) {
+        var date = new Date(new Date(reservation.coming) - 30*60000);
+        var date_now = new Date();
+        console.log(date + ' - ' + date_now);
+
+        return date_now < date;
+    }
 });
 
 
