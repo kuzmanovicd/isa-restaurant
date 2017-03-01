@@ -2,6 +2,11 @@
 
 app.controller('BasicUserController', function ($scope, $location, BasicUserService, AuthService) {
 
+    $scope.loadUser = function () {
+        BasicUserService.getGuest($rootScope.currentUser.id).success(function (data) {
+            $scope.user = data;
+        });
+    }
 
     $scope.registerSubmit = function(user) {
         if(user.password == $scope.password2) {

@@ -64,6 +64,8 @@ function ProviderService($http) {
     var service = {};
 
     service.create = create;
+    service.getProvider = getProvider;
+    service.upadeteProvider = upadeteProvider;
 
     return service;
     
@@ -71,6 +73,15 @@ function ProviderService($http) {
         console.log(provider);
         return $http.post('api/users/provider/create/', angular.toJson(provider));
     }
+
+    function getProvider(id) {
+        return $http.get('api/users/provider/' + id);
+    }
+
+    function updateProvider(id, data) {
+        return $http.patch('api/users/provider/' + id + '/', angular.toJson(data));
+    }
+
 
 }
 

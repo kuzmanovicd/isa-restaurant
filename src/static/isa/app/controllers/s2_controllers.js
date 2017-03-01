@@ -146,6 +146,13 @@ app.controller('ProviderController', function ($scope, $location, ProviderServic
              $location.path('/');
          }); 
     };
+
+     $scope.loadProvider = function () {
+        PrviderService.getProvider($rootScope.currentUser.id).success(function (data) {
+            $scope.user = data;
+        });
+    }
+
   
 });
 
