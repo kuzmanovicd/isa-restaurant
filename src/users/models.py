@@ -96,9 +96,6 @@ class FriendshipManager(models.Manager):
         print(qs)
         return qs
 
-    def friends2(self, user):
-        qs = Friend.objects.select_related('from_user', 'to_user').filter(from_user=user).all()
-
     def create_friendship(self, user1, user2):
         relation1 = Friend.objects.create(from_user=user1, to_user=user2)
         relation2 = Friend.objects.create(from_user=user2, to_user=user1)
@@ -120,37 +117,6 @@ class FriendshipManager(models.Manager):
             return True
         else:
             return False
-    """
-    def requests(self, user):
-        qs = FriendshipRequest.objects.select_related('from_user', 'to_user').filter(to_user=user).all()
-        requests = list(qs)
-        return requests
-
-    def sent_requests(self, user):
-        qs = FriendshipRequest.objects.select_related('from_user', 'to_user').filter(from_user=user).all()
-        requests = list(qs)
-        return requests
-    
-    def rejected_requests(self, user):
-        qs = FriendshipRequest.objects.select_related('from_user', 'to_user').filter(to_user=user, rejected__isnull=False).all()
-        rejected = list(qs)
-        return rejected
-
-    
-    def add_friend(self, from_user, to_user):
-        if from_user == to_user:
-            raise ValidationError("Gosti ne mogu biti prijatelji sa sobom.")
-        
-        if self.are_friends(from_user, to_user):
-            raise ValidationError("Vec su prijatelji.")
-
-        request, created = FriendshipRequest.objects.get_or_create(from_user=from_user, to_user=to_user)
-
-        if created is False:
-            raise ValidationError("Friendship vec postoji")
-
-        return request
-    """
 
 class Friend(models.Model):
     to_user = models.ForeignKey(Guest, related_name='friends')

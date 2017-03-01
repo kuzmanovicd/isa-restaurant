@@ -16,6 +16,7 @@ function BasicUserService($http) {
     service.addFriend = addFriend;
     service.deleteFriend = deleteFriend;
     service.getMyFriends = getMyFriends;
+    service.getMyFriendsGuests = getMyFriendsGuests;
     service.createRestaurantManager = createRestaurantManager;
     service.getRestaurantManager = getRestaurantManager;
     service.getAllGuests = getAllGuests;
@@ -41,6 +42,10 @@ function BasicUserService($http) {
 
     function getMyFriends() {
         return $http.get('api/users/friends/my/');
+    }
+
+    function getMyFriendsGuests() {
+        return $http.get('api/users/friends/guests/');
     }
 
     function addFriend(data) {

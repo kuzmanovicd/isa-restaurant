@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^friends/?$', FriendshipCreate.as_view(), name='friendship-create'),
     url(r'^friends/delete/?$', FriendshipDelete.as_view(), name='friendship-delete'),
     url(r'^friends/my/?$', MyFriendsView.as_view(), name='my-friends'),
+    url(r'^friends/guests/?$', AllMyFriendsView.as_view(), name='friends-guests'),
 
     #url(r'^(?P<pk>[0-9]+)/?$', UserDetailRetrieve.as_view(), name='rud_user'),
 

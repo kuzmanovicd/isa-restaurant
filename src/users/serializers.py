@@ -35,6 +35,12 @@ class GuestSerializer(serializers.ModelSerializer):
             'password': {'write_only': True}
         }
 
+class MyFriends(serializers.ModelSerializer):
+    friends = GuestSerializer(many=True, read_only=True)
+    class Meta:
+        model = models.Guest
+        fields = ['friends']
+
 
 class FriendSerializer(serializers.ModelSerializer):
     class Meta:

@@ -91,6 +91,13 @@ app.controller('GuestController', function ($scope, $rootScope, $route, $locatio
         });
     };
 
+    $scope.getMyFriendsGuests = function () {
+        console.log('pozvan getMyFriendsGuests');
+        BasicUserService.getMyFriendsGuests().success(function(data){
+            $scope.friends_guests = data;
+        });
+    };
+
     $scope.deleteFriend = function(friend) {
         console.log('pozvan deleteFrienship');
         BasicUserService.deleteFriend(friend).success(function(data) {
