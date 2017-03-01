@@ -93,3 +93,12 @@ class InviteSerializerDetail(serializers.ModelSerializer):
         model = Invite
         fields = ['id', 'reservation', 'guest', 'confirmed']
         read_only_fields = ('id','reservation', 'confirmed')
+
+
+# smena serializers
+class ShiftSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Shift
+        fields = ['id', 'name_shift', 'begin', 'end', 'restaurant',]
+        read_only_fields = ('id',)
+

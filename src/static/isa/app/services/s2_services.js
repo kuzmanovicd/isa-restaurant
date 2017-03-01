@@ -14,6 +14,8 @@ app.factory('MenuService', MenuService);
 
 app.factory('MenuItemService', MenuItemService);
 
+app.factory('ShiftService', ShiftService)
+
 function RestaurantService($http) {
     var service = {};
     
@@ -41,7 +43,6 @@ function RestaurantService($http) {
         return $http.put('api/prodavnica/update', angular.toJson(prodavnica));
     }
 }
-
 
 // service za Employee (Radnika)
 function RadnikService($http) {
@@ -173,6 +174,20 @@ function MenuItemService($http) {
 
      function getMenus(id) {
         return $http.get('/api/restaurant/menu/' + id + '/');
+    }
+}
+
+
+//service za smenu
+function ShiftService($http) {
+    var service = {};
+
+    service.create = create;
+
+    return service;
+    
+    function create(shift) {
+        return $http.post('api/restaurant/shift/create/', angular.toJson(shift));
     }
 }
 

@@ -29,7 +29,7 @@
                 <td>{{m.shoe_size}}</td>
 				<td>{{m.user_type}}</td>
                 <td>
-                    <span ng-if="m.region">Trenutno: {{m.region}}</span>
+                    <span ng-if="m.region">Trenutno {{m.region}} region</span>
                     <span ng-if="!m.region">Nije dodeljeno</span>
                     <select class="form-control" ng-model="m.updated_region">
                         <option ng-repeat="f in regions" value="{{f.id}}">Region {{f.table_count}} stolova</option>

@@ -2,16 +2,19 @@
 	<div class="col-md-12">
 		<div ng-if="currentUser.id == restaurant.owner.id">
 			<button type="button" class="btn btn-default btn-xs" ng-click="addProvider()">
-                <span class="glyphicon glyphicon-plus"></span> Dodaj Providera
+                <span class="glyphicon glyphicon-plus"></span> Dodaj providera
             </button>
 			<button type="button" class="btn btn-default btn-xs" ng-click="addRadnik()">
-                <span class="glyphicon glyphicon-user"></span> Dodaj Radnika
+                <span class="glyphicon glyphicon-user"></span> Dodaj radnika
             </button>
 			<button type="button" class="btn btn-default btn-xs" ng-click="izlistajRadnika(restaurant.id)">
                 <span class="glyphicon glyphicon-calendar"></span> Lista radnika
             </button>
 			<button type="button" class="btn btn-default btn-xs" ng-click="addRegion()">
-                <span class="glyphicon glyphicon-th-large"></span> Dodaj Region
+                <span class="glyphicon glyphicon-th-large"></span> Dodaj region
+            </button>
+			<button type="button" class="btn btn-default btn-xs" ng-click="addShift()">
+                <span class="glyphicon glyphicon-th-large"></span> Dodaj smene
             </button>
 		</div>
 		<hr>

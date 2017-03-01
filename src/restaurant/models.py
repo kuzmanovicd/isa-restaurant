@@ -19,6 +19,15 @@ class Restaurant(models.Model):
         return self.name
 
 
+#smena
+class Shift(models.Model):
+    name_shift = models.CharField(max_length=50)
+    begin = models.IntegerField()
+    end = models.IntegerField()
+
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name="shifts")
+    
+
 # Model: Menu (Jelevnik)
 # Polja: naziv, opis, cena, kolicina, tip
 # Sadrzi: veza ka restoranu (jedan meni pripada jednom restoranu)

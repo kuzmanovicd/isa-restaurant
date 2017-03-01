@@ -1,0 +1,16 @@
+<!-- FORMA ZA SMENU (Za dodavanje) -->
+<div class="col-md-6 col-md-offset-3 ke-container" style="padding-top: 0px;">
+    <div class="modal-header login-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title"> Smena: {{shift.name_shift}}</h4>
+    </div>
+    <form name="form" ng-submit="create()">
+        <div class="modal-body">
+            <input type="text" placeholder="Name" ng-model="shift.name_shift" required>
+            <input type="number" min=0 max=2 placeholder="Begin" ng-model="shift.begin" required>
+            <input type="number" min=0 max=4 placeholder="End" ng-model="shift.end" required>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Potvrdi" ng-disabled="form.$invalid">
+        </div>
+    </form>
+</div>

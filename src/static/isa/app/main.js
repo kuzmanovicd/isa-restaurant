@@ -69,6 +69,11 @@ app.config(function ($routeProvider) {
             templateUrl: static_file + 'partials/student2_restoran/region_add.html',
             controllerAs: 'vm'
         })
+        .when('/shift/add', {
+            controller: 'ShiftController',
+            templateUrl: static_file + 'partials/student2_restoran/smena_add.html',
+            controllerAs: 'vm'
+        })
         .when('/employee/open/:id', {
             controller: 'RadnikController',
             templateUrl: static_file + 'partials/student2_restoran/lista_radnika.html',

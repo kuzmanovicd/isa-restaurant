@@ -245,3 +245,41 @@ class ConfirmInviteView(APIView):
         except Exception as e:
             #print(e)
             return Response(status=HTTP_400_BAD_REQUEST)
+
+
+# za smenu
+class ShiftList(generics.ListAPIView):
+    #queryset = models.Shift.objects.all()
+    serializer_class = serializers.ShiftSerializer
+
+    def get_queryset(self):
+        r_id = self.kwargs['restaurant']
+        return models.Shift.objects.filter(restaurant=r_id)
+
+
+class ShiftDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Shift.objects.all()
+    serializer_class = serializers.ShiftSerializer
+
+
+class ShiftCreate2(generics.CreateAPIView):
+    queryset = models.Shift.objects.all()
+    serializer_class = serializers.ShiftSerializer
+
+
+
+class ShiftCreate(APIView):
+    def post(self, request):
+        rm = users.models.RestaurantManager.objects.get(pk=request.user.id)
+        request.data['restaurant'] = rm.working_in.id
+        
+        print(request.data)
+        serializer = serializers.ShiftSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+
+
+    

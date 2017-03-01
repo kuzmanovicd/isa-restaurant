@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('RestaurantController', function ($scope, $rootScope, $location, $routeParams, $route, RestaurantService, BasicUserService, TableService, MenuService, ReservationService, RadnikService) {
+app.controller('RestaurantController', function ($scope, $rootScope, $location, $routeParams, $route, RestaurantService, BasicUserService, TableService, MenuService, ReservationService, RadnikService, ShiftService) {
 
     RestaurantService.get($routeParams.id).success(function(data) {
         $scope.restaurant = data;
@@ -40,6 +40,11 @@ app.controller('RestaurantController', function ($scope, $rootScope, $location, 
     $scope.izlistajRadnika = function(id) {
         $location.path('/employee/open/' + id)
     }
+
+    //za smenu
+    $scope.addShift = function() {
+        $location.path('/shift/add');
+    };
 
     $scope.getAll = function() {
         RestaurantService.getAll().success(function (data) {
@@ -322,5 +327,15 @@ app.controller('MenuController', function ($scope, $location, $routeParams, Menu
 
 });
 
+
+//kontroler za smenu
+app.controller('ShiftController', function ($scope, $location, $routeParams, ShiftService) {
+
+    $scope.create = function() {
+        ShiftService.create($scope.shift).success(function(data) {
+            //$location.path('/');
+        }); 
+    };
+});
 
 
