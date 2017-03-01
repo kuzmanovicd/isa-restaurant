@@ -106,5 +106,10 @@ class Invite(models.Model):
     reservation = models.ForeignKey('restaurant.Reservation', on_delete=models.CASCADE, related_name="invites")
     guest = models.ForeignKey('users.Guest', on_delete=models.CASCADE, related_name="invites")
 
+    class Meta:
+        verbose_name = 'Invite'
+        verbose_name_plural = 'Invites'
+        unique_together = ('reservation', 'guest')
+
 
 
