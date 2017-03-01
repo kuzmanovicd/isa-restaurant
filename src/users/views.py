@@ -275,8 +275,12 @@ class RestaurantManagerCreate(generics.CreateAPIView):
         serializer.save()
 
 
+class EmployeeList(generics.ListAPIView):
+    serializer_class = serializers.EmployeeSerializer
 
-
+    def get_queryset(self):
+        r_id = self.kwargs['restaurant']
+        return models.Employee.objects.filter(restaurant=r_id)
 
 
 

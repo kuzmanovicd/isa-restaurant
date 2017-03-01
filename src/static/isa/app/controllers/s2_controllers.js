@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('RestaurantController', function ($scope, $rootScope, $location, $routeParams, $route, RestaurantService, BasicUserService, TableService, MenuService, ReservationService) {
+app.controller('RestaurantController', function ($scope, $rootScope, $location, $routeParams, $route, RestaurantService, BasicUserService, TableService, MenuService, ReservationService, RadnikService) {
 
     RestaurantService.get($routeParams.id).success(function(data) {
         $scope.restaurant = data;
@@ -35,6 +35,11 @@ app.controller('RestaurantController', function ($scope, $rootScope, $location, 
     $scope.openMenu = function(id) {
         $location.path('/menu/open/' + id);
     };
+
+    //za radnike
+    $scope.izlistajRadnika = function(id) {
+        $location.path('/employee/open/' + id)
+    }
 
     $scope.getAll = function() {
         RestaurantService.getAll().success(function (data) {
@@ -135,7 +140,7 @@ app.controller('RestaurantController', function ($scope, $rootScope, $location, 
 
 
 //kontroler za radnika
-app.controller('RadnikController', function ($scope, RadnikService) {
+app.controller('RadnikController', function ($scope, $routeParams, RadnikService) {
     //WA - Waiter
     //BA - Bartender
     //C0 - Cook
@@ -155,7 +160,17 @@ app.controller('RadnikController', function ($scope, RadnikService) {
         }
         
     };
-  
+
+    $scope.get = function() {
+        RadnikService.get($routeParams.id).success( function(data) {
+            $scope.employee = data;
+        });
+    }
+
+     $scope.getAllEmployees = function () {
+        $scope.get();
+    };
+
 });
 
 //kontroler za Providera

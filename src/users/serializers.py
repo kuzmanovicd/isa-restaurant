@@ -126,3 +126,15 @@ class SystemManagerSerializer(serializers.ModelSerializer):
             'password' : {'write_only' : True}
         }
 
+
+
+class EmployeeSerializer(serializers.ModelSerializer):
+      class Meta:
+        model = models.Employee
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'restaurant', 'user_type', 'clothes_size', 'shoe_size', 'region']
+        read_only_fields = ('id', 'user_type')
+
+        extra_kwargs = {
+            'password' : {'write_only' : True}
+        }
+

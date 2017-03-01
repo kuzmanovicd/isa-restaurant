@@ -24,6 +24,9 @@ urlpatterns = [
     url(r'^friends/guests/?$', AllMyFriendsView.as_view(), name='friends-guests'),
 
     #url(r'^(?P<pk>[0-9]+)/?$', UserDetailRetrieve.as_view(), name='rud_user'),
+    #za employee
+    #url(r'^employee/all/?$', EmployeeList.as_view(), name='employee_list'),
+    url(r'^employee/(?P<restaurant>[0-9]+)/?$', EmployeeList.as_view(), name='region_list'),
 
     #za waiter-a
     url(r'^waiter/all/?$', WaiterList.as_view(), name='waiter_list'),
