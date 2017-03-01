@@ -159,13 +159,32 @@ app.controller('RadnikController', function ($scope, RadnikService) {
 });
 
 //kontroler za Providera
-app.controller('ProviderController', function ($scope, $location, ProviderService) {
+app.controller('ProviderController', function ($scope, $location, $rootScope, ProviderService) {
+
+    $scope.update = function() {
+        ProviderService.updateProvider($scope.user.id, $scope.user).success(function(data) {
+            $scope.user = data;
+            $scope.status.ok = true;
+            $scope.status.fail = false;
+        }).error(function(data){
+            $scope.status.fail = true;
+            $scope.status.ok = false;
+            $scope.loadProvider();
+        });
+    };
 
     $scope.create = function() {
-         ProviderService.create($scope.provider).success(function(data) {
+         ProviderService.create($scope.user).success(function(data) {
              $location.path('/');
          }); 
     };
+
+    $scope.loadProvider = function () {
+        ProviderService.getProvider($rootScope.currentUser.id).success(function (data) {
+            $scope.user = data;
+        });
+    };
+
   
 });
 

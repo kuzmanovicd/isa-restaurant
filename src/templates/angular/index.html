@@ -52,6 +52,7 @@
                     <li><a href="#/login" ng-if="!currentUser">Login</a></li>
                     <li><a href="#/register" ng-if="!currentUser">Registracija</a></li>
                     <li ng-if="currentUser.user_type == 'GU'"><a href="#/guest">Moj profil</a></li>
+                    <li ng-if="currentUser.user_type == 'PR'"><a href="#/provider">Moj profil</a></li>
                     <li ng-if="currentUser.user_type == 'GU'"><a href="#/guests">Prijatelji</a></li>
                     <li ng-if="currentUser">
                         <form class="navbar-form">
