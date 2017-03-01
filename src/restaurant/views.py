@@ -302,3 +302,17 @@ class MakeOrder(APIView):
         
         return Response(status=HTTP_404_NOT_FOUND)
 
+
+
+# za itemsRequest
+class ItemsRequestView(APIView):
+    def post(self, request):
+        rm = users.models.RestaurantManager.objects.get(pk=request.user.id)
+        request.data['restaurant'] = rm.working_in.id
+        
+        print(request.data)
+        serializer = serializers.ItemsRequestSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
