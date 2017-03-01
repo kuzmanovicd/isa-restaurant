@@ -6,6 +6,8 @@ app.factory('AuthService', AuthService);
 
 app.factory('ReservationService', ReservationService);
 
+app.factory('OfferService', OfferService);
+
 function BasicUserService($http) {
 
     var service = {};
@@ -158,4 +160,20 @@ function ReservationService($http) {
     }
 
     
+}
+
+function OfferService($http) {
+
+    var service = {};
+
+    service.create = create;
+
+    return service;
+
+    function create(data) {
+        return $http.post('api/restaurant/itemsrequest/create/', angular.toJson(data));
+    }
+
+    
+
 }

@@ -108,7 +108,7 @@ class ShiftSerializer(serializers.ModelSerializer):
 class ItemsRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemsRequest
-        fields = ['id', 'end', 'items', 'price_accepted',]
+        fields = ['id', 'end', 'items', 'price_accepted', 'restaurant']
         read_only_fields = ('id',)
 
 
@@ -122,5 +122,5 @@ class ItemOrderSerializer(serializers.ModelSerializer):
 class OfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Offer
-        fields = ['id', 'request', 'price',]
-        read_only_fields = ('id',)
+        fields = ['id', 'request', 'price', 'accepted']
+        read_only_fields = ('id', 'accepted',)

@@ -128,9 +128,9 @@ class Invite(models.Model):
 
 
 class ItemsRequest(models.Model):
-    end = models.DateTimeField(default=timezone.now)
+    #end = models.DateTimeField(default=timezone.now)
     items = models.ManyToManyField('restaurant.ItemOrder', related_name="request")
-    price_accepted = models.DecimalField(max_digits=9, decimal_places=2, null=True)
+    price_accepted = models.DecimalField(max_digits=9, decimal_places=2, null=True, default=None)
     restaurant = models.ForeignKey("Restaurant", related_name="requests")
 
 class ItemOrder(models.Model):

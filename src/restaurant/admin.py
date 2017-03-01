@@ -13,3 +13,7 @@ admin.site.register(Invite)
 admin.site.register(Shift)
 admin.site.register(Order)
 
+admin.site.register(ItemsRequest)
+admin.site.register(ItemOrder)
+admin.site.register(Offer)
+
