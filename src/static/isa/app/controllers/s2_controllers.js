@@ -153,15 +153,25 @@ app.controller('RadnikController', function ($scope, $routeParams, RadnikService
 
     $scope.create = function() {
         if($scope.employee.type == 'WA') {
-            RadnikService.create('waiter', $scope.employee);
+            RadnikService.create('waiter', $scope.employee).success(function(data){
+                window.history.back();
+            });
+            
+            
         }
 
         if($scope.employee.type == 'BA') {
-            RadnikService.create('bartender', $scope.employee);
+            RadnikService.create('bartender', $scope.employee).success(function(data){
+                window.history.back();
+            });
+            
         }
 
         if($scope.employee.type == 'CO') {
-            RadnikService.create('cook', $scope.employee);
+            RadnikService.create('cook', $scope.employee).success(function(data){
+                window.history.back();
+            });
+            
         }
         
     };
