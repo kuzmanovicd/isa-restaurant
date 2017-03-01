@@ -385,3 +385,24 @@ class CreateOffer(APIView):
             return Response(status=HTTP_201_CREATED)
         except:
             return Response(status=HTTP_400_BAD_REQUEST)
+
+
+class OfferList(generics.ListAPIView):
+    serializer_class = serializers.OfferSerializer
+
+    def get_queryset(self):
+        pr = users.models.Provider.objects.filter(pk=self.request.user.id).first()
+        rm = users.models.RestaurantManager.objects.filter(pk=self.request.user.id).first()
+
+        id = None
+
+        if pr:
+            id = pr.restaurant
+        elif rm:
+            id = rm.working_in
+        else:
+            print('e sad si ga zajebao')
+
+        qs = models.ItemsRequest.objects.filter(restaurant=id)
+
+        return models.Offer.objects.filter(request__in=qs)

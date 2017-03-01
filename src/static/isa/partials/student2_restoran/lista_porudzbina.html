@@ -1,5 +1,7 @@
 <!-- Spisak porudzbina -->
+
 <div class="col-md-12" style="margin-bottom: 20px;" ng-init="load()">
+	<label class="label label-primary ke-label-title">Spisak porudzbina</label>
 	<table class="table table-striped table-hover">
 		<thead>
 			<th>Br stavki</th>
@@ -24,5 +26,28 @@
 	</table>
 	<div>
 	</div>
-	<!-- forma za dodavanje MenuItem-a -->
+</div>
+
+<div class="col-md-12" style="margin-bottom: 20px;" ng-init="loadOffers()">
+	<label class="label label-primary ke-label-title">Ponude</label>
+	<table class="table table-striped table-hover">
+		<thead>
+			<th>ID</th>
+			<th>Cena ponudjaca</th>
+			<th></th>
+		</thead>
+		<tbody ng-repeat="m in offers">
+			<tr>
+				<td>{{m.id}}</td>
+				<td>{{m.price}}</td>
+				<td>
+					<button type="button" class="btn btn-default btn-xs" ng-click="">
+                    	<span class="glyphicon glyphicon-add"></span> Prihvati
+                	</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
+	</div>
 </div>

@@ -205,11 +205,16 @@ function ItemsRequestService($http) {
 
     service.get = get;
     service.offer = offer;
+    service.getOffers = getOffers;
 
     return service;
 
     function get() {
         return $http.get('api/restaurant/itemsrequest/all/');
+    }
+
+    function getOffers() {
+        return $http.get('api/restaurant/offer/all/');
     }
 
     function offer(data) {

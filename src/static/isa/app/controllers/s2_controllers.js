@@ -394,6 +394,12 @@ app.controller('ItemsRequestController', function ($scope, $location, $routePara
         });
     };
 
+    $scope.loadOffers = function() {
+        ItemsRequestService.getOffers().success(function (data) {
+            $scope.offers = data;
+        })
+    }
+
     $scope.offer = function(r) {
         var data = {};
         data.price = r.final_price;

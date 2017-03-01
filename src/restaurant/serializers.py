@@ -120,6 +120,7 @@ class ItemOrderSerializer(serializers.ModelSerializer):
 
 
 class OfferSerializer(serializers.ModelSerializer):
+    request = ItemsRequestSerializer(read_only=True)
     class Meta:
         model = Offer
         fields = ['id', 'request', 'price', 'accepted']
