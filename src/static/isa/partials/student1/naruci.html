@@ -5,10 +5,12 @@
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h4 class="modal-title"> Porudzbina: </h4>
 		</div>
+		{{selected_items}}
+		{{invite_info}}
 		<form name="form" ng-submit="order()">
 			<div class="modal-body">
 				<select multiple class="form-control" ng-model="selected_items">
-					<option ng-repeat="m in menu.menu_items" value="{{m.id}}">{{m.name_item}} - {{m.price_item | currency : "din "}}</option>
+					<option ng-repeat="m in menu.menu_items" value="{{m}}">{{m.name_item}} - {{m.price_item | currency : "din "}}</option>
 				</select>
 			</div>
 			<div class="modal-footer">

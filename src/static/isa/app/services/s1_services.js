@@ -133,6 +133,7 @@ function ReservationService($http) {
     service.sendInvites = sendInvites;
     service.getInvites = getInvites;
     service.confirmInvite = confirmInvite;
+    service.makeOrder = makeOrder;
 
     return service;
 
@@ -150,6 +151,10 @@ function ReservationService($http) {
 
     function confirmInvite(id, data) {
         return $http.post('api/restaurant/reservations/invite/confirm/' + id + '/', angular.toJson(data));
+    }
+
+    function makeOrder(id, data) {
+        return $http.post('api/restaurant/reservations/make-order/' + id + '/', angular.toJson(data));
     }
 
     
