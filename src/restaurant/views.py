@@ -132,6 +132,7 @@ class RegionCreate(APIView):
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
     
 
+
 # za Table
 # Dodao: Spiric
 class TableList(generics.ListAPIView):
