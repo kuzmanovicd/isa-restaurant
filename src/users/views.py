@@ -247,12 +247,15 @@ class ProviderCreate(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         rm = models.RestaurantManager.objects.get(pk=request.user.id)
+        print(self.request.data)
         request.data['restaurant'] = rm.working_in.id
         return super(ProviderCreate, self).create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
         serializer.save()
+        serializer.instance.changed_password = False
+        serializer.instance.save()
 
 
 # za RestaurantManager-a    Dodao: Spiric

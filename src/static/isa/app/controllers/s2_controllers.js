@@ -189,8 +189,11 @@ app.controller('ProviderController', function ($scope, $location, $rootScope, Pr
     };
 
     $scope.create = function() {
-         ProviderService.create($scope.user).success(function(data) {
-             $location.path('/');
+         //$scope.user.restaurant = -1;
+         console.log($scope.provider)
+         ProviderService.create($scope.provider).success(function(data) {
+             //$location.path('/');
+             window.history.back();
          }); 
     };
 
@@ -254,7 +257,8 @@ app.controller('RegionController', function ($scope, $location, RegionService) {
         $scope.region.is_frontSide = true;
         console.log($scope.region);
         RegionService.create($scope.region).success(function(data) {
-            $location.path('/');
+            //$location.path('/');
+            window.history.back();
         }); 
     };
 
