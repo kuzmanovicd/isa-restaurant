@@ -64,28 +64,38 @@
 	<hr>
 	<h1>Pozivnice</h1>
 	<div class="row">
-	<table ng-init="loadInvites()" ng-if="currentUser.user_type == 'GU'" class="table table-striped table-hover">
-        <div ng-if="status.ok_add" class="alert alert-info alert-dismissable">
-            <a class="panel-close close" data-dismiss="alert">×</a>
-            <i class="fa fa-coffee"></i> Uspesno ste dodali prijatelja.
-        </div>
-        <thead>
-            <th>Restoran</th>
-            <th>Sati</th>
-            <th>Trajanje</th>
-            <th>Pozvan si od</th>
-            <th>Opcija</th>
-        </thead>
-        <tbody>
-            <tr ng-repeat="u in invites">
-                <td>{{u.reservation.restaurant.name}}</td>
-                <td>{{u.reservation.coming}}</td>
-                <td>{{u.reservation.duration}}</td>
-                <td>{{u.reservation.guest}}</td>
-                <td>DO SOME SHIT</td>
-            </tr>
-        </tbody>
-    </table>
+		<table ng-init="loadInvites()" ng-if="currentUser.user_type == 'GU'" class="table table-striped table-hover">
+			<div ng-if="status.ok_add" class="alert alert-info alert-dismissable">
+				<a class="panel-close close" data-dismiss="alert">×</a>
+				<i class="fa fa-coffee"></i> Uspesno ste dodali prijatelja.
+			</div>
+			<thead>
+				<th>Restoran</th>
+				<th>Sati</th>
+				<th>Trajanje</th>
+				<th>Pozvan si od</th>
+				<th>Status</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="u in invites">
+					<td>{{u.reservation.restaurant.name}}</td>
+					<td>{{u.reservation.coming}}</td>
+					<td>{{u.reservation.duration}}</td>
+					<td>{{u.reservation.guest}}</td>
+					<td>
+						<button type="button" ng-if="u.confirmed == undefined" class="btn btn-success btn-xs" ng-click="confirmInvite(u, true)">
+                    <span class="glyphicon glyphicon-check"></span> Prihvati
+                		</button>
+						<button type="button" ng-if="u.confirmed == undefined" class="btn btn-danger btn-xs" ng-click="confirmInvite(u, false)">
+                    <span class="glyphicon glyphicon-remove"></span> Odbij
+                	</button>
+					<span ng-if="u.confirmed" class="label label-default ke-data-label">Prihvacena</span>
+					<span ng-if="u.confirmed == false && u.confirmed != undefined" class="label label-default ke-data-label">Odbijena</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
 <hr>

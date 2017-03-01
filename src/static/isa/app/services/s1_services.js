@@ -132,6 +132,7 @@ function ReservationService($http) {
     service.create = create;
     service.sendInvites = sendInvites;
     service.getInvites = getInvites;
+    service.confirmInvite = confirmInvite;
 
     return service;
 
@@ -146,4 +147,10 @@ function ReservationService($http) {
     function getInvites() {
         return $http.get('api/restaurant/reservations/invite/my/');
     }
+
+    function confirmInvite(id, data) {
+        return $http.post('api/restaurant/reservations/invite/confirm/' + id + '/', angular.toJson(data));
+    }
+
+    
 }

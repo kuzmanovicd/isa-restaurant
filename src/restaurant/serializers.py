@@ -91,5 +91,5 @@ class InviteSerializerDetail(serializers.ModelSerializer):
     reservation = ReservationSerializerDetail(read_only=True)
     class Meta:
         model = Invite
-        fields = ['id', 'reservation', 'guest' ]
-        read_only_fields = ('id','reservation',)
+        fields = ['id', 'reservation', 'guest', 'confirmed']
+        read_only_fields = ('id','reservation', 'confirmed')
