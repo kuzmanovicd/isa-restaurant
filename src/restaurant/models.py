@@ -102,6 +102,9 @@ class Reservation(models.Model):
 
 
     
+class Invite(models.Model):
+    reservation = models.ForeignKey('restaurant.Reservation', on_delete=models.CASCADE, related_name="invites")
+    guest = models.ForeignKey('users.Guest', on_delete=models.CASCADE, related_name="invites")
 
 
 
