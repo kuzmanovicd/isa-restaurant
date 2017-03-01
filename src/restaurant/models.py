@@ -127,6 +127,16 @@ class Invite(models.Model):
         self.confirmed = confirm
 
 
+class ItemsRequest(models.Model):
+    end = models.DateTimeField(default=timezone.now)
+    items = models.ManyToManyField('restaurant.ItemOrder', related_name="request")
+    price_accepted = models.DecimalField(max_digits=9, decimal_places=2, null=True)
 
+class ItemOrder(models.Model):
+    menu_item = models.ForeignKey('restaurant.MenuItem', related_name="in_orders")
+    quantity = models.IntegerField()
 
+class Offer(models.Model):
+    request = models.ForeignKey('restaurant.ItemsRequest', related_name="offers")
+    price = models.DecimalField(max_digits=9, decimal_places=2)
 
