@@ -33,7 +33,7 @@
                     <li><a ng-if="currentUser.user_type == 'GU'" href="#/restaurants">Restorani</a></li>
                     <li><a ng-if="currentUser.user_type == 'RM'" href="#/restaurant">Moj restoran</a></li>
                     <!-- ng-if znaci da ce prikazati taj html element ako je ispunjen uslov unutra -->
-                    <li><a ng-if="currentUser.user_type == 'RM'" href="#/prodavnice">Dodaj provider</a></li>
+                    <!--<li><a ng-if="currentUser.user_type == 'RM'" href="#/prodavnice">Dodaj provider</a></li>-->
                     
                     <li ng-if="currentUser.role == 'ADMIN' || currentUser.role == 'SELLER'" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dodaj <span class="caret"></span></a>
@@ -50,7 +50,7 @@
                     <li ng-if="currentUser.user_type == 'GU'"><a href="#/guest">Moj profil</a></li>
                     <li ng-if="currentUser.user_type == 'PR'"><a href="#/provider">Moj profil</a></li>
                     <li ng-if="currentUser.user_type == 'GU'"><a href="#/guests">Prijatelji</a></li>
-                    <li ng-if="currentUser.user_type == 'PR'"><a href="#/guests">Lista porudzbina</a></li>
+                    <li ng-if="currentUser.user_type == 'PR'"><a href="#/offers">Lista porudzbina</a></li>
                     <li ng-if="currentUser">
                         <form class="navbar-form">
                             <span>&nbsp;&nbsp;</span>

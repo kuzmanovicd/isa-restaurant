@@ -1,0 +1,33 @@
+<!-- Spisak porudzbina -->
+<div class="col-md-12" style="margin-bottom: 20px;" ng-init="getAllMyOffers()">
+    <!--
+	<div class="input-group">
+		<input type="text" class="form-control" name="x" placeholder="Pretrazi stavke..." ng-model="searchQuery.name_item">
+		<span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+		</span>
+	</div>
+    -->
+	<table ng-if="currentUser.user_type == 'PR'" class="table table-striped table-hover">
+		<thead>
+			<th>Naziv stavke</th>
+			<th>Opis stavke</th>
+			<th>Stavka je hrana</th>
+			<th>Cena stavke</th>
+			<th>Kolicina stavke</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="m in menu.menu_items | filter:searchQuery">
+				<td>{{m.name_item}}</td>
+				<td>{{m.description_item}}</td>
+				<td>{{m.type_item}}</td>
+				<td>{{m.price_item}}</td>
+				<td>{{m.quantity_item}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
+	</div>
+	<!-- forma za dodavanje MenuItem-a -->
+
+</div>
