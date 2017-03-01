@@ -76,3 +76,10 @@ class ReservationSerializer(serializers.ModelSerializer):
         model = Reservation
         fields = ['id', 'coming', 'duration', 'guest', 'restaurant', 'reserved_tables',]
         #read_only_fields = ('guest',)
+
+
+class InviteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Invite
+        fields = ['id', 'reservation', 'guest' ]
+        read_only_fields = ('guest',)

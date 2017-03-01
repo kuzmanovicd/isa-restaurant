@@ -60,7 +60,11 @@ class MyFriendsView(APIView):
         serializer = serializers.FriendSerializer(friends, many=True)
         return Response(serializer.data)
 
-     
+
+class AllMyFriendsView(generics.ListAPIView):
+    serializer_class = serializers.GuestSerializer
+    queryset = models.Guest.objects.all()
+
 
 class FriendshipCreate(APIView):
     def post(self, request, *args, **kwargs):

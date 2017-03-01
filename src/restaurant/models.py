@@ -105,11 +105,19 @@ class Reservation(models.Model):
 class Invite(models.Model):
     reservation = models.ForeignKey('restaurant.Reservation', on_delete=models.CASCADE, related_name="invites")
     guest = models.ForeignKey('users.Guest', on_delete=models.CASCADE, related_name="invites")
+    confirmed = models.NullBooleanField()
 
     class Meta:
         verbose_name = 'Invite'
         verbose_name_plural = 'Invites'
         unique_together = ('reservation', 'guest')
+
+    def accept(self):
+        self.confirmed = True
+
+    def reject(self):
+        self.confirmed = False
+
 
 
 
