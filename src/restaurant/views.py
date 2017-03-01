@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_201_CREATED, HTTP_401_UNAUTHORIZED
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils.dateparse import parse_datetime
+from datetime import datetime, timedelta
 import users
 
 # Create your views here.
@@ -70,7 +72,15 @@ class MenuCreate(generics.CreateAPIView):
     queryset = models.Menu.objects.all()
     serializer_class = serializers.MenuSerializer
 
+class MenuForRestaurant(generics.RetrieveAPIView):
+    serializer_class = serializers.MenuSerializer2
 
+    def get_queryset(self):
+        r_id = self.kwargs['pk']
+        return models.Menu.objects.filter(restaurant=r_id)
+
+
+       
 #za MenuItem   Dodao:Spiric
 class MenuItemList(generics.ListAPIView):
     queryset = models.MenuItem.objects.all()
@@ -87,19 +97,20 @@ class MenuItemCreate(generics.CreateAPIView):
     serializer_class = serializers.MenuItemSerializer
 
 
+
+
 # za Regione 
 # Dodao: Spiric
 class RegionList(generics.ListAPIView):
-    queryset = models.Region.objects.all()
+    #queryset = models.Region.objects.all()
     serializer_class = serializers.RegionSerializer
+
+    def get_queryset(self):
+        r_id = self.kwargs['restaurant']
+        return models.Region.objects.filter(restaurant=r_id)
 
 
 class RegionDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = models.Region.objects.all()
-    serializer_class = serializers.RegionSerializer
-
-
-class RegionCreate_old(generics.CreateAPIView):
     queryset = models.Region.objects.all()
     serializer_class = serializers.RegionSerializer
 
@@ -108,7 +119,7 @@ class RegionCreate(APIView):
     def post(self, request):
         rm = users.models.RestaurantManager.objects.get(pk=request.user.id)
         request.data['restaurant'] = rm.working_in.id
-
+        
         print(request.data)
         serializer = serializers.RegionSerializer(data=request.data)
         if serializer.is_valid():
@@ -151,9 +162,40 @@ class ReservationCreate(APIView):
             guest = users.models.Guest.objects.get(pk=request.user.id)
             request.data['guest'] = guest.id
             
+            #print(request.data)
             serializer = serializers.ReservationSerializer(data=request.data)
 
             if serializer.is_valid():
+                duration = timedelta(hours=request.data['duration'])
+                coming = parse_datetime(request.data['coming'])
+                coming_end = coming + duration
+
+                qs = models.Reservation.objects.filter(reserved_tables__in=request.data['reserved_tables'] )
+                qs2 = models.Table.objects.filter(reservations__in=qs).distinct()
+                qs3 = models.Reservation.objects.filter(reserved_tables__in=qs2)
+
+                is_overlapping = False
+
+                for q in qs3:
+                    table_start = q.coming
+                    table_end = table_start + timedelta(hours=q.duration)
+
+                    print(table_start, ' - ', table_end)
+
+                    if coming_end > table_start and coming_end <= table_end:
+                        print('first case')
+                        is_overlapping = True
+                    elif coming >= table_start and coming <= table_end:
+                        print('second case')
+                        is_overlapping = True
+                    elif coming < table_end and coming_end >= table_end:
+                        print('third_case')
+                        is_overlapping = True
+
+                    if is_overlapping:
+                        return Response(serializer.data, status=HTTP_400_BAD_REQUEST)
+          
+                serializer.save()
                 return Response(serializer.data, status=HTTP_201_CREATED)
             else:
                 return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)

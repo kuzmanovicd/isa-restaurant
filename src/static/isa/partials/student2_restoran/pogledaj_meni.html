@@ -1,0 +1,55 @@
+<!-- tablea sa meni itemima -->
+<div class="col-md-12" style="margin-bottom: 20px;" ng-init="getAllMenuItems()">
+	<div class="input-group">
+		<input type="text" class="form-control" name="x" placeholder="Pretrazi stavke..." ng-model="searchQuery.name_item">
+		<span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+		</span>
+	</div>
+	<table  ng-if="currentUser.user_type == 'GU' || currentUser.user_type == 'RM'" class="table table-striped table-hover">
+		<thead>
+			<th>Naziv stavke</th>
+			<th>Opis stavke</th>
+			<th>Stavka je hrana</th>
+			<th>Cena stavke</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="m in menu.menu_items | filter:searchQuery">
+				<td>{{m.name_item}}</td>
+				<td>{{m.description_item}}</td>
+				<td>{{m.type_item}}</td>
+				<td>{{m.price_item}}</td>
+				<td ng-if="currentUser.user_type == 'RM'">
+					<button type="button" class="btn btn-danger btn-xs" ng-click="deleteMenuItem(m.id)">
+                    <span class="glyphicon glyphicon-add"></span> Ukloni
+                </button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
+	</div>
+
+	<!-- forma za dodavanje MenuItem-a -->
+    {{return}}
+	<div ng-if="currentUser.user_type == 'RM'" class="col-md-6 col-md-offset-3 ke-container" style="padding-top: 0px;">
+		<div class="modal-header login-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h4 class="modal-title"> Stavka: {{menuItem.name_item}}</h4>
+		</div>
+		<form name="form" ng-submit="addMenuItem(menuItem)">
+			<div class="modal-body">
+				<input type="text" placeholder="Naziv stavke" ng-model="menuItem.name_item" required>
+				<input type="text" placeholder="Opis stavke" ng-model="menuItem.description_item" required>
+				<div class="panel-title">
+					Hrana <input type="checkbox" ng-model="menuItem.type_item">
+				</div>
+				<input type="number" placeholder="Cena stavke" ng-model="menuItem.price_item" required>
+			</div>
+			<div class="modal-footer">
+				<input type="submit" class="btn btn-primary" value="Potvrdi" ng-disabled="form.$invalid">
+			</div>
+		</form>
+	</div>
+
+</div>

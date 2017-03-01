@@ -10,6 +10,10 @@ app.factory('TableService', TableService);
 
 app.factory('RegionService', RegionService);
 
+app.factory('MenuService', MenuService);
+
+app.factory('MenuItemService', MenuItemService);
+
 function RestaurantService($http) {
     var service = {};
     
@@ -84,8 +88,8 @@ function TableService($http) {
         return $http.get('api/restaurant/table/all/');
     }
 
-     function getRegions() {
-        return $http.get('/api/restaurant/region/all/');
+     function getRegions(id) {
+        return $http.get('/api/restaurant/region/' + id + '/');
     }
 
 }
@@ -101,6 +105,52 @@ function RegionService($http) {
     function create(region) {
         console.log(region);
         return $http.post('api/restaurant/region/create/', angular.toJson(region));
+    }
+}
+
+
+function MenuService($http) {
+    var service = {};
+
+    service.create = create;
+    service.get = get;
+    service.destroy = destroy;
+
+    return service;
+    
+    function create(menu) {
+        console.log(menu);
+        return $http.post('api/restaurant/menu/create/', angular.toJson(menu));
+    }
+
+    function get(id) {
+        return $http.get('api/restaurant/menu/restaurant/' + id + '/');
+    }
+
+    function destroy(id) {
+        return $http.delete('api/restaurant/menu_item/' + id + '/');
+    }
+
+    function addItem(menuItem) {
+        return $http.post('api/restaurant/menu_item/create/', angular.toJson(menuItem))
+    }
+}
+
+
+function MenuItemService($http) {
+     var service = {}
+
+    service.getAll = getAll;
+    service.getMenus = getMenus;
+
+    return service;
+
+    function getAll() {
+        return $http.get('api/restaurant/menu_item/all/');
+    }
+
+     function getMenus(id) {
+        return $http.get('/api/restaurant/menu/' + id + '/');
     }
 }
 

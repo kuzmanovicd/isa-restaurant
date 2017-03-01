@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('RestaurantController', function ($scope, $rootScope, $location, $routeParams, $route, RestaurantService, BasicUserService) {
-    
+app.controller('RestaurantController', function ($scope, $rootScope, $location, $routeParams, $route, RestaurantService, BasicUserService, TableService, MenuService, ReservationService) {
+
     RestaurantService.get($routeParams.id).success(function(data) {
         $scope.restaurant = data;
     });
@@ -24,6 +24,18 @@ app.controller('RestaurantController', function ($scope, $rootScope, $location, 
         $location.path('/region/add');
     };
 
+    //dodaj menu item
+    //dodavanje regiona
+     $scope.addMenuItem = function() {
+        $location.path('/menu_item/add');
+    };
+
+
+    //pogledaj meni
+    $scope.openMenu = function(id) {
+        $location.path('/menu/open/' + id);
+    };
+
     $scope.getAll = function() {
         RestaurantService.getAll().success(function (data) {
             $scope.restaurants = data;
@@ -34,10 +46,69 @@ app.controller('RestaurantController', function ($scope, $rootScope, $location, 
         BasicUserService.getRestaurantManager($rootScope.currentUser.id).success(function (data) {
             RestaurantService.get(data.working_in).success(function(data) {
                 $scope.restaurant = data;
+                $scope.getRegions(data.id);
+
+                //$scope.getMenus(data.id);
             });
         });
     } else {
     }
+
+
+    $scope.getRegions = function(id) {
+
+        if(id == undefined) {
+            id = $routeParams.id;
+        }
+
+        TableService.getRegions(id).success(function(data) {
+           $scope.regions = data;
+        });
+    }
+
+    //dejan
+    $scope.selected = [];
+    $scope.todayDate = new Date();
+    //$scope.nowTime = new Time
+
+    $scope.reserve = function (r) {
+        var index = -1;
+        for(var i = 0; i < $scope.selected.length; i++) {
+            if($scope.selected[i].id == r.id) {
+                index = i;
+                break;
+            }
+        }
+
+        if(index == -1) {
+            $scope.selected.push(r);
+            r.selected = true;
+        } else {
+            $scope.selected.splice(index, 1);
+            r.selected = false;
+        }
+        
+    };
+
+    $scope.createReservation = function (data) {
+        var d = new Date(data.coming);
+        data.coming = d.toISOString();
+        data.restaurant = $scope.restaurant.id;
+        data.reserved_tables = [];
+
+        for(var i = 0; i < $scope.selected.length; i++) {
+            data.reserved_tables.push($scope.selected[i].id);
+        }
+        console.log(data);
+
+        ReservationService.create(data).success(function(data){
+            $scope.ok = true;
+            $scope.error = false;
+        }).error(function(data){
+            $scope.error = true;
+            $scope.ok = false;
+        });
+    };
 
 
 });
@@ -82,13 +153,18 @@ app.controller('ProviderController', function ($scope, $location, ProviderServic
 //kontroler za stolove
 app.controller('TableController', function($scope, TableService){
     $scope.getRegions = function() {
-        TableService.getRegions().success(function(data) {
+        var id;
+        console.log('id2 je  ' + $scope.$parent.restaurant);
+        console.log('id2 je  ' + $scope.$parent.$parent.restaurant);
+        TableService.getRegions(id).success(function(data) {
            $scope.regions = data;
         });
     }
 
     //dejan
     $scope.selected = [];
+    $scope.todayDate = new Date();
+    //$scope.nowTime = new Time
 
     $scope.reserve = function (r) {
         var index = -1;
@@ -130,6 +206,43 @@ app.controller('RegionController', function ($scope, $location, RegionService) {
 
     //console.log(angular.toJson(region));
   
+});
+
+
+//kontroler za menu
+app.controller('MenuController', function ($scope, $location, $routeParams, MenuService) {
+
+    $scope.create = function() {
+        MenuService.create($scope.menu).success(function(data) {
+            $location.path('/');
+        }); 
+    };
+
+    $scope.getAllMenuItems = function () {
+        console.log('aaaaaaa')
+        $scope.get();
+    };
+
+    $scope.get = function() {
+        MenuService.get($routeParams.id).success( function(data) {
+            $scope.menu = data;
+        });
+    }
+
+    $scope.deleteMenuItem = function(id) {
+        MenuService.destroy(id).success(function(data) {
+            $scope.get();
+        });
+    }
+
+    $scope.addMenuItem = function(data) {
+        data.menu = $scope.menu.id;
+        $scope.return = data;
+        MenuService.create(data);
+    }
+
+    
+
 });
 
 

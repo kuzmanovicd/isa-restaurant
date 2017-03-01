@@ -17,9 +17,9 @@
             <input type="text" placeholder="Username" ng-model="employee.username" required>
             <input type="text" placeholder="First name" ng-model="employee.first_name" required>
             <input type="text" placeholder="Last name" ng-model="employee.last_name" required>
-            <input type="text" placeholder="Date of Birth" ng-model="employee.date_of_birth" required>
-            <input type="text" placeholder="Shoese Size" ng-model="employee.shoe_size" required>
-            <input type="text" placeholder="Clotes Size" ng-model="employee.chlotes_size" required>
+            <input type="date" placeholder="Date of Birth" ng-model="employee.date_of_birth" required>
+            <input type="number" placeholder="Shoese Size" ng-model="employee.shoe_size" required>
+            <input type="number" placeholder="Clotes Size" ng-model="employee.chlotes_size" required>
             <input type="password" placeholder="Sifra" minlength="3" ng-model="employee.password" required>
             <input type="email" placeholder="Email" ng-model="employee.email" required>
             <select class="form-control" ng-model="employee.type" ng-options="option for option in employee_types" required>

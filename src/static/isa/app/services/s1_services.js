@@ -4,6 +4,8 @@ app.factory('BasicUserService', BasicUserService);
 
 app.factory('AuthService', AuthService);
 
+app.factory('ReservationService', ReservationService);
+
 function BasicUserService($http) {
 
     var service = {};
@@ -116,5 +118,17 @@ function AuthService($http, $rootScope, $cookies, $location) {
         $http.defaults.headers.common['Authorization'] = "";
         $cookies.remove('token');
         $location.path('/');
+    }
+}
+
+function ReservationService($http) {
+    var service = {};
+
+    service.create = create;
+
+    return service;
+
+    function create(data) {
+        return $http.post('api/restaurant/reservations/create/', angular.toJson(data));
     }
 }

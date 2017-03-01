@@ -24,13 +24,14 @@ class Restaurant(models.Model):
 # Sadrzi: veza ka restoranu (jedan meni pripada jednom restoranu)
 # Dodao: Spiric
 class Menu(models.Model):
-    restaurant = models.OneToOneField(Restaurant, on_delete=models.CASCADE)
+    restaurant = models.OneToOneField(Restaurant, on_delete=models.CASCADE, related_name = "restaurant_menu")
 
 
 
 #model: Order (narudzbina)
 class Order(models.Model):   
     date_created = models.DateTimeField('date created', default=timezone.now)
+    menu_items = models.ForeignKey('restaurant.MenuItem', on_delete=models.CASCADE, related_name="orders")
     
 #model: Bill (racun)
 class Bill(models.Model):
@@ -49,11 +50,9 @@ class MenuItem(models.Model):
     price_item = models.DecimalField(max_digits=9, decimal_places=2, null=False)
     quantity_item = models.IntegerField(null=False)
     type_item = models.BooleanField(default=True, null=False)
-    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, related_name="menu_items")
     
-    #jedna stavka iz menija moze se nalaziti na vise narudzbina (valjda ovako ide)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return self.name_item
 
@@ -95,8 +94,14 @@ class Reservation(models.Model):
     duration = models.IntegerField()
     guest = models.ForeignKey('users.Guest', on_delete=models.SET_NULL, null=True)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    reserved_tables = models.ManyToManyField('restaurant.Table')
+    reserved_tables = models.ManyToManyField('restaurant.Table', related_name="reservations")
     #test = models.ManyToManyField('restaurant.Restaurant.regions.tables')
+
+    def __str__(self):
+        return ' '.join([str(self.coming), str(self.restaurant), '-', str(self.duration), 'sata'])
+
+
+    
 
 
 
