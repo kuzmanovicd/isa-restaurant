@@ -375,3 +375,17 @@ app.controller('ShiftController', function ($scope, $location, $routeParams, Shi
 });
 
 
+//kontroler za itemsRequest
+app.controller('ItemsRequestController', function ($scope, $location, $routeParams, ItemsRequestService) {
+
+
+      $scope.create = function() {
+        MenuService.create($scope.menu).success(function(data) {
+            $location.path('/');
+        }); 
+    };
+
+    
+});
+
+
