@@ -11,3 +11,5 @@ admin.site.register(Table)
 admin.site.register(Reservation)
 admin.site.register(Invite)
 admin.site.register(Shift)
+admin.site.register(Order)
+

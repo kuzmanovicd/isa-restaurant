@@ -14,8 +14,8 @@ class RestaurantSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ['id', 'date_created']
-        read_only_fields = ('id',)
+        fields = ['id', 'date_created', 'menu_items']
+        read_only_fields = ('id', 'date_created')
 
 #za bill 
 class BillSerializer(serializers.ModelSerializer):

@@ -219,16 +219,20 @@ function run($rootScope, $location, $cookieStore, $cookies, $http, AuthService, 
         }
         changeLocation();
     });
+
+   //changeLocation();
     
     function changeLocation() {
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            // redirect to login page if not logged in and trying to access a
-            // restricted page
-            var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
+            var restrictedPage = $.inArray($location.path(), ['/login', '/register']) == -1;
             if (restrictedPage && !$rootScope.currentUser) {
-                //console.log("locationChange in run");
                 $location.path('/login');
             }
+            /*
+            if(restrictedPage && $rootScope.currentUser && !$rootScope.currentUser.changed_password) {
+                $location.path('/restaurants');
+            }
+            */
         });
     }
 

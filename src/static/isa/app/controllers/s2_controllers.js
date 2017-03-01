@@ -290,7 +290,7 @@ app.controller('RegionController', function ($scope, $location, RegionService) {
 
 
 //kontroler za menu
-app.controller('MenuController', function ($scope, $location, $routeParams, MenuService) {
+app.controller('MenuController', function ($scope, $rootScope, $location, $routeParams, MenuService) {
 
     $scope.create = function() {
         MenuService.create($scope.menu).success(function(data) {
@@ -307,13 +307,13 @@ app.controller('MenuController', function ($scope, $location, $routeParams, Menu
         MenuService.get($routeParams.id).success( function(data) {
             $scope.menu = data;
         });
-    }
+    };
 
     $scope.deleteMenuItem = function(id) {
         MenuService.destroy(id).success(function(data) {
             $scope.get();
         });
-    }
+    };
 
     $scope.addMenuItem = function(data) {
         data.menu = $scope.menu.id;
@@ -321,9 +321,8 @@ app.controller('MenuController', function ($scope, $location, $routeParams, Menu
         MenuService.addItem(data).success(function(data) {
             $scope.get();
         });
-    }
+    };
 
-    
 
 });
 

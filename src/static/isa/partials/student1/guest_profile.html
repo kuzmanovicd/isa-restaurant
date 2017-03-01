@@ -35,7 +35,7 @@
 				<div class="form-group">
 					<label class="col-md-3 control-label">Username:</label>
 					<div class="col-md-8">
-						<input class="form-control" type="text" ng-model="user.username">
+						<input class="form-control" type="text" ng-model="user.username" disabled>
 					</div>
 				</div>
 				<div class="form-group">
@@ -90,12 +90,32 @@
 						<button type="button" ng-if="u.confirmed == undefined" class="btn btn-danger btn-xs" ng-click="confirmInvite(u, false)">
                     <span class="glyphicon glyphicon-remove"></span> Odbij
                 	</button>
-					<span ng-if="u.confirmed" class="label label-default ke-data-label">Prihvacena</span>
-					<span ng-if="u.confirmed == false && u.confirmed != undefined" class="label label-default ke-data-label">Odbijena</span>
+						<span ng-if="u.confirmed" class="label label-default ke-data-label">Prihvacena</span>
+						<span ng-if="u.confirmed == false && u.confirmed != undefined" class="label label-default ke-data-label">Odbijena</span>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+	</div>
+	<div class="row" ng-if="order_waiting">
+		<h1>Da li zelite da porucite nesto uz ovu pozivnicu?</h1>
+		<div class="col-md-6 col-md-offset-3 ke-container" style="padding-top: 0px;">
+			<div class="modal-header login-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h4 class="modal-title"> Porudzbina: </h4>
+			</div>
+			{{selected_items}}
+			<form name="form">
+				<div class="modal-body">
+					<select multiple class="form-control" ng-model="selected_items">
+					<option ng-repeat="m in menu.menu_items" value="{{m.id}}">{{m.name_item}} - {{m.price_item | currency : "din "}}</option>
+				</select>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-primary" value="Potvrdi" ng-disabled="form.$invalid" ng-click="order(selected_items)">
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 <hr>

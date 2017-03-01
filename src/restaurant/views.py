@@ -240,11 +240,12 @@ class ConfirmInviteView(APIView):
             invite = models.Invite.objects.get(pk=id)
             confirm = request.data['confirm']
             invite.confirm(confirm)
-            invite.save()
+            #invite.save()
             return Response(status=HTTP_200_OK)
         except Exception as e:
             #print(e)
             return Response(status=HTTP_400_BAD_REQUEST)
+
 
 
 # za smenu
@@ -283,3 +284,19 @@ class ShiftCreate(APIView):
 
 
     
+
+class MakeOrder(APIView):
+    def post(self, request, id):
+    
+        guest = users.models.Guest.objects.get(pk=self.request.user.id)
+        invite = models.Invite.objects.get(pk=id)
+        print(request.data)
+        serializer = serializers.OrderSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_201_CREATED)
+
+        
+        return Response(status=HTTP_404_NOT_FOUND)
+

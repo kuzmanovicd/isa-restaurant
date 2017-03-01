@@ -57,7 +57,7 @@ app.controller('MyRestaurantController', function ($scope, $rootScope, BasicUser
     }
 });
 
-app.controller('GuestController', function ($scope, $rootScope, $route, $location, BasicUserService, ReservationService) {
+app.controller('GuestController', function ($scope, $rootScope, $route, $location, BasicUserService, ReservationService, MenuService) {
     $scope.status = {};
 
     $scope.loadUser = function () {
@@ -84,19 +84,38 @@ app.controller('GuestController', function ($scope, $rootScope, $route, $locatio
         });
     }
 
-    $scope.confirmInvite = function(invite, confirm) {
+    $scope.confirmInvite = function(invite, confirm) {   
         var id = invite.id;
         var data = {};
         data.confirm = confirm;
         ReservationService.confirmInvite(id, data).success(function(data) {
             if(confirm) {
-                $location.path('/menu/naruci/' + invite.reservation.restaurant.restaurant_menu);
-                //$scope.loadInvites();
+                $scope.order_waiting = true;
+                $scope.order_invite_id = id;
+                MenuService.get(invite.reservation.restaurant.restaurant_menu).success( function(data) {
+                    $scope.menu = data;
+                });
+
             } else {
                 $scope.loadInvites();
             }
         });
     }
+
+    $scope.order = function (selected) {
+        var data = {};
+        data.menu_items = [];
+        for(var i = 0 ; i < selected.length; i++) {
+            console.log(selected[i]);
+            data.menu_items.push(selected[i]);
+        }
+
+        ReservationService.makeOrder($scope.order_invite_id, data).success(function(data){
+            $scope.order_waiting = false;
+        });
+    }
+
+
 
     $scope.reload = function() {
         $route.reload();
