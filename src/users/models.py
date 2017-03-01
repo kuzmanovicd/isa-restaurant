@@ -19,8 +19,9 @@ USER_TYPE = (
 
 class BasicUser(User):
     user_type = models.CharField(max_length=2, choices=USER_TYPE, null=False)
+    changed_password = models.BooleanField(default=True)
 
-    class Meta:
+    class Meta(User.Meta):
         verbose_name = 'Basic User'
         verbose_name_plural = 'Basic Users'
 
@@ -53,7 +54,7 @@ class Guest(BasicUser):
         self.user_type = 'GU'
         super(Guest, self).save(*args, **kwargs)
 
-    class Meta:
+    class Meta(BasicUser.Meta):
         verbose_name = 'Guest'
         verbose_name_plural = 'Guests'
 
@@ -225,6 +226,7 @@ class RestaurantManager(BasicUser):
     
     def save(self, *args, **kwargs):
         self.user_type = 'RM'
+        #self.changed_password = False
         super(RestaurantManager, self).save(*args, **kwargs)
 
     class Meta:

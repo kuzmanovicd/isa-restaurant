@@ -12,8 +12,8 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.BasicUser
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'user_type', 'is_active', 'is_superuser', ]
-        read_only_fields = ('id', 'user_type', 'is_active', 'is_superuser')
+        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'user_type', 'is_active', 'is_superuser', 'changed_password']
+        read_only_fields = ('id', 'user_type', 'is_active', 'is_superuser', 'changed_password')
         extra_kwargs = {
             'password': {'write_only': True}
         }
