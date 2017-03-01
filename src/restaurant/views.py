@@ -254,8 +254,8 @@ class ShiftList(generics.ListAPIView):
     serializer_class = serializers.ShiftSerializer
 
     def get_queryset(self):
-        r_id = self.kwargs['restaurant']
-        return models.Shift.objects.filter(restaurant=r_id)
+        rm = users.models.RestaurantManager.objects.get(pk=self.request.user.id)
+        return models.Shift.objects.filter(restaurant=rm.working_in.id)
 
 
 class ShiftDetail(generics.RetrieveUpdateDestroyAPIView):

@@ -182,20 +182,30 @@ app.controller('RadnikController', function ($scope, $routeParams, RadnikService
      $scope.getAllEmployees = function () {
         $scope.get();
         $scope.getRegions();
+        $scope.getAllShifts();
     };
 
     $scope.updateRegion = function(m) {
         var data = {};
         data.region = m.updated_region;
         RadnikService.update(m.id, data).success(function(data){
-            $scope.regions = data;
+            //$scope.regions = data;
+            $scope.getAllEmployees();
+        })
+    };
+
+    $scope.updateShift = function(m) {
+        var data = {};
+        data.shift = m.updated_shift;
+        RadnikService.update(m.id, data).success(function(data){
+            //$scope.regions = data;
             $scope.getAllEmployees();
         })
     };
 
     $scope.getAllShifts = function() {
         ShiftService.get().success(function(data) {
-            $scope.shift = data;
+            $scope.shifts = data;
         })
     };
 

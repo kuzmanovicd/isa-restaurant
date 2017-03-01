@@ -150,6 +150,7 @@ class Employee(BasicUser):
     clothes_size = models.IntegerField(default=0)
     shoe_size = models.IntegerField(default=0)
     region = models.ForeignKey('restaurant.Region', null=True, default=None)
+    shift = models.ForeignKey('restaurant.Shift', null=True, default=None)
 
     def __str__(self):
         return ' '.join([self.first_name])

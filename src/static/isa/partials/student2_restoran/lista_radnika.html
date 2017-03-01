@@ -42,14 +42,14 @@
                 </td>
 
                 <td>
-                    <span ng-if="m.region">Trenutno {{m.}} region</span>
-                    <span ng-if="!m.region">Nije dodeljeno</span>
-                    <select class="form-control" ng-model="m.updated_region">
-                        <option ng-repeat="f in regions" value="{{f.id}}">Region {{f.table_count}} stolova</option>
+                    <span ng-if="m.shift">Trenutna smena {{m.shift}}</span>
+                    <span ng-if="!m.shift">Nije dodeljeno</span>
+                    <select class="form-control" ng-model="m.updated_shift">
+                        <option ng-repeat="f in shifts" value="{{f.id}}">{{f.name_shift}} </option>
                     </select>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-default btn-xs" ng-click="">
+                    <button type="button" class="btn btn-default btn-xs" ng-click="updateShift(m)">
                     <span class="glyphicon glyphicon-add"></span> Potvrdi
                 </button>
                 </td>
