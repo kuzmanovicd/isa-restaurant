@@ -18,7 +18,7 @@
             <td>{{r.reserved_tables.length}}</td>
             <td>{{r.guest}}</td>
             <td>
-                <button type="button" class="btn btn-danger btn-xs" ng-click="cancelReservation(r.id)">
+                <button ng-if="!r.cancelled" type="button" class="btn btn-danger btn-xs" ng-click="cancelReservation(r.id)">
                     <span class="glyphicon glyphicon-add"></span> Otkazi
                 </button>
             </td>

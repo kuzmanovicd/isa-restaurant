@@ -8,6 +8,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NO
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.dateparse import parse_datetime
 from datetime import datetime, timedelta
+from django.utils import timezone
 import users
 
 # Create your views here.
@@ -164,6 +165,25 @@ class ReservationList(generics.ListAPIView):
     def get_queryset(self):
         r_id = self.kwargs['restaurant']
         return models.Reservation.objects.filter(restaurant=r_id)
+
+
+class ReservationCancel(APIView):
+    def get(self, request, id):
+        guest = users.models.Guest.objects.get(pk=request.user.id)
+        reservation = models.Reservation.objects.get(pk=id)
+        if guest.id == reservation.guest.id:
+            half_hour = timedelta(minutes=30)
+            if reservation.coming + half_hour > timezone.now():
+                reservation.cancelled = True
+                reservation.save()
+                return Response(status=HTTP_200_OK)
+            else:
+                print('Isteklo vreme!!!')
+        
+        print('nesto strasno se desilo')
+        return Response(status=HTTP_400_BAD_REQUEST)
+
+
 
 class ReservationCreate(APIView):
     def post(self, request):
