@@ -42,8 +42,8 @@ urlpatterns = [
 
     # za Provider-a     Dodao: Spiric
     url(r'^provider/all/?$', ProviderList.as_view(), name='provider_list'),
-    url(r'^provider/(?P<pk>[0-9]+)/?$', ProviderDetail.as_view(), name='rud_provider'),
     url(r'^provider/create/?$', ProviderCreate.as_view(), name='provider_create'),
+    url(r'^provider/(?P<pk>[0-9]+)/?$', ProviderDetail.as_view(), name='rud_provider'),
 
 
     # za RestaurantManager-a     Dodao: Spiric

@@ -179,7 +179,7 @@ class Employee(BasicUser):
     Zaposleni u restoranu.
     """
     restaurant = models.ForeignKey('restaurant.Restaurant', on_delete=models.CASCADE)
-    date_of_birth = models.DateField(default=datetime.date.today)
+    #date_of_birth = models.DateField(default=datetime.date.today)
     clothes_size = models.IntegerField(default=0)
     shoe_size = models.IntegerField(default=0)
 

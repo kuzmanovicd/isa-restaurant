@@ -164,6 +164,11 @@ class WaiterCreate(generics.CreateAPIView):
     queryset = models.Waiter.objects.all()
     serializer_class = serializers.WaiterSerializer
 
+    def create(self, request, *args, **kwargs):
+        rm = models.RestaurantManager.objects.get(pk=request.user.id)
+        request.data['restaurant'] = rm.working_in.id
+        return super(WaiterCreate, self).create(request, *args, **kwargs)
+
     def perform_create(self, serializer):
         serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
         serializer.save()
@@ -181,6 +186,11 @@ class CookCreate(generics.CreateAPIView):
     queryset = models.Cook.objects.all()
     serializer_class = serializers.CookSerializer
 
+    def create(self, request, *args, **kwargs):
+        rm = models.RestaurantManager.objects.get(pk=request.user.id)
+        request.data['restaurant'] = rm.working_in.id
+        return super(CookCreate, self).create(request, *args, **kwargs)
+
     def perform_create(self, serializer):
         serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
         serializer.save()
@@ -197,6 +207,11 @@ class BartenderDetail(generics.RetrieveUpdateDestroyAPIView):
 class BartenderCreate(generics.CreateAPIView):
     queryset = models.Bartender.objects.all()
     serializer_class = serializers.BartenderSerializer
+
+    def create(self, request, *args, **kwargs):
+        rm = models.RestaurantManager.objects.get(pk=request.user.id)
+        request.data['restaurant'] = rm.working_in.id
+        return super(BartenderCreate, self).create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
@@ -217,16 +232,14 @@ class ProviderCreate(generics.CreateAPIView):
     queryset = models.Provider.objects.all()
     serializer_class = serializers.ProviderSerializer
 
-    def create(self, request):
+    def create(self, request, *args, **kwargs):
         rm = models.RestaurantManager.objects.get(pk=request.user.id)
         request.data['restaurant'] = rm.working_in.id
-        print('create')
-        super(ProviderCreate, self).create(request)
+        return super(ProviderCreate, self).create(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         serializer.validated_data['password'] = hashers.make_password(serializer.validated_data['password'])
         serializer.save()
-        print('perform_create')
 
 
 # za RestaurantManager-a    Dodao: Spiric
