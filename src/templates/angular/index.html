@@ -11,7 +11,7 @@
     <link href='{% static "isa/css/normalize.css" %}' rel="stylesheet">
     <link href='{% static "isa/css/style.css" %}' rel="stylesheet">
 
-    <title>ISA Restaurant</title>
+    <title>ISA Restoran</title>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">RESTAURANT ISA v2</a>
+                <a class="navbar-brand" href="#">ISA Restoran</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul ng-if="currentUser" class="nav navbar-nav">
@@ -42,10 +42,6 @@
                             <li ng-if="currentUser.role == 'ADMIN'"><a href="#/prodavnica/dodaj">Prodavnicu</a></li>
                         </ul>
                     </li>
-                    <li ng-if="currentUser.role == 'ADMIN'">
-                        <a href="#/admin">Admin Panel</a>
-                    </li>
-
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -56,11 +52,6 @@
                     <li ng-if="currentUser.user_type == 'GU'"><a href="#/guests">Prijatelji</a></li>
                     <li ng-if="currentUser">
                         <form class="navbar-form">
-                            <a ng-if="currentUser.role == 'BUYER'" href="#/korpa" ng-controller="ShoppingCartController">
-                                <button type="button" class="btn btn-success btn-sm">
-                                    <span class="glyphicon glyphicon-shopping-cart"></span> Korpa ({{cartCount || 0}})
-                                </button>
-                            </a>
                             <span>&nbsp;&nbsp;</span>
                             <button ng-controller="BasicUserController" type="button" class="btn btn-danger btn-sm" ng-click="logout()">
                                 <span class="glyphicon glyphicon-off"></span> {{currentUser.username}}
