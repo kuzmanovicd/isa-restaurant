@@ -61,19 +61,21 @@
 			<thead>
 				<th>Naziv stavke</th>
 				<th>Opis stavke</th>
+				<th>sd</th>
 			</thead>
 			<tbody>
-				
+				{{data2}}
 				<tr ng-repeat="m in menu.menu_items | filter:searchQuery">
 					<td>{{m.name_item}}</td>
 					<td>{{m.description_item}}</td>
 					<td>
-						<select class="form-control" ng-model="m.updated_region">
-                        <option ng-repeat="f in regions" value="{{f.id}}">Region {{f.table_count}} stolova</option>
-                    </select>
+						<input class="form-control" type="number" ng-model="m.order_quantity">
 					</td>
 				</tr>
 			</tbody>
 		</table>
+		<div class="modal-footer">
+			<input type="submit" class="btn btn-primary" value="Poruci" ng-click="sendOrder()">
+		</div>
 	</div>
 </div>
