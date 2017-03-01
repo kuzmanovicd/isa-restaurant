@@ -231,3 +231,16 @@ class MyInvitesView(generics.ListAPIView):
     def get_queryset(self):
         guest = users.models.Guest.objects.get(pk=self.request.user.id)
         return models.Invite.objects.filter(guest=guest)
+
+class ConfirmInviteView(APIView):
+    def post(self, request, id):
+        try:
+            guest = users.models.Guest.objects.get(pk=self.request.user.id)
+            invite = models.Invite.objects.get(pk=id)
+            confirm = request.data['confirm']
+            invite.confirm(confirm)
+            invite.save()
+            return Response(status=HTTP_200_OK)
+        except Exception as e:
+            #print(e)
+            return Response(status=HTTP_400_BAD_REQUEST)

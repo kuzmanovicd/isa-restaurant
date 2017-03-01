@@ -84,6 +84,20 @@ app.controller('GuestController', function ($scope, $rootScope, $route, $locatio
         });
     }
 
+    $scope.confirmInvite = function(invite, confirm) {
+        var id = invite.id;
+        var data = {};
+        data.confirm = confirm;
+        ReservationService.confirmInvite(id, data).success(function(data) {
+            if(confirm) {
+                $location.path('/menu/naruci/' + invite.reservation.restaurant.restaurant_menu);
+                //$scope.loadInvites();
+            } else {
+                $scope.loadInvites();
+            }
+        });
+    }
+
     $scope.reload = function() {
         $route.reload();
     };

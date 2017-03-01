@@ -46,7 +46,6 @@ urlpatterns = [
     url(r'^reservations/create/?$', ReservationCreate.as_view(), name='reservation-create'),
     url(r'^reservations/invite/create/?$', InviteCreate.as_view(), name='invite-create'),
     url(r'^reservations/invite/my/?$', MyInvitesView.as_view(), name='invites-my'),
+    url(r'^reservations/invite/confirm/(?P<id>[0-9]+)/?$', ConfirmInviteView.as_view(), name='invites-confirm'),
     
-
-
 ]
