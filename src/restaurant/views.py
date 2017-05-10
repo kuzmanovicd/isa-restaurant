@@ -191,6 +191,7 @@ class ReservationCancel(APIView):
 
 
 class ReservationCreate(APIView):
+    @transaction.atomic
     def post(self, request):
         #print('time_before_mutex:', timezone.now())
         try:
