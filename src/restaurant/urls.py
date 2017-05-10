@@ -62,7 +62,7 @@ urlpatterns = [
     #za item request ItemsRequestCreate
     url(r'^itemsrequest/create/?$', ItemsRequestCreate.as_view(), name='item-request-create'),
     #api/restaurant/reservation/make-order/
-    url(r'^reservations/make-order/(?P<id>[0-9]+)/?$', MakeOrder.as_view(), name='invites-confirm'),
+    url(r'^reservations/make-order/(?P<id>[0-9]+)/?$', MakeOrder.as_view(), name='make-order'),
 
     #ItemsRequestView
     url(r'^itemsrequest/all/?$', ItemsRequestList.as_view(), name='items_request_list'),

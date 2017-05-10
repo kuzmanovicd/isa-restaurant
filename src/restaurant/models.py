@@ -125,7 +125,12 @@ class Invite(models.Model):
         unique_together = ('reservation', 'guest')
 
     def confirm(self, confirm):
-        self.confirmed = confirm
+        if self.confirmed is None:
+            self.confirmed = confirm
+            self.save()
+            return True
+        else:
+            return False
 
 
 class ItemsRequest(models.Model):

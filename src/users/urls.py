@@ -58,6 +58,6 @@ urlpatterns = [
     url(r'^restaurant_manager/create/?$', RestaurantManagerCreate.as_view(), name='restaurant_manager_create'),
 
 
-    url(r'^auth/?$', obtain_jwt_token),
+    url(r'^auth/?$', obtain_jwt_token, name='login-auth'),
     url(r'^verify/?$', verify_jwt_token),
 ]

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     #custom apps
     'users',
     'restaurant',
+    'db_mutex',
 ]
 
 MIDDLEWARE = [
@@ -203,3 +204,5 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     }
 }
+
+DB_MUTEX_TTL_SECONDS = 5

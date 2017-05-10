@@ -9,7 +9,12 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.dateparse import parse_datetime
 from datetime import datetime, timedelta
 from django.utils import timezone
+from django.db import transaction
+from django.db.models import F
 import users
+
+from db_mutex import DBMutexError, DBMutexTimeoutError
+from db_mutex.db_mutex import db_mutex
 
 # Create your views here.
 
@@ -187,48 +192,57 @@ class ReservationCancel(APIView):
 
 class ReservationCreate(APIView):
     def post(self, request):
+        #print('time_before_mutex:', timezone.now())
         try:
-            guest = users.models.Guest.objects.get(pk=request.user.id)
-            request.data['guest'] = guest.id
+            with db_mutex('lock_id'):
+                #print('time_after_mutex:', timezone.now())
+                guest = users.models.Guest.objects.get(pk=request.user.id)
+                request.data['guest'] = guest.id
+                
+                #print(request.data)
+                serializer = serializers.ReservationSerializer(data=request.data)
+
+                if serializer.is_valid():
+                    duration = timedelta(hours=request.data['duration'])
+                    coming = parse_datetime(request.data['coming'])
+                    coming_end = coming + duration
+
+                    qs = models.Reservation.objects.filter(reserved_tables__in=request.data['reserved_tables'] )
+                    qs2 = models.Table.objects.filter(reservations__in=qs).distinct()
+                    qs3 = models.Reservation.objects.filter(reserved_tables__in=qs2)
+
+                    is_overlapping = False
+
+                    for q in qs3:
+                        table_start = q.coming
+                        table_end = table_start + timedelta(hours=q.duration)
+
+                        #print(table_start, ' - ', table_end)
+
+                        if coming_end > table_start and coming_end <= table_end:
+                            #print('first case')
+                            is_overlapping = True
+                        elif coming >= table_start and coming <= table_end:
+                            #print('second case')
+                            is_overlapping = True
+                        elif coming < table_end and coming_end >= table_end:
+                            #print('third_case')
+                            is_overlapping = True
+
+                        if is_overlapping:
+                            return Response(serializer.data, status=HTTP_400_BAD_REQUEST)
             
-            #print(request.data)
-            serializer = serializers.ReservationSerializer(data=request.data)
-
-            if serializer.is_valid():
-                duration = timedelta(hours=request.data['duration'])
-                coming = parse_datetime(request.data['coming'])
-                coming_end = coming + duration
-
-                qs = models.Reservation.objects.filter(reserved_tables__in=request.data['reserved_tables'] )
-                qs2 = models.Table.objects.filter(reservations__in=qs).distinct()
-                qs3 = models.Reservation.objects.filter(reserved_tables__in=qs2)
-
-                is_overlapping = False
-
-                for q in qs3:
-                    table_start = q.coming
-                    table_end = table_start + timedelta(hours=q.duration)
-
-                    print(table_start, ' - ', table_end)
-
-                    if coming_end > table_start and coming_end <= table_end:
-                        print('first case')
-                        is_overlapping = True
-                    elif coming >= table_start and coming <= table_end:
-                        print('second case')
-                        is_overlapping = True
-                    elif coming < table_end and coming_end >= table_end:
-                        print('third_case')
-                        is_overlapping = True
-
-                    if is_overlapping:
-                        return Response(serializer.data, status=HTTP_400_BAD_REQUEST)
-          
-                serializer.save()
-                return Response(serializer.data, status=HTTP_201_CREATED)
-            else:
-                return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
-
+                    serializer.save()
+                    #print('time_finished:', timezone.now())
+                    return Response(serializer.data, status=HTTP_201_CREATED)
+                else:
+                    #print('time_finished:', timezone.now())
+                    return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+                    
+        except DBMutexError:
+            print('Could not obtain lock')
+        except DBMutexTimeoutError:
+            print('Task completed but the lock timed out')
         except ObjectDoesNotExist:
             return Response(status=HTTP_401_UNAUTHORIZED)
 
@@ -250,7 +264,7 @@ class InviteCreate(APIView):
                 return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
         
         if is_done:
-            return Response(status=HTTP_201_CREATED)
+            return Response(serializer.data, status=HTTP_201_CREATED)
         return Response(status=HTTP_404_NOT_FOUND)
 
 
@@ -263,13 +277,24 @@ class MyInvitesView(generics.ListAPIView):
 
 class ConfirmInviteView(APIView):
     def post(self, request, id):
+        #print('hehehe')
         try:
             guest = users.models.Guest.objects.get(pk=self.request.user.id)
             invite = models.Invite.objects.get(pk=id)
+
+            if invite.guest.id != guest.id:
+                return Response(status=HTTP_401_UNAUTHORIZED)
+
+            if invite.reservation.coming <= timezone.now() + timedelta(minutes=30):
+                print(intive.reservation.coming)
+                print(timezone.now() + timedelta(minutes=30))
+                return Response(status=HTTP_400_BAD_REQUEST)
+
             confirm = request.data['confirm']
-            invite.confirm(confirm)
-            invite.save()
-            return Response(status=HTTP_200_OK)
+            if invite.confirm(confirm):
+                #invite.save()
+                return Response(status=HTTP_200_OK)
+            return Response(status=HTTP_400_BAD_REQUEST)
         except Exception as e:
             #print(e)
             return Response(status=HTTP_400_BAD_REQUEST)
