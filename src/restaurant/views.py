@@ -208,6 +208,7 @@ class ReservationCreate(APIView):
                     coming = parse_datetime(request.data['coming'])
                     coming_end = coming + duration
 
+
                     qs = models.Reservation.objects.filter(reserved_tables__in=request.data['reserved_tables'] )
                     qs2 = models.Table.objects.filter(reservations__in=qs).distinct()
                     qs3 = models.Reservation.objects.filter(reserved_tables__in=qs2)
@@ -221,13 +222,13 @@ class ReservationCreate(APIView):
                         #print(table_start, ' - ', table_end)
 
                         if coming_end > table_start and coming_end <= table_end:
-                            #print('first case')
+                            print('first case')
                             is_overlapping = True
                         elif coming >= table_start and coming <= table_end:
-                            #print('second case')
+                            print('second case')
                             is_overlapping = True
                         elif coming < table_end and coming_end >= table_end:
-                            #print('third_case')
+                            print('third_case')
                             is_overlapping = True
 
                         if is_overlapping:
